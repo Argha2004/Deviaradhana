@@ -1,0 +1,882 @@
+@import "tailwindcss";
+
+/* ============================================================
+   DESIGN TOKENS — Dynamic Transparent Glassmorphism
+   ============================================================ */
+:root {
+  /* Dynamic Background & Glass Defaults (Updated dynamically via useDynamicTheme) */
+  --dyn-glass-bg: rgba(22, 18, 14, 0.52);
+  --dyn-glass-pill: rgba(38, 30, 22, 0.65);
+  --dyn-glass-surface: rgba(26, 20, 15, 0.85);
+  --dyn-glass-border: rgba(255, 235, 180, 0.16);
+  --dyn-dom-rgb: 48, 36, 26;
+  --dyn-accent-rgb: 238, 187, 60;
+
+  /* Refined Gold & Accent Tokens (Fixed high-contrast values) */
+  --gold-primary: #f0c040;
+  --gold-light: #fef08a;
+  --gold-dim: #c49a2e;
+  --gold-glow: rgba(240, 192, 64, 0.35);
+
+  /* Clean Typography Colors */
+  --text-primary: #ffffff;
+  --text-secondary: rgba(255, 255, 255, 0.65);
+  --text-muted: rgba(255, 255, 255, 0.40);
+
+  /* Blur */
+  --blur-sm: blur(10px);
+  --blur-md: blur(20px);
+  --blur-lg: blur(36px);
+
+  /* ── iOS-Style Spring Timing Functions ── */
+  /* Apple's UISpring default: mass 1, stiffness 300, damping 30 */
+  --ios-spring: cubic-bezier(0.23, 1, 0.32, 1);
+  /* Slightly bouncier for modals & emphasis */
+  --ios-spring-bounce: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  /* Smooth deceleration — Apple's ease-out for dismissals */
+  --ios-ease-out: cubic-bezier(0, 0, 0.2, 1);
+  /* Material-fast entrance (Apple-aligned) */
+  --ios-ease-in: cubic-bezier(0.4, 0, 1, 1);
+  /* Standard interactive — snappy but smooth */
+  --ios-interactive: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+  /* Legacy aliases for backward compatibility */
+  --ease-out-expo: var(--ios-spring);
+  --ease-spring: var(--ios-spring-bounce);
+}
+
+/* ============================================================
+   RESET & BASE
+   ============================================================ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: #0a0c0b;
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* ── GPU acceleration for all animated elements ── */
+.glass,
+.glass-strong,
+.glass-pill,
+.modal-overlay,
+.modal-surface,
+.player-luxury-surface,
+.song-row,
+.ctrl-btn,
+.play-luxury-btn,
+.tab-btn,
+.pill-btn,
+.icon-circle,
+.creator-card,
+.social-btn,
+.copy-btn-inner,
+.lossless-badge,
+.animate-modal,
+.animate-overlay,
+.animate-slide-up {
+  will-change: transform, opacity;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+}
+
+/* ============================================================
+   iOS-STYLE SCROLL BEHAVIOR (Rubber-band / Momentum)
+   ============================================================ */
+* {
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+}
+
+/* ============================================================
+   SCROLLBAR (Slim, fades in — iOS style)
+   ============================================================ */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 99px;
+  transition: background 0.4s var(--ios-spring);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.28);
+}
+
+/* ============================================================
+   BENGALI FONT
+   ============================================================ */
+.font-bengali {
+  font-family: 'Galada', 'Tiro Bangla', 'Hind Siliguri', 'Noto Serif Bengali', cursive, serif;
+}
+
+/* ============================================================
+   DYNAMIC GLASS UTILITIES (Slightly Blur Transparent)
+   ============================================================ */
+.glass {
+  background: var(--dyn-glass-bg);
+  backdrop-filter: var(--blur-md);
+  -webkit-backdrop-filter: var(--blur-md);
+  border: 1px solid var(--dyn-glass-border);
+  transition: background 0.7s var(--ios-spring), border-color 0.7s var(--ios-spring);
+}
+
+.glass-strong {
+  background: var(--dyn-glass-surface);
+  backdrop-filter: var(--blur-lg);
+  -webkit-backdrop-filter: var(--blur-lg);
+  border: 1px solid var(--dyn-glass-border);
+  transition: background 0.7s var(--ios-spring), border-color 0.7s var(--ios-spring);
+}
+
+.glass-pill {
+  background: var(--dyn-glass-pill);
+  backdrop-filter: var(--blur-md);
+  -webkit-backdrop-filter: var(--blur-md);
+  border: 1px solid var(--dyn-glass-border);
+  border-radius: 999px;
+  padding: 7px 18px;
+  color: #ffffff;
+  transition: background 0.7s var(--ios-spring), border-color 0.7s var(--ios-spring),
+    transform 0.5s var(--ios-spring), opacity 0.5s var(--ios-spring);
+}
+
+/* ============================================================
+   DYNAMIC MODAL SURFACE — iOS Sheet-Style Spring
+   ============================================================ */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.modal-surface {
+  background: var(--dyn-glass-surface);
+  backdrop-filter: var(--blur-lg);
+  -webkit-backdrop-filter: var(--blur-lg);
+  border: 1px solid var(--dyn-glass-border);
+  border-radius: 18px;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.6), 0 0 0 0.5px rgba(255, 255, 255, 0.08) inset;
+  transition: background 0.7s var(--ios-spring), border-color 0.7s var(--ios-spring);
+}
+
+/* ============================================================
+   DYNAMIC PLAYER LUXURY SURFACE
+   ============================================================ */
+.player-luxury-surface {
+  background: var(--dyn-glass-surface);
+  backdrop-filter: blur(36px);
+  -webkit-backdrop-filter: blur(36px);
+  border: 1px solid var(--dyn-glass-border);
+  border-top: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 20px;
+  box-shadow:
+    0 16px 48px -8px rgba(0, 0, 0, 0.65),
+    0 0 24px var(--gold-glow),
+    0 1px 0 0 rgba(255, 255, 255, 0.15) inset;
+  position: relative;
+  overflow: hidden;
+  transition: background 0.7s var(--ios-spring), border-color 0.7s var(--ios-spring),
+    box-shadow 0.7s var(--ios-spring);
+}
+
+.player-luxury-surface::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 15%;
+  right: 15%;
+  height: 1px;
+  background: linear-gradient(90deg,
+      transparent 0%,
+      var(--gold-primary) 50%,
+      transparent 100%);
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+/* ============================================================
+   LOSSLESS BADGE (Modern Studio Master Hi-Res Style)
+   ============================================================ */
+.lossless-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.08);
+  border: 0.5px solid rgba(255, 255, 255, 0.22);
+  border-radius: 4px;
+  padding: 2px 6px;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.78);
+  text-transform: uppercase;
+  user-select: none;
+  font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
+  transition: all 0.35s var(--ios-spring);
+  line-height: 1.1;
+}
+
+.lossless-badge:hover {
+  background: rgba(255, 255, 255, 0.14);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.35);
+}
+
+/* ============================================================
+   iOS-STYLE ANIMATIONS (Fluid Spring Physics)
+   ============================================================ */
+
+/* ── Modal: iOS sheet slide-up with spring overshoot ── */
+@keyframes iosModalIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.92) translateY(30px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* ── Overlay: Smooth crossfade with slight blur ramp ── */
+@keyframes iosOverlayIn {
+  0% {
+    opacity: 0;
+    backdrop-filter: blur(0px);
+    -webkit-backdrop-filter: blur(0px);
+  }
+
+  100% {
+    opacity: 1;
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+  }
+}
+
+/* ── Hero slide up with iOS-like deceleration ── */
+@keyframes iosSlideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(28px) scale(0.98);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ── Fade in (used for general reveals) ── */
+@keyframes iosFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ── Pulse dot (breathing) — slowed for calmness ── */
+@keyframes pulse-dot {
+
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.3;
+    transform: scale(0.75);
+  }
+}
+
+/* ── Staggered row reveal for song lists ── */
+@keyframes iosRowReveal {
+  0% {
+    opacity: 0;
+    transform: translateY(12px) scale(0.98);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ── Skeleton shimmer ── */
+@keyframes iosShimmer {
+  0% {
+    background-position: -200% 0;
+  }
+
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* ── Apply the iOS animations ── */
+.animate-modal {
+  animation: iosModalIn 0.55s var(--ios-spring-bounce) both;
+}
+
+.animate-overlay {
+  animation: iosOverlayIn 0.4s var(--ios-ease-out) both;
+}
+
+.animate-slide-up {
+  animation: iosSlideUp 0.65s var(--ios-spring) both;
+}
+
+.pulse-dot {
+  animation: pulse-dot 3s var(--ios-interactive) infinite;
+}
+
+/* ============================================================
+   SONG ROW — iOS List Row Interaction
+   ============================================================ */
+.song-row {
+  transition: background 0.35s var(--ios-spring),
+    transform 0.4s var(--ios-spring),
+    opacity 0.35s var(--ios-spring),
+    box-shadow 0.35s var(--ios-spring);
+  border-radius: 12px;
+  /* Staggered reveal via CSS counter (each row animates in) */
+  animation: iosRowReveal 0.5s var(--ios-spring) both;
+}
+
+.song-row:hover {
+  background: rgba(255, 255, 255, 0.06);
+  transform: scale(1.012) translateX(2px);
+}
+
+/* iOS-style press/active state — scale down like a tactile button */
+.song-row:active {
+  transform: scale(0.975);
+  transition-duration: 0.08s;
+}
+
+.song-row.active {
+  background: rgba(240, 192, 64, 0.14);
+  border: 1px solid rgba(240, 192, 64, 0.30);
+}
+
+/* ============================================================
+   DYNAMIC PROGRESS BAR — iOS Smooth Slider
+   ============================================================ */
+.progress-bar {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 100%;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.14);
+  border-radius: 99px;
+  cursor: pointer;
+  outline: none;
+  transition: height 0.3s var(--ios-spring);
+}
+
+.progress-bar:hover {
+  height: 6px;
+}
+
+.progress-bar::-webkit-slider-thumb {
+  appearance: none;
+  width: 13px;
+  height: 13px;
+  background: #ffffff;
+  border: 2px solid var(--gold-primary);
+  border-radius: 50%;
+  cursor: pointer;
+  margin-top: -4.5px;
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.6), 0 0 10px var(--gold-glow);
+  transition: transform 0.35s var(--ios-spring-bounce),
+    box-shadow 0.35s var(--ios-spring);
+}
+
+.progress-bar:hover::-webkit-slider-thumb {
+  transform: scale(1.3);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.7), 0 0 16px var(--gold-glow);
+}
+
+.progress-bar::-webkit-slider-runnable-track {
+  height: 4px;
+  border-radius: 99px;
+}
+
+/* ============================================================
+   CONTROL BUTTONS — iOS Haptic-Feel Press
+   ============================================================ */
+.ctrl-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.65);
+  transition: all 0.35s var(--ios-spring);
+  border-radius: 50%;
+  padding: 6px;
+}
+
+.ctrl-btn:hover {
+  color: #ffffff;
+  transform: scale(1.15);
+}
+
+.ctrl-btn:active {
+  transform: scale(0.88);
+  transition-duration: 0.06s;
+}
+
+.ctrl-btn.active {
+  color: var(--gold-primary);
+  text-shadow: 0 0 8px var(--gold-glow);
+}
+
+.play-luxury-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  background: linear-gradient(135deg, #ffffff 0%, #fef3c7 100%);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.4s var(--ios-spring-bounce),
+    box-shadow 0.4s var(--ios-spring);
+  box-shadow:
+    0 4px 20px rgba(0, 0, 0, 0.4),
+    0 0 20px rgba(254, 240, 138, 0.35);
+  color: #1a1510;
+  flex-shrink: 0;
+}
+
+.play-luxury-btn:hover {
+  transform: scale(1.1);
+  box-shadow:
+    0 6px 28px rgba(0, 0, 0, 0.45),
+    0 0 30px rgba(254, 240, 138, 0.55);
+}
+
+.play-luxury-btn:active {
+  transform: scale(0.9);
+  transition-duration: 0.08s;
+}
+
+/* ============================================================
+   DYNAMIC TABS — iOS Segmented Control Feel
+   ============================================================ */
+.modal-tabs-container {
+  display: flex;
+  gap: 6px;
+  padding: 14px 20px 0;
+  width: 100%;
+  flex-shrink: 0;
+  box-sizing: border-box;
+}
+
+.tab-btn {
+  background: none;
+  border: 1px solid transparent;
+  cursor: pointer;
+  padding: 7px 14px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  border-radius: 999px;
+  transition: all 0.4s var(--ios-spring);
+  white-space: nowrap;
+  text-transform: uppercase;
+  text-align: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tab-btn.active {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.22);
+  color: #ffffff;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
+}
+
+.tab-btn:not(.active) {
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.tab-btn:not(.active):hover {
+  color: rgba(255, 255, 255, 0.85);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.tab-btn:active {
+  transform: scale(0.92);
+  transition-duration: 0.06s;
+}
+
+@media (max-width: 640px) {
+  .modal-tabs-container {
+    padding: 12px 14px 0;
+    gap: 4px;
+  }
+
+  .tab-btn {
+    flex: 1 1 0%;
+    min-width: 0;
+    padding: 6px 4px;
+    font-size: 9.5px;
+    letter-spacing: 0.02em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+/* ============================================================
+   DYNAMIC PILL BUTTON — iOS Rounded Rect Button Spring
+   ============================================================ */
+.pill-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: var(--dyn-glass-pill);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--dyn-glass-border);
+  border-radius: 999px;
+  padding: 9px 20px;
+  color: #ffffff;
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  transition: background 0.7s var(--ios-spring), border-color 0.7s var(--ios-spring),
+    transform 0.4s var(--ios-spring-bounce), box-shadow 0.5s var(--ios-spring);
+  text-transform: uppercase;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.25);
+}
+
+.pill-btn:hover {
+  background: rgba(var(--dyn-dom-rgb), 0.85);
+  border-color: rgba(255, 255, 255, 0.35);
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.4);
+}
+
+.pill-btn:active {
+  transform: translateY(0) scale(0.95);
+  transition-duration: 0.08s;
+}
+
+/* ============================================================
+   DYNAMIC ICON CIRCLE — iOS Circular Button Spring
+   ============================================================ */
+.icon-circle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  background: var(--dyn-glass-pill);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--dyn-glass-border);
+  border-radius: 50%;
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.85);
+  transition: background 0.7s var(--ios-spring), border-color 0.7s var(--ios-spring),
+    color 0.35s var(--ios-spring), transform 0.4s var(--ios-spring-bounce);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+}
+
+.icon-circle:hover {
+  background: rgba(var(--dyn-dom-rgb), 0.90);
+  color: #ffffff;
+  transform: scale(1.12);
+  border-color: rgba(255, 255, 255, 0.35);
+}
+
+.icon-circle:active {
+  transform: scale(0.88);
+  transition-duration: 0.06s;
+}
+
+/* ============================================================
+   CREATOR CARD — iOS Card Elevation Spring
+   ============================================================ */
+.creator-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--dyn-glass-border);
+  border-radius: 16px;
+  padding: 24px 16px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  transition: background 0.5s var(--ios-spring), border-color 0.7s var(--ios-spring),
+    transform 0.5s var(--ios-spring-bounce), box-shadow 0.5s var(--ios-spring);
+}
+
+.creator-card:hover {
+  background: rgba(255, 255, 255, 0.09);
+  border-color: rgba(255, 255, 255, 0.25);
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.35);
+}
+
+/* ============================================================
+   SOCIAL ICON — iOS Haptic Press
+   ============================================================ */
+.social-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid var(--dyn-glass-border);
+  border-radius: 9px;
+  color: rgba(255, 255, 255, 0.75);
+  cursor: pointer;
+  transition: all 0.35s var(--ios-spring);
+  text-decoration: none;
+}
+
+.social-btn:hover {
+  background: rgba(255, 255, 255, 0.16);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.30);
+  transform: translateY(-2px) scale(1.08);
+}
+
+.social-btn:active {
+  transform: scale(0.88);
+  transition-duration: 0.06s;
+}
+
+/* ============================================================
+   COPY ROW
+   ============================================================ */
+.copy-row {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--dyn-glass-border);
+  border-radius: 999px;
+  overflow: hidden;
+  padding: 5px 5px 5px 18px;
+  transition: border-color 0.7s var(--ios-spring);
+}
+
+.copy-email {
+  flex: 1;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.70);
+  font-weight: 400;
+}
+
+.copy-btn-inner {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.20);
+  border-radius: 999px;
+  padding: 6px 14px;
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  transition: all 0.35s var(--ios-spring);
+}
+
+.copy-btn-inner:hover {
+  background: rgba(255, 255, 255, 0.22);
+  border-color: rgba(255, 255, 255, 0.40);
+  color: #ffffff;
+  transform: scale(1.04);
+}
+
+.copy-btn-inner:active {
+  transform: scale(0.92);
+  transition-duration: 0.06s;
+}
+
+.copy-btn-inner.copied {
+  color: #4ade80;
+  background: rgba(74, 222, 128, 0.15);
+  border-color: rgba(74, 222, 128, 0.35);
+}
+
+/* ============================================================
+   EMPTY STATE
+   ============================================================ */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 40px 20px;
+  color: rgba(255, 255, 255, 0.35);
+  text-align: center;
+  animation: iosFadeIn 0.6s var(--ios-spring) both;
+}
+
+.empty-state svg {
+  opacity: 0.4;
+  margin-bottom: 4px;
+}
+
+.empty-state p {
+  font-size: 13px;
+  font-weight: 400;
+}
+
+/* ============================================================
+   TOP NAVBAR RESPONSIVE — PC 3-Column / Mobile 2-Sided
+   ============================================================ */
+.top-navbar {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  right: 20px;
+  z-index: 30;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  pointer-events: none;
+}
+
+.top-navbar-left {
+  display: flex;
+  justify-content: flex-start;
+  pointer-events: auto;
+}
+
+.top-navbar-center {
+  display: flex;
+  justify-content: center;
+  pointer-events: auto;
+}
+
+.top-navbar-right {
+  display: flex;
+  justify-content: flex-end;
+  pointer-events: auto;
+}
+
+.mobile-only {
+  display: none !important;
+}
+
+.desktop-only {
+  display: flex !important;
+}
+
+@media (max-width: 767px) {
+  .top-navbar {
+    top: 14px;
+    left: 14px;
+    right: 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .top-navbar-center {
+    display: none !important;
+  }
+
+  .desktop-only {
+    display: none !important;
+  }
+
+  .mobile-only {
+    display: flex !important;
+  }
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 640px) {
+  .glass-pill {
+    padding: 5px 12px;
+    font-size: 11.5px;
+    white-space: nowrap;
+  }
+
+  .icon-circle {
+    width: 34px;
+    height: 34px;
+  }
+
+  .pill-btn {
+    padding: 7px 14px;
+    font-size: 11px;
+  }
+
+  .modal-overlay {
+    padding: 12px;
+  }
+
+  .modal-surface {
+    border-radius: 14px;
+  }
+}
+
+/* ============================================================
+   REDUCED MOTION — Respect system accessibility preference
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

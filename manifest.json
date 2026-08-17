@@ -1,0 +1,742 @@
+{
+  "version": "1.0.0",
+  "updatedAt": "2026-08-17T18:45:00Z",
+  "playlists": {
+    "durga": [
+      {
+        "id": "dp-1",
+        "title": "Dugga Elo",
+        "artist": "Monali Thakur, Kaushik-Guddu",
+        "duration": 147,
+        "coverArt": "covers/01. Dugga Elo.jpg",
+        "audioUrl": "audio/01. Dugga Elo.flac",
+        "trackNumber": 1
+      },
+      {
+        "id": "dp-2",
+        "title": "Durge Durge Durgatinashini",
+        "artist": "Debolinaa Nandy",
+        "duration": 222,
+        "coverArt": "covers/01. Durge Durge Durgatinashini.jpg",
+        "audioUrl": "audio/01. Durge Durge Durgatinashini.flac",
+        "trackNumber": 2
+      },
+      {
+        "id": "dp-3",
+        "title": "Dugga Ma",
+        "artist": "Arijit Singh, Arindom",
+        "duration": 270,
+        "coverArt": "covers/02. Dugga Ma.jpg",
+        "audioUrl": "audio/02. Dugga Ma.flac",
+        "trackNumber": 3
+      },
+      {
+        "id": "dp-4",
+        "title": "Ebar Jeno Onno Rokom Pujo",
+        "artist": "Nakash Aziz, Antara Mitra",
+        "duration": 213,
+        "coverArt": "covers/03. Ebar Jeno Onno Rokom Pujo.jpg",
+        "audioUrl": "audio/03. Ebar Jeno Onno Rokom Pujo.flac",
+        "trackNumber": 4
+      },
+      {
+        "id": "dp-5",
+        "title": "Ya Chandi",
+        "artist": "Pankaj Mullick",
+        "duration": 96,
+        "coverArt": "covers/03. Ya Chandi.jpg",
+        "audioUrl": "audio/03. Ya Chandi.flac",
+        "trackNumber": 5
+      },
+      {
+        "id": "dp-6",
+        "title": "Dhak Baja Kashor Baja",
+        "artist": "Shreya Ghoshal, Jeet Gannguli",
+        "duration": 265,
+        "coverArt": "covers/04. Dhak Baja Kashor Baja.jpg",
+        "audioUrl": "audio/04. Dhak Baja Kashor Baja.flac",
+        "trackNumber": 6
+      },
+      {
+        "id": "dp-7",
+        "title": "Jago Tumi Jago",
+        "artist": "Trisha Chatterjee",
+        "duration": 148,
+        "coverArt": "covers/04. Jago Tumi Jago.jpg",
+        "audioUrl": "audio/04. Jago Tumi Jago.flac",
+        "trackNumber": 7
+      },
+      {
+        "id": "dp-8",
+        "title": "Bolo Dugga Elo",
+        "artist": "Sunidhi Chauhan, Kaushik-Guddu",
+        "duration": 199,
+        "coverArt": "covers/05. Bolo Dugga Elo.jpg",
+        "audioUrl": "audio/05. Bolo Dugga Elo.flac",
+        "trackNumber": 8
+      },
+      {
+        "id": "dp-9",
+        "title": "Aamaar Dugga",
+        "artist": "Monali Thakur",
+        "duration": 199,
+        "coverArt": "covers/06. Aamaar Dugga.jpg",
+        "audioUrl": "audio/06. Aamaar Dugga.flac",
+        "trackNumber": 9
+      },
+      {
+        "id": "dp-10",
+        "title": "He Maa Durga Maa",
+        "artist": "Aseema Panda",
+        "duration": 311,
+        "coverArt": "covers/06. He Maa Durga Maa.jpg",
+        "audioUrl": "audio/06. He Maa Durga Maa.flac",
+        "trackNumber": 10
+      },
+      {
+        "id": "dp-11",
+        "title": "Raai Jago Go",
+        "artist": "Pousali Banerjee",
+        "duration": 360,
+        "coverArt": "covers/06. Raai Jago Go.jpg",
+        "audioUrl": "audio/06. Raai Jago Go.flac",
+        "trackNumber": 11
+      },
+      {
+        "id": "dp-12",
+        "title": "Dhaker Taley",
+        "artist": "Abhijeet, Parineeta, Sudipto",
+        "duration": 283,
+        "coverArt": "covers/07. Dhaker Taley.jpg",
+        "audioUrl": "audio/07. Dhaker Taley.flac",
+        "trackNumber": 12
+      },
+      {
+        "id": "dp-13",
+        "title": "Dugga Elo",
+        "artist": "Akriti Kakar, Debanjali B Joshi",
+        "duration": 238,
+        "coverArt": "covers/08. Dugga Elo.jpg",
+        "audioUrl": "audio/08. Dugga Elo.flac",
+        "trackNumber": 13
+      },
+      {
+        "id": "dp-14",
+        "title": "Agomonir Gaan",
+        "artist": "Anupam Roy",
+        "duration": 346,
+        "coverArt": "covers/09. Agomonir Gaan.jpg",
+        "audioUrl": "audio/09. Agomonir Gaan.flac",
+        "trackNumber": 14
+      },
+      {
+        "id": "dp-15",
+        "title": "Shundori Komola",
+        "artist": "Armaan Malik, Antara Mitra",
+        "duration": 194,
+        "coverArt": "covers/09. Shundori Komola.jpg",
+        "audioUrl": "audio/09. Shundori Komola.flac",
+        "trackNumber": 15
+      },
+      {
+        "id": "dp-16",
+        "title": "Elo Je Maa",
+        "artist": "Abhijeet",
+        "duration": 308,
+        "coverArt": "covers/10. Elo Je Maa.jpg",
+        "audioUrl": "audio/10. Elo Je Maa.flac",
+        "trackNumber": 16
+      },
+      {
+        "id": "dp-17",
+        "title": "Saajan Rock the Dotara (Folk - Bandish Mix)",
+        "artist": "Timir Biswas, Iman Chakraborty",
+        "duration": 267,
+        "coverArt": "covers/10. Saajan Rock the Dotara (Folk - Bandish Mix).jpg",
+        "audioUrl": "audio/10. Saajan Rock the Dotara (Folk - Bandish Mix).flac",
+        "trackNumber": 17
+      },
+      {
+        "id": "dp-18",
+        "title": "O Menoka O Menoka",
+        "artist": "Antara Nandy, Ankita Nandy",
+        "duration": 196,
+        "coverArt": "covers/11. O Menoka O Menoka.jpg",
+        "audioUrl": "audio/11. O Menoka O Menoka.flac",
+        "trackNumber": 18
+      },
+      {
+        "id": "dp-19",
+        "title": "Pujar Gaan (From \"Hooligaanism\")",
+        "artist": "Hooligaanism, Anirban Bhattacharya",
+        "duration": 392,
+        "coverArt": "covers/11. Pujar Gaan (From Hooligaanism ).jpg",
+        "audioUrl": "audio/11. Pujar Gaan (From Hooligaanism ).flac",
+        "trackNumber": 19
+      },
+      {
+        "id": "dp-20",
+        "title": "Doob De Re Mon",
+        "artist": "Nirmalya Roy",
+        "duration": 136,
+        "coverArt": "covers/13. Doob De Re Mon.jpg",
+        "audioUrl": "audio/13. Doob De Re Mon.flac",
+        "trackNumber": 20
+      },
+      {
+        "id": "dp-21",
+        "title": "Uma Ashe Notun Saje",
+        "artist": "Ankita Bhattacharyya",
+        "duration": 186,
+        "coverArt": "covers/13. Uma Ashe Notun Saje.jpg",
+        "audioUrl": "audio/13. Uma Ashe Notun Saje.flac",
+        "trackNumber": 21
+      },
+      {
+        "id": "dp-22",
+        "title": "Apur Paayer Chhaap",
+        "artist": "Arijit Singh, Indraadip Dasgupta",
+        "duration": 246,
+        "coverArt": "covers/14. Apur Paayer Chhaap.jpg",
+        "audioUrl": "audio/14. Apur Paayer Chhaap.flac",
+        "trackNumber": 22
+      },
+      {
+        "id": "dp-23",
+        "title": "Joy Joy Durga Maa",
+        "artist": "Abhijit Bhattacharya, Jeet Gannguli, Shaan",
+        "duration": 209,
+        "coverArt": "covers/15. Joy Joy Durga Maa.jpg",
+        "audioUrl": "audio/15. Joy Joy Durga Maa.flac",
+        "trackNumber": 23
+      },
+      {
+        "id": "dp-24",
+        "title": "Laage Ura Dhura (From \"Toofan\")",
+        "artist": "Pritom Hasan, Debosrie Antara",
+        "duration": 194,
+        "coverArt": "covers/15. Laage Ura Dhura (From Toofan ).jpg",
+        "audioUrl": "audio/15. Laage Ura Dhura (From Toofan ).flac",
+        "trackNumber": 24
+      },
+      {
+        "id": "dp-25",
+        "title": "Durga Maa",
+        "artist": "Akassh, Haimanti",
+        "duration": 220,
+        "coverArt": "covers/16. Durga Maa.jpg",
+        "audioUrl": "audio/16. Durga Maa.flac",
+        "trackNumber": 25
+      },
+      {
+        "id": "dp-26",
+        "title": "Koka Kola",
+        "artist": "Samidh Mukherjee, Kalpana Patowary",
+        "duration": 299,
+        "coverArt": "covers/16. Koka Kola.jpg",
+        "audioUrl": "audio/16. Koka Kola.flac",
+        "trackNumber": 26
+      },
+      {
+        "id": "dp-27",
+        "title": "Gouri Elo Dekhe Jalo",
+        "artist": "Dohar",
+        "duration": 340,
+        "coverArt": "covers/17. Gouri Elo Dekhe Jalo.jpg",
+        "audioUrl": "audio/17. Gouri Elo Dekhe Jalo.flac",
+        "trackNumber": 27
+      },
+      {
+        "id": "dp-28",
+        "title": "Pheshey Jaai",
+        "artist": "Habib Wahid, Shithi Saha, Arafat Mohsin",
+        "duration": 251,
+        "coverArt": "covers/17. Pheshey Jaai.jpg",
+        "audioUrl": "audio/17. Pheshey Jaai.flac",
+        "trackNumber": 28
+      },
+      {
+        "id": "dp-29",
+        "title": "Dhak Baaja Komor Nacha",
+        "artist": "Jeet, Akriti Kakar, Dev Negi",
+        "duration": 213,
+        "coverArt": "covers/18. Dhak Baaja Komor Nacha.jpg",
+        "audioUrl": "audio/18. Dhak Baaja Komor Nacha.flac",
+        "trackNumber": 29
+      },
+      {
+        "id": "dp-30",
+        "title": "Ure Geche",
+        "artist": "Ash King, Monali Thakur, Indraadip Dasgupta",
+        "duration": 267,
+        "coverArt": "covers/18. Ure Geche.jpg",
+        "audioUrl": "audio/18. Ure Geche.flac",
+        "trackNumber": 30
+      },
+      {
+        "id": "dp-31",
+        "title": "Durge Durge Durgatinashini",
+        "artist": "Asha Bhosle",
+        "duration": 309,
+        "coverArt": "covers/19. Durge Durge Durgatinashini.jpg",
+        "audioUrl": "audio/19. Durge Durge Durgatinashini.flac",
+        "trackNumber": 31
+      },
+      {
+        "id": "dp-32",
+        "title": "Tumi Aashe Paashe",
+        "artist": "Nakash Aziz, Monali Thakur, Indraadip Dasgupta",
+        "duration": 261,
+        "coverArt": "covers/19. Tumi Aashe Paashe.jpg",
+        "audioUrl": "audio/19. Tumi Aashe Paashe.flac",
+        "trackNumber": 32
+      },
+      {
+        "id": "dp-33",
+        "title": "Rupang Dehi",
+        "artist": "Snita Pramanik Ghosh",
+        "duration": 258,
+        "coverArt": "covers/20. Rupang Dehi.jpg",
+        "audioUrl": "audio/20. Rupang Dehi.flac",
+        "trackNumber": 33
+      },
+      {
+        "id": "dp-34",
+        "title": "Aigiri Nandini - Mahishasura Mardini Stotram",
+        "artist": "Rajalakshmee Sanjay",
+        "duration": 901,
+        "coverArt": "covers/21. Aigiri Nandini - Mahishasura Mardini Stotram.jpg",
+        "audioUrl": "audio/21. Aigiri Nandini - Mahishasura Mardini Stotram.flac",
+        "trackNumber": 34
+      },
+      {
+        "id": "dp-35",
+        "title": "Baja Sanai Aar Baja Re Dhol",
+        "artist": "Abhijeet, Nilakshi Bhattacharya, Dev Sen, Sudip",
+        "duration": 284,
+        "coverArt": "covers/22. Baja Sanai Aar Baja Re Dhol.jpg",
+        "audioUrl": "audio/22. Baja Sanai Aar Baja Re Dhol.flac",
+        "trackNumber": 35
+      },
+      {
+        "id": "dp-36",
+        "title": "Pujo Elo Elo Pujo",
+        "artist": "Abhijeet, Dipanwita Choudhury",
+        "duration": 300,
+        "coverArt": "covers/23. Pujo Elo Elo Pujo.jpg",
+        "audioUrl": "audio/23. Pujo Elo Elo Pujo.flac",
+        "trackNumber": 36
+      },
+      {
+        "id": "dp-37",
+        "title": "Maa Ashchhe - From \"Maa Ashchhe\"",
+        "artist": "Sanjeev Tiwari",
+        "duration": 207,
+        "coverArt": "covers/24. Maa Ashchhe - From Maa Ashchhe.jpg",
+        "audioUrl": "audio/24. Maa Ashchhe - From Maa Ashchhe.flac",
+        "trackNumber": 37
+      },
+      {
+        "id": "dp-38",
+        "title": "Esho Maa Durga",
+        "artist": "Shamik Guha Roy, Suman Mickey Chatterjee, Abhirup Biswas, Debanjali Chatterjee",
+        "duration": 236,
+        "coverArt": "covers/25. Esho Maa Durga.jpg",
+        "audioUrl": "audio/25. Esho Maa Durga.flac",
+        "trackNumber": 38
+      },
+      {
+        "id": "dp-39",
+        "title": "Maa Go Tui",
+        "artist": "Manomay Bhattacharya, Somchanda Bhattacharya",
+        "duration": 120,
+        "coverArt": "covers/26. Maa Go Tui.jpg",
+        "audioUrl": "audio/26. Maa Go Tui.flac",
+        "trackNumber": 39
+      },
+      {
+        "id": "dp-40",
+        "title": "Jago Uma",
+        "artist": "Rupankar Bagchi, Anupam Roy",
+        "duration": 317,
+        "coverArt": "covers/27. Jago Uma.jpg",
+        "audioUrl": "audio/27. Jago Uma.flac",
+        "trackNumber": 40
+      },
+      {
+        "id": "dp-41",
+        "title": "Aigiri Nandini - Rock Version",
+        "artist": "Sowrabha, Samarthan, Ramprakash",
+        "duration": 296,
+        "coverArt": "covers/28. Aigiri Nandini - Rock Version.jpg",
+        "audioUrl": "audio/28. Aigiri Nandini - Rock Version.flac",
+        "trackNumber": 41
+      },
+      {
+        "id": "dp-42",
+        "title": "Aaj Baaje",
+        "artist": "Somchanda Bhattacharya",
+        "duration": 213,
+        "coverArt": "covers/30. Aaj Baaje.jpg",
+        "audioUrl": "audio/30. Aaj Baaje.flac",
+        "trackNumber": 42
+      },
+      {
+        "id": "dp-43",
+        "title": "Yoddhar Saathe Ebar Pujo Katan",
+        "artist": "Nakash Aziz",
+        "duration": 226,
+        "coverArt": "covers/31. Yoddhar Saathe Ebar Pujo Katan.jpg",
+        "audioUrl": "audio/31. Yoddhar Saathe Ebar Pujo Katan.flac",
+        "trackNumber": 43
+      },
+      {
+        "id": "dp-44",
+        "title": "Pujo Pujo Gondho",
+        "artist": "Anupam Roy",
+        "duration": 167,
+        "coverArt": "covers/32. Pujo Pujo Gondho.jpg",
+        "audioUrl": "audio/32. Pujo Pujo Gondho.flac",
+        "trackNumber": 44
+      },
+      {
+        "id": "dp-45",
+        "title": "Pujor Dhaak Theme",
+        "artist": "Bibhabendu Bhattacharya",
+        "duration": 1005,
+        "coverArt": "covers/33. Pujor Dhaak Theme.jpg",
+        "audioUrl": "audio/33. Pujor Dhaak Theme.flac",
+        "trackNumber": 45
+      },
+      {
+        "id": "dp-46",
+        "title": "Jaago Uma",
+        "artist": "Anupam Roy, Rupankar Bagchi",
+        "duration": 317,
+        "coverArt": "covers/34. Jaago Uma.jpg",
+        "audioUrl": "audio/34. Jaago Uma.flac",
+        "trackNumber": 46
+      },
+      {
+        "id": "dp-47",
+        "title": "Gouri Elo (From \"Raktabeej\")",
+        "artist": "Dohar, Tirtha Bhattacharya",
+        "duration": 236,
+        "coverArt": "covers/37. Gouri Elo (From Raktabeej ).jpg",
+        "audioUrl": "audio/37. Gouri Elo (From Raktabeej ).flac",
+        "trackNumber": 47
+      },
+      {
+        "id": "dp-48",
+        "title": "Aham Rudre",
+        "artist": "Students of Sourendro-Soumyojit Academy of Music, Sourendro-Soumyojit",
+        "duration": 159,
+        "coverArt": "covers/38. Aham Rudre.jpg",
+        "audioUrl": "audio/38. Aham Rudre.flac",
+        "trackNumber": 48
+      },
+      {
+        "id": "dp-49",
+        "title": "Elo Re Pujo Elo",
+        "artist": "Nakash Aziz, Senjuti Das",
+        "duration": 193,
+        "coverArt": "covers/39. Elo Re Pujo Elo.jpg",
+        "audioUrl": "audio/39. Elo Re Pujo Elo.flac",
+        "trackNumber": 49
+      },
+      {
+        "id": "dp-50",
+        "title": "O Thakur",
+        "artist": "Upal Sengupta, Prosmita Pal",
+        "duration": 171,
+        "coverArt": "covers/41. O Thakur.jpg",
+        "audioUrl": "audio/41. O Thakur.flac",
+        "trackNumber": 50
+      },
+      {
+        "id": "dp-51",
+        "title": "Shubho Shubho",
+        "artist": "Amit Trivedi, Altamash Faridi",
+        "duration": 194,
+        "coverArt": "covers/42. Shubho Shubho.jpg",
+        "audioUrl": "audio/42. Shubho Shubho.flac",
+        "trackNumber": 51
+      },
+      {
+        "id": "dp-52",
+        "title": "Dugga Ma Asche",
+        "artist": "Infra",
+        "duration": 214,
+        "coverArt": "covers/47. Dugga Ma Asche.jpg",
+        "audioUrl": "audio/47. Dugga Ma Asche.flac",
+        "trackNumber": 52
+      },
+      {
+        "id": "dp-53",
+        "title": "Tomake Chai",
+        "artist": "Arijit Singh, Arindom",
+        "duration": 254,
+        "coverArt": "covers/49. Tomake Chai.jpg",
+        "audioUrl": "audio/49. Tomake Chai.flac",
+        "trackNumber": 53
+      },
+      {
+        "id": "dp-54",
+        "title": "Madhukaitava Vidhwangsi",
+        "artist": "Tushar Dutta, Trishit, Supratik Das, Roompa, Pradyot De",
+        "duration": 588,
+        "coverArt": "covers/54. Madhukaitava Vidhwangsi.jpg",
+        "audioUrl": "audio/54. Madhukaitava Vidhwangsi.flac",
+        "trackNumber": 54
+      },
+      {
+        "id": "dp-55",
+        "title": "Kalo Jole Kuchla Tole",
+        "artist": "Iman Chakraborty",
+        "duration": 262,
+        "coverArt": "covers/55. Kalo Jole Kuchla Tole.jpg",
+        "audioUrl": "audio/55. Kalo Jole Kuchla Tole.flac",
+        "trackNumber": 55
+      },
+      {
+        "id": "dp-56",
+        "title": "Barondala Saaja",
+        "artist": "Madhuraa Bhattacharya, Chandrani Ganguli, Jeet Gannguli",
+        "duration": 161,
+        "coverArt": "covers/62. Barondala Saaja.jpg",
+        "audioUrl": "audio/62. Barondala Saaja.flac",
+        "trackNumber": 56
+      },
+      {
+        "id": "dp-57",
+        "title": "Phagun Haoyay Haoyay",
+        "artist": "Jayati Chakraborty, Dipanwita Choudhury",
+        "duration": 155,
+        "coverArt": "covers/63. Phagun Haoyay Haoyay.jpg",
+        "audioUrl": "audio/63. Phagun Haoyay Haoyay.flac",
+        "trackNumber": 57
+      },
+      {
+        "id": "dp-58",
+        "title": "Rupang Dehi",
+        "artist": "Snita Pramanik Ghosh",
+        "duration": 258,
+        "coverArt": "covers/66. Rupang Dehi.jpg",
+        "audioUrl": "audio/66. Rupang Dehi.flac",
+        "trackNumber": 58
+      },
+      {
+        "id": "dp-59",
+        "title": "Asatoma Sadgamaya",
+        "artist": "Arijit Singh",
+        "duration": 186,
+        "coverArt": "covers/72. Asatoma Sadgamaya.jpg",
+        "audioUrl": "audio/72. Asatoma Sadgamaya.flac",
+        "trackNumber": 59
+      },
+      {
+        "id": "dp-60",
+        "title": "Esho Hey",
+        "artist": "Shreya Ghoshal, Ishan Mitra",
+        "duration": 344,
+        "coverArt": "covers/76. Esho Hey.jpg",
+        "audioUrl": "audio/76. Esho Hey.flac",
+        "trackNumber": 60
+      },
+      {
+        "id": "dp-61",
+        "title": "Bholey Baba",
+        "artist": "Badshah, Nikhita Gandhi",
+        "duration": 270,
+        "coverArt": "covers/78. Bholey Baba.jpg",
+        "audioUrl": "audio/78. Bholey Baba.flac",
+        "trackNumber": 61
+      },
+      {
+        "id": "dp-62",
+        "title": "Dushtu Kokil (From \"Toofan\")",
+        "artist": "Kona, Akassh",
+        "duration": 210,
+        "coverArt": "covers/79. Dushtu Kokil (From Toofan ).jpg",
+        "audioUrl": "audio/79. Dushtu Kokil (From Toofan ).flac",
+        "trackNumber": 62
+      },
+      {
+        "id": "dp-63",
+        "title": "Mala Re",
+        "artist": "Jeet Gannguli",
+        "duration": 268,
+        "coverArt": "covers/80. Mala Re.jpg",
+        "audioUrl": "audio/80. Mala Re.flac",
+        "trackNumber": 63
+      },
+      {
+        "id": "dp-64",
+        "title": "Michhrir Dana",
+        "artist": "Shreya Ghoshal, Jeet Gannguli",
+        "duration": 214,
+        "coverArt": "covers/82. Michhrir Dana.jpg",
+        "audioUrl": "audio/82. Michhrir Dana.flac",
+        "trackNumber": 64
+      },
+      {
+        "id": "dp-65",
+        "title": "Desi Chhori",
+        "artist": "Satrujit Sen, Neha Kakkar, Indraadip Dasgupta",
+        "duration": 229,
+        "coverArt": "covers/83. Desi Chhori.jpg",
+        "audioUrl": "audio/83. Desi Chhori.flac",
+        "trackNumber": 65
+      },
+      {
+        "id": "dp-66",
+        "title": "Party Shoes",
+        "artist": "Shadaab Hashmi, Neha Kakkar, Arindom",
+        "duration": 225,
+        "coverArt": "covers/84. Party Shoes.jpg",
+        "audioUrl": "audio/84. Party Shoes.flac",
+        "trackNumber": 66
+      },
+      {
+        "id": "dp-67",
+        "title": "Bujhina Toh Tai",
+        "artist": "Nusraat Faria, Mumzy Stranger",
+        "duration": 185,
+        "coverArt": "covers/85. Bujhina Toh Tai.jpg",
+        "audioUrl": "audio/85. Bujhina Toh Tai.flac",
+        "trackNumber": 67
+      },
+      {
+        "id": "dp-68",
+        "title": "Lady Killer Romeo",
+        "artist": "Jeet Gannguli, Akriti Kakar",
+        "duration": 228,
+        "coverArt": "covers/86. Lady Killer Romeo.jpg",
+        "audioUrl": "audio/86. Lady Killer Romeo.flac",
+        "trackNumber": 68
+      },
+      {
+        "id": "dp-69",
+        "title": "Police Chorer Preme Porechhe",
+        "artist": "Jeet Gannguli, Abhijeet, Akriti Kakar",
+        "duration": 256,
+        "coverArt": "covers/87. Police Chorer Preme Porechhe.jpg",
+        "audioUrl": "audio/87. Police Chorer Preme Porechhe.flac",
+        "trackNumber": 69
+      },
+      {
+        "id": "dp-70",
+        "title": "Baundule Ghuri (From \"Dawshom Awbotaar\")",
+        "artist": "Arijit Singh, Shreya Ghoshal, Anupam Roy",
+        "duration": 343,
+        "coverArt": "covers/88. Baundule Ghuri (From Dawshom Awbotaar ).jpg",
+        "audioUrl": "audio/88. Baundule Ghuri (From Dawshom Awbotaar ).flac",
+        "trackNumber": 70
+      },
+      {
+        "id": "dp-71",
+        "title": "Tumi Jantei Paro Naa (From \"Cheeni 2\")",
+        "artist": "Mahtim Shakib",
+        "duration": 224,
+        "coverArt": "covers/89. Tumi Jantei Paro Naa (From Cheeni 2 ).jpg",
+        "audioUrl": "audio/89. Tumi Jantei Paro Naa (From Cheeni 2 ).flac",
+        "trackNumber": 71
+      },
+      {
+        "id": "dp-72",
+        "title": "Taakey Olpo Kachhe Dakchhi",
+        "artist": "Mahtim Shakib",
+        "duration": 194,
+        "coverArt": "covers/90. Taakey Olpo Kachhe Dakchhi.jpg",
+        "audioUrl": "audio/90. Taakey Olpo Kachhe Dakchhi.flac",
+        "trackNumber": 72
+      },
+      {
+        "id": "dp-73",
+        "title": "Egiye De",
+        "artist": "Arindom, Arijit Singh, Madhubanti Bagchi",
+        "duration": 253,
+        "coverArt": "covers/91. Egiye De.jpg",
+        "audioUrl": "audio/91. Egiye De.flac",
+        "trackNumber": 73
+      },
+      {
+        "id": "dp-74",
+        "title": "Shudhu Tomari Jonyo Theme",
+        "artist": "Arijit Singh, Shreya Ghoshal",
+        "duration": 198,
+        "coverArt": "covers/92. Shudhu Tomari Jonyo Theme.jpg",
+        "audioUrl": "audio/92. Shudhu Tomari Jonyo Theme.flac",
+        "trackNumber": 74
+      },
+      {
+        "id": "dp-75",
+        "title": "Amake Nao",
+        "artist": "Debayan Banerjee",
+        "duration": 189,
+        "coverArt": "covers/93. Amake Nao.jpg",
+        "audioUrl": "audio/93. Amake Nao.flac",
+        "trackNumber": 75
+      },
+      {
+        "id": "dp-76",
+        "title": "Sajani (From \"Dilkhush\")",
+        "artist": "Nilayan Chatterjee",
+        "duration": 207,
+        "coverArt": "covers/94. Sajani (From Dilkhush ).jpg",
+        "audioUrl": "audio/94. Sajani (From Dilkhush ).flac",
+        "trackNumber": 76
+      },
+      {
+        "id": "dp-77",
+        "title": "Aashona",
+        "artist": "Arijit Singh, Prashmita Paul, Arindom",
+        "duration": 244,
+        "coverArt": "covers/97. Aashona.jpg",
+        "audioUrl": "audio/97. Aashona.flac",
+        "trackNumber": 77
+      },
+      {
+        "id": "dp-78",
+        "title": "Era Sukher Laagi",
+        "artist": "Chorus, Debojyoti Mishra",
+        "duration": 164,
+        "coverArt": "covers/98. Era Sukher Laagi.jpg",
+        "audioUrl": "audio/98. Era Sukher Laagi.flac",
+        "trackNumber": 78
+      }
+    ],
+    "mahalaya": [
+      {
+        "id": "mahs-1",
+        "title": "Mahisasuramardini - Part - 1",
+        "artist": "Birendrakrishna Bhadra",
+        "duration": 2606,
+        "coverArt": "covers/Mahisasuramardini - Part - 1 - Birendrakrishna Bhadra(Chandipaath).jpg",
+        "audioUrl": "audio/Mahisasuramardini - Part - 1 - Birendrakrishna Bhadra(Chandipaath).flac",
+        "trackNumber": 1
+      },
+      {
+        "id": "mahs-2",
+        "title": "Mahisasuramardini - Part - 2",
+        "artist": "Birendrakrishna Bhadra",
+        "duration": 2750,
+        "coverArt": "covers/Mahisasuramardini - Part - 2 - Birendrakrishna Bhadra(Chandipaath).jpg",
+        "audioUrl": "audio/Mahisasuramardini - Part - 2 - Birendrakrishna Bhadra(Chandipaath).flac",
+        "trackNumber": 2
+      }
+    ],
+    "mahalaya-songs": [],
+    "dhak": [
+      {
+        "id": "dk-1",
+        "title": "Dhak",
+        "artist": "Phani Natta",
+        "duration": 607,
+        "coverArt": "covers/Dashami - Instrumental - Phani Natta.jpg",
+        "audioUrl": "audio/Dashami - Instrumental - Phani Natta.flac",
+        "trackNumber": 1
+      }
+    ]
+  }
+}
