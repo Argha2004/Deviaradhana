@@ -136,37 +136,24 @@ body {
 }
 
 /* ============================================================
-   BENGALI FONT & HERO DISCLAIMER
+   BENGALI FONT & AUDIO DISCLAIMER
    ============================================================ */
 .font-bengali {
   font-family: 'Galada', 'Tiro Bangla', 'Hind Siliguri', 'Noto Serif Bengali', cursive, serif;
 }
 
-.hero-audio-disclaimer {
-  transition: transform 0.3s ease, background 0.3s ease;
-}
-
-.hero-audio-disclaimer:hover {
-  transform: translateY(-1px);
+.audio-flac-disclaimer {
+  animation: fadeIn 0.8s ease-out;
 }
 
 @media (max-width: 480px) {
-  .hero-audio-disclaimer {
-    padding: 4px 10px !important;
-    gap: 6px !important;
-  }
-
-  .hero-disclaimer-text {
+  .audio-flac-disclaimer {
     font-size: 10px !important;
   }
 }
 
 @media (max-width: 350px) {
-  .hero-audio-disclaimer {
-    padding: 3px 8px !important;
-  }
-
-  .hero-disclaimer-text {
+  .audio-flac-disclaimer {
     font-size: 9px !important;
   }
 }

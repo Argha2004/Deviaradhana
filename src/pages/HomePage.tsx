@@ -241,59 +241,6 @@ function HeroTitle() {
         <span style={{ fontWeight: 700, color: '#ffffff', fontSize: '15px' }}>{days}</span>
         <span>&nbsp;days until Durga Pujo</span>
       </p>
-
-      {/* Audio Disclaimer Badge (Self-Hosted 44.1kHz 16-Bit FLAC) */}
-      <div
-        className="hero-audio-disclaimer animate-slide-up"
-        style={{
-          marginTop: 'clamp(10px, 2.2vh, 20px)',
-          display: 'inline-flex',
-          alignItems: 'center',
-          gap: '8px',
-          padding: '6px 14px',
-          background: 'var(--dyn-glass-pill, rgba(48, 34, 23, 0.85))',
-          backdropFilter: 'blur(20px)',
-          WebkitBackdropFilter: 'blur(20px)',
-          border: '1px solid var(--dyn-glass-border, rgba(255, 235, 180, 0.2))',
-          borderRadius: '999px',
-          boxShadow: '0 6px 24px rgba(0, 0, 0, 0.4)',
-          animationDelay: '0.22s',
-          maxWidth: '94%',
-          pointerEvents: 'auto',
-        }}
-      >
-        <span
-          style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            background: 'rgba(240, 192, 64, 0.18)',
-            border: '1px solid rgba(240, 192, 64, 0.45)',
-            borderRadius: '4.5px',
-            padding: '1.5px 6px',
-            fontSize: '9px',
-            fontWeight: 700,
-            color: '#f0c040',
-            letterSpacing: '0.06em',
-            textTransform: 'uppercase',
-            flexShrink: 0,
-            lineHeight: 1.1,
-          }}
-        >
-          ORIGINAL FLAC
-        </span>
-        <span
-          className="hero-disclaimer-text"
-          style={{
-            fontSize: '11px',
-            color: 'rgba(255, 255, 255, 0.8)',
-            letterSpacing: '0.01em',
-            lineHeight: 1.3,
-          }}
-        >
-          All songs streamed in studio lossless <strong>44.1 kHz / 16-bit FLAC</strong> from self-hosted server
-        </span>
-      </div>
     </div>
   );
 }
@@ -315,7 +262,7 @@ function BottomBlock({
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        gap: '10px',
+        gap: '8px',
         width: '100%',
         maxWidth: '540px',
         margin: '0 auto',
@@ -323,6 +270,25 @@ function BottomBlock({
         zIndex: 50,
       }}
     >
+      {/* Audio Quality Disclaimer (No container background) */}
+      <p
+        className="audio-flac-disclaimer"
+        style={{
+          fontSize: '11px',
+          color: 'rgba(255, 255, 255, 0.65)',
+          letterSpacing: '0.02em',
+          textAlign: 'center',
+          margin: 0,
+          padding: '0 12px',
+          lineHeight: 1.35,
+          textShadow: '0 1px 8px rgba(0, 0, 0, 0.85), 0 2px 16px rgba(0, 0, 0, 0.7)',
+          userSelect: 'none',
+          pointerEvents: 'none',
+        }}
+      >
+        All songs are fetched from self-hosted server &bull; Original FLAC 44.1kHz 16-Bit
+      </p>
+
       {/* Action pill buttons */}
       <div className="bottom-pills-row" style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
         <button
