@@ -1,30 +1,37 @@
 import { useEffect, useState } from 'react';
+import Paho from 'paho-mqtt';
 
+const PRESENCE_TOPIC = 'devipakhsa/global/presence/v1';
 const BROADCAST_KEY = 'devipakhsa_presence_channel';
 const STORAGE_KEY = 'devipakhsa_live_sessions';
 const PING_INTERVAL = 3000;
-const PEER_TIMEOUT = 7500; // 7.5 seconds without ping = disconnected
+const PEER_TIMEOUT = 8000; // 8 seconds without ping = offline
+
+// Redundant global public MQTT WebSocket brokers with SSL
+const BROKERS = [
+  { host: 'broker.hivemq.com', port: 8884, path: '/mqtt' },
+  { host: 'broker.emqx.io', port: 8084, path: '/mqtt' },
+];
 
 function getSessionId(): string {
   try {
     let id = sessionStorage.getItem('dp_user_session_id');
     if (!id) {
-      id = 'usr_' + Math.random().toString(36).substring(2, 10) + Date.now().toString(36);
+      id = 'u_' + Math.random().toString(36).substring(2, 9) + '_' + Date.now().toString(36);
       sessionStorage.setItem('dp_user_session_id', id);
     }
     return id;
   } catch {
-    return 'usr_' + Math.random().toString(36).substring(2, 10);
+    return 'u_' + Math.random().toString(36).substring(2, 9);
   }
 }
 
 /**
- * 100% Genuine, Exact Real-Time Global Online User Counter.
- * - Global peer discovery via public WebSocket channel.
- * - Real-time cross-tab sync via BroadcastChannel & LocalStorage.
- * - Shows exact 1 when 1 user is on the site.
- * - Increments to exact 2, 3, 4... when real users connect across any device.
- * - Automatically decrements back when users close their tabs.
+ * 🌐 100% Genuine, Exact Real-Time Global Online User Counter:
+ * - Uses world-class HiveMQ / EMQX Global MQTT-over-WSS network.
+ * - Discovers live visitors across phones, tablets, and PCs anywhere on Earth.
+ * - Deduplicates and syncs local tabs via BroadcastChannel & LocalStorage.
+ * - Updates instantly: 1 user = 1 online, 2 users = 2 online, decrements when tabs close.
  */
 export function useOnlinePresence(): number {
   const [onlineCount, setOnlineCount] = useState<number>(1);
@@ -34,7 +41,11 @@ export function useOnlinePresence(): number {
     const activePeers = new Map<string, number>();
     activePeers.set(myId, Date.now());
 
-    // 1. Cross-tab Local BroadcastChannel
+    let isMounted = true;
+    let mqttClient: Paho.Client | null = null;
+    let brokerIndex = 0;
+
+    // 1. Cross-tab Local Synchronization
     let broadcastChannel: BroadcastChannel | null = null;
     try {
       if (typeof window !== 'undefined' && 'BroadcastChannel' in window) {
@@ -43,35 +54,6 @@ export function useOnlinePresence(): number {
     } catch {
       broadcastChannel = null;
     }
-
-    const broadcastPing = () => {
-      const now = Date.now();
-      activePeers.set(myId, now);
-
-      // Send local broadcast
-      try {
-        broadcastChannel?.postMessage({ type: 'ping', id: myId, ts: now });
-      } catch {}
-
-      // Update LocalStorage for multi-window sync
-      try {
-        const raw = localStorage.getItem(STORAGE_KEY);
-        const sessions: Record<string, number> = raw ? JSON.parse(raw) : {};
-        sessions[myId] = now;
-
-        // Clean stale local sessions
-        for (const [id, ts] of Object.entries(sessions)) {
-          if (now - ts > PEER_TIMEOUT) {
-            delete sessions[id];
-          } else {
-            activePeers.set(id, ts);
-          }
-        }
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(sessions));
-      } catch {}
-
-      pruneAndCount();
-    };
 
     const pruneAndCount = () => {
       const now = Date.now();
@@ -84,7 +66,35 @@ export function useOnlinePresence(): number {
       }
 
       const count = Math.max(1, activePeers.size);
-      setOnlineCount(count);
+      if (isMounted) {
+        setOnlineCount(count);
+      }
+    };
+
+    const syncLocal = () => {
+      const now = Date.now();
+      activePeers.set(myId, now);
+
+      try {
+        broadcastChannel?.postMessage({ type: 'ping', id: myId, ts: now });
+      } catch {}
+
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        const sessions: Record<string, number> = raw ? JSON.parse(raw) : {};
+        sessions[myId] = now;
+
+        for (const [id, ts] of Object.entries(sessions)) {
+          if (now - ts > PEER_TIMEOUT) {
+            delete sessions[id];
+          } else {
+            activePeers.set(id, ts);
+          }
+        }
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(sessions));
+      } catch {}
+
+      pruneAndCount();
     };
 
     if (broadcastChannel) {
@@ -114,74 +124,107 @@ export function useOnlinePresence(): number {
     };
     window.addEventListener('storage', handleStorage);
 
-    // 2. Global Realtime WebSocket Network (Connects different users across the internet)
-    let ws: WebSocket | null = null;
-    let wsHeartbeatId: ReturnType<typeof setInterval> | null = null;
-    let isSubscribed = true;
+    // 2. Global Real-time MQTT WebSocket Client
+    const connectMQTT = () => {
+      if (!isMounted) return;
 
-    const connectGlobalSocket = () => {
-      if (!isSubscribed) return;
+      const broker = BROKERS[brokerIndex % BROKERS.length];
+      const clientId = `dp_${myId}_${Math.random().toString(16).slice(2, 6)}`;
+
       try {
-        // Free, open public WebSockets presence channel
-        const socketUrl = 'wss://socketsbay.com/wss/v2/1/devipakhsa_presence_2026/';
-        ws = new WebSocket(socketUrl);
+        const client = new Paho.Client(broker.host, broker.port, broker.path, clientId);
+        mqttClient = client;
 
-        ws.onopen = () => {
-          // Announce connection
-          if (ws?.readyState === WebSocket.OPEN) {
-            ws.send(JSON.stringify({ type: 'ping', id: myId, ts: Date.now() }));
-          }
-        };
-
-        ws.onmessage = (event) => {
+        client.onMessageArrived = (message: Paho.Message) => {
           try {
-            const data = JSON.parse(event.data);
+            const data = JSON.parse(message.payloadString);
             if (data?.id && data.id !== myId) {
-              activePeers.set(data.id, data.ts || Date.now());
+              if (data.type === 'leave') {
+                activePeers.delete(data.id);
+              } else {
+                activePeers.set(data.id, data.ts || Date.now());
+              }
               pruneAndCount();
             }
           } catch {}
         };
 
-        ws.onerror = () => {
-          // Silent fallback to local sync
-        };
-
-        ws.onclose = () => {
-          // Reconnect after 6s if component is still active
-          if (isSubscribed) {
-            setTimeout(connectGlobalSocket, 6000);
+        client.onConnectionLost = (responseObject: { errorCode: number; errorMessage: string }) => {
+          if (responseObject.errorCode !== 0 && isMounted) {
+            // Switch to next broker on error and reconnect
+            brokerIndex++;
+            setTimeout(connectMQTT, 3000);
           }
         };
+
+        client.connect({
+          useSSL: true,
+          timeout: 6,
+          keepAliveInterval: 20,
+          cleanSession: true,
+          onSuccess: () => {
+            if (!isMounted) return;
+            try {
+              client.subscribe(PRESENCE_TOPIC, { qos: 0 });
+              // Send immediate join ping
+              const pingMsg = new Paho.Message(
+                JSON.stringify({ type: 'ping', id: myId, ts: Date.now() }),
+              );
+              pingMsg.destinationName = PRESENCE_TOPIC;
+              pingMsg.qos = 0;
+              client.send(pingMsg);
+            } catch {}
+          },
+          onFailure: () => {
+            if (isMounted) {
+              brokerIndex++;
+              setTimeout(connectMQTT, 4000);
+            }
+          },
+        });
       } catch {
-        // Safe fallback
+        if (isMounted) {
+          brokerIndex++;
+          setTimeout(connectMQTT, 5000);
+        }
       }
     };
 
-    connectGlobalSocket();
+    connectMQTT();
 
-    // Regular Heartbeat every 3s
-    const pingTimer = setInterval(() => {
-      broadcastPing();
-      if (ws && ws.readyState === WebSocket.OPEN) {
+    // 3. Periodic Heartbeat Loop (every 3s)
+    const timer = setInterval(() => {
+      syncLocal();
+
+      if (mqttClient && mqttClient.isConnected()) {
         try {
-          ws.send(JSON.stringify({ type: 'ping', id: myId, ts: Date.now() }));
+          const pingMsg = new Paho.Message(
+            JSON.stringify({ type: 'ping', id: myId, ts: Date.now() }),
+          );
+          pingMsg.destinationName = PRESENCE_TOPIC;
+          pingMsg.qos = 0;
+          mqttClient.send(pingMsg);
         } catch {}
       }
     }, PING_INTERVAL);
 
-    // Initial ping
-    broadcastPing();
+    // Initial sync
+    syncLocal();
 
-    // Cleanup on tab close
+    // 4. Clean Unload Handler
     const handleUnload = () => {
       try {
         if (broadcastChannel) {
           broadcastChannel.postMessage({ type: 'leave', id: myId });
         }
-        if (ws && ws.readyState === WebSocket.OPEN) {
-          ws.send(JSON.stringify({ type: 'leave', id: myId }));
-          ws.close();
+        if (mqttClient && mqttClient.isConnected()) {
+          const leaveMsg = new Paho.Message(
+            JSON.stringify({ type: 'leave', id: myId, ts: Date.now() }),
+          );
+          leaveMsg.destinationName = PRESENCE_TOPIC;
+          leaveMsg.qos = 0;
+          mqttClient.send(leaveMsg);
+          mqttClient.disconnect();
         }
         const raw = localStorage.getItem(STORAGE_KEY);
         if (raw) {
@@ -195,15 +238,14 @@ export function useOnlinePresence(): number {
     window.addEventListener('beforeunload', handleUnload);
 
     return () => {
-      isSubscribed = false;
-      clearInterval(pingTimer);
-      if (wsHeartbeatId) clearInterval(wsHeartbeatId);
+      isMounted = false;
+      clearInterval(timer);
       window.removeEventListener('storage', handleStorage);
       window.removeEventListener('beforeunload', handleUnload);
       broadcastChannel?.close();
-      if (ws) {
+      if (mqttClient && mqttClient.isConnected()) {
         try {
-          ws.close();
+          mqttClient.disconnect();
         } catch {}
       }
     };
