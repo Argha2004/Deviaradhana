@@ -5,10 +5,10 @@
    ============================================================ */
 :root {
   /* Dynamic Background & Glass Defaults (Updated dynamically via useDynamicTheme) */
-  --dyn-glass-bg: rgba(22, 18, 14, 0.52);
-  --dyn-glass-pill: rgba(38, 30, 22, 0.65);
-  --dyn-glass-surface: rgba(26, 20, 15, 0.85);
-  --dyn-glass-border: rgba(255, 235, 180, 0.16);
+  --dyn-glass-bg: rgba(20, 16, 12, 0.72);
+  --dyn-glass-pill: rgba(32, 24, 18, 0.82);
+  --dyn-glass-surface: rgba(22, 16, 12, 0.92);
+  --dyn-glass-border: rgba(255, 235, 180, 0.22);
   --dyn-dom-rgb: 48, 36, 26;
   --dyn-accent-rgb: 238, 187, 60;
 
