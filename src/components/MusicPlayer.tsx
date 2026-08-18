@@ -8,11 +8,17 @@ import {
   Repeat,
   Repeat1,
   Music,
+  Disc,
 } from 'lucide-react';
 import { usePlayerStore } from '../store/playerStore';
 import { formatTime } from '../utils/helpers';
 
-export function MusicPlayer() {
+interface MusicPlayerProps {
+  isPlayingDhak?: boolean;
+  onToggleDhak?: () => void;
+}
+
+export function MusicPlayer({ isPlayingDhak = false, onToggleDhak }: MusicPlayerProps) {
   const {
     currentSong,
     isPlaying,
@@ -49,7 +55,9 @@ export function MusicPlayer() {
         else s.setCurrentTime(s.currentTime + 0.25);
       }, 250);
     }
-    return () => { if (simRef.current) clearInterval(simRef.current); };
+    return () => {
+      if (simRef.current) clearInterval(simRef.current);
+    };
   }, [isPlaying, currentSong?.id, duration]);
 
   const progress = duration > 0 ? (currentTime / duration) * 100 : 0;
@@ -69,9 +77,9 @@ export function MusicPlayer() {
   // Idle state
   if (!currentSong) {
     return (
-      <div className="np-surface" style={{ justifyContent: 'center', gap: '10px', opacity: 0.55 }}>
+      <div className="np-surface np-idle-state">
         <Music size={15} style={{ color: 'rgba(255,255,255,0.4)' }} />
-        <span style={{ fontSize: '13px', color: 'rgba(255,255,255,0.45)', fontWeight: 500 }}>
+        <span style={{ fontSize: '14px', color: 'rgba(255, 255, 255, 0.5)', fontWeight: 500 }}>
           Select a song to play
         </span>
       </div>
@@ -86,76 +94,196 @@ export function MusicPlayer() {
 
   return (
     <div className="np-surface">
-      {/* Artwork */}
-      <img
-        src={currentSong.coverArt}
-        alt={currentSong.title}
-        className="np-art"
-        loading="eager"
-        decoding="async"
-        onError={(e) => { (e.target as HTMLImageElement).src = artFallback; }}
-      />
+      {/* ────────────────────────────────────────────────────────────
+          DESKTOP VIEW (> 600px) — Clean Horizontal Single Row
+         ──────────────────────────────────────────────────────────── */}
+      <div className="np-desktop-layout">
+        {/* Artwork */}
+        <img
+          src={currentSong.coverArt}
+          alt={currentSong.title}
+          className="np-art"
+          loading="eager"
+          decoding="async"
+          onError={(e) => {
+            (e.target as HTMLImageElement).src = artFallback;
+          }}
+        />
 
-      {/* Song info with Lossless Badge & Progress bar */}
-      <div className="np-info">
-        <div className="np-title-row">
-          <span className="np-title" title={currentSong.title}>
-            {currentSong.title}
-          </span>
-          <span className="np-lossless-badge">LOSSLESS</span>
-        </div>
-
-        <div className="np-artist-row">
-          <span className="np-artist">{currentSong.artist}</span>
-        </div>
-
-        {/* Progress Bar & Timestamps */}
-        <div className="np-progress-row">
-          <div
-            className="np-slider-container"
-            onClick={handleSeek}
-            role="progressbar"
-            aria-valuenow={progress}
-            aria-valuemin={0}
-            aria-valuemax={100}
-            title="Seek playback position"
-          >
-            <div className="np-slider-bg" />
-            <div className="np-slider-fill" style={{ width: `${progress}%` }}>
-              <div className="np-slider-handle" />
-            </div>
+        {/* Song info with Lossless Badge & Progress bar */}
+        <div className="np-info">
+          <div className="np-title-row">
+            <span className="np-title" title={currentSong.title}>
+              {currentSong.title}
+            </span>
+            <span className="np-lossless-badge">LOSSLESS</span>
           </div>
-          <span className="np-time">
-            {formatTime(currentTime)} / {duration > 0 ? formatTime(duration) : '--:--'}
-          </span>
+
+          <div className="np-artist-row">
+            <span className="np-artist">{currentSong.artist}</span>
+          </div>
+
+          {/* Progress Bar & Timestamps */}
+          <div className="np-progress-row">
+            <div
+              className="np-slider-container"
+              onClick={handleSeek}
+              role="progressbar"
+              aria-valuenow={progress}
+              aria-valuemin={0}
+              aria-valuemax={100}
+              title="Seek playback position"
+            >
+              <div className="np-slider-bg" />
+              <div className="np-slider-fill" style={{ width: `${progress}%` }}>
+                <div className="np-slider-handle" />
+              </div>
+            </div>
+            <span className="np-time">
+              {formatTime(currentTime)} / {duration > 0 ? formatTime(duration) : '--:--'}
+            </span>
+          </div>
+        </div>
+
+        {/* Controls */}
+        <div className="np-controls">
+          <button
+            className={`np-ctrl ${isShuffle ? 'on' : ''}`}
+            onClick={toggleShuffle}
+            aria-label="Shuffle"
+          >
+            <Shuffle size={15} />
+          </button>
+          <button className="np-ctrl" onClick={previous} aria-label="Previous">
+            <SkipBack size={18} />
+          </button>
+          <button className="np-play" onClick={togglePlay} aria-label={isPlaying ? 'Pause' : 'Play'}>
+            {isPlaying ? <Pause size={20} /> : <Play size={20} style={{ marginLeft: '2px' }} />}
+          </button>
+          <button className="np-ctrl" onClick={next} aria-label="Next">
+            <SkipForward size={18} />
+          </button>
+          <button
+            className={`np-ctrl ${repeatMode !== 'off' ? 'on' : ''}`}
+            onClick={cycleRepeat}
+            aria-label="Repeat"
+          >
+            {repeatMode === 'one' ? <Repeat1 size={16} /> : <Repeat size={16} />}
+          </button>
         </div>
       </div>
 
-      {/* Controls */}
-      <div className="np-controls">
-        <button
-          className={`np-ctrl ${isShuffle ? 'on' : ''}`}
-          onClick={toggleShuffle}
-          aria-label="Shuffle"
-        >
-          <Shuffle size={16} />
-        </button>
-        <button className="np-ctrl" onClick={previous} aria-label="Previous">
-          <SkipBack size={18} />
-        </button>
-        <button className="np-play" onClick={togglePlay} aria-label={isPlaying ? 'Pause' : 'Play'}>
-          {isPlaying ? <Pause size={20} /> : <Play size={20} style={{ marginLeft: '2px' }} />}
-        </button>
-        <button className="np-ctrl" onClick={next} aria-label="Next">
-          <SkipForward size={18} />
-        </button>
-        <button
-          className={`np-ctrl ${repeatMode !== 'off' ? 'on' : ''}`}
-          onClick={cycleRepeat}
-          aria-label="Repeat"
-        >
-          {repeatMode === 'one' ? <Repeat1 size={16} /> : <Repeat size={16} />}
-        </button>
+      {/* ────────────────────────────────────────────────────────────
+          MOBILE VIEW (<= 600px) — Exact Match to Given Picture
+          - Top row: Artwork | Title + Artist + Progress + Time | Prev + White Squircle Play + Next
+          - Divider line
+          - Bottom row: [Shuffle] | [Repeat] | [Dhak]
+         ──────────────────────────────────────────────────────────── */}
+      <div className="np-mobile-card-layout">
+        {/* Upper Main Playing Row */}
+        <div className="np-mobile-top">
+          {/* Artwork */}
+          <img
+            src={currentSong.coverArt}
+            alt={currentSong.title}
+            className="np-mobile-art"
+            loading="eager"
+            decoding="async"
+            onError={(e) => {
+              (e.target as HTMLImageElement).src = artFallback;
+            }}
+          />
+
+          {/* Info + Slider + Time */}
+          <div className="np-mobile-info">
+            <span className="np-mobile-title" title={currentSong.title}>
+              {currentSong.title}
+            </span>
+            <span className="np-mobile-artist">{currentSong.artist}</span>
+
+            {/* Inline Slider */}
+            <div
+              className="np-mobile-slider-wrap"
+              onClick={handleSeek}
+              role="progressbar"
+              aria-valuenow={progress}
+              aria-valuemin={0}
+              aria-valuemax={100}
+              title="Seek playback position"
+            >
+              <div className="np-mobile-slider-bg">
+                <div className="np-mobile-slider-fill" style={{ width: `${progress}%` }} />
+              </div>
+            </div>
+
+            {/* Time */}
+            <span className="np-mobile-time">
+              {formatTime(currentTime)} / {duration > 0 ? formatTime(duration) : '0:00'}
+            </span>
+          </div>
+
+          {/* Controls: Prev | White Squircle Play | Next */}
+          <div className="np-mobile-playback">
+            <button className="np-mobile-ctrl" onClick={previous} aria-label="Previous">
+              <SkipBack size={15} fill="currentColor" />
+            </button>
+            <button
+              className="np-mobile-squircle-play"
+              onClick={togglePlay}
+              aria-label={isPlaying ? 'Pause' : 'Play'}
+            >
+              {isPlaying ? (
+                <Pause size={17} fill="#111111" color="#111111" />
+              ) : (
+                <Play size={17} fill="#111111" color="#111111" style={{ marginLeft: '2px' }} />
+              )}
+            </button>
+            <button className="np-mobile-ctrl" onClick={next} aria-label="Next">
+              <SkipForward size={15} fill="currentColor" />
+            </button>
+          </div>
+        </div>
+
+        {/* Divider */}
+        <div className="np-mobile-divider" />
+
+        {/* Bottom 3 Actions: Shuffle | Repeat | Dhak */}
+        <div className="np-mobile-actions">
+          <button
+            className={`np-mobile-action-btn ${isShuffle ? 'active' : ''}`}
+            onClick={toggleShuffle}
+            aria-label="Toggle shuffle"
+          >
+            <Shuffle size={13} strokeWidth={2.2} />
+            <span>Shuffle</span>
+          </button>
+
+          <button
+            className={`np-mobile-action-btn ${repeatMode !== 'off' ? 'active' : ''}`}
+            onClick={cycleRepeat}
+            aria-label="Toggle repeat"
+          >
+            {repeatMode === 'one' ? (
+              <Repeat1 size={13} strokeWidth={2.2} />
+            ) : (
+              <Repeat size={13} strokeWidth={2.2} />
+            )}
+            <span>Repeat</span>
+          </button>
+
+          <button
+            className={`np-mobile-action-btn np-mobile-dhak-btn ${isPlayingDhak ? 'active' : ''}`}
+            onClick={onToggleDhak}
+            aria-label="Toggle Dhak"
+          >
+            {isPlayingDhak ? (
+              <Disc size={13} strokeWidth={2.2} className="animate-spin text-amber-300" />
+            ) : (
+              <Music size={13} strokeWidth={2.2} />
+            )}
+            <span>{isPlayingDhak ? 'Dhak On' : 'Dhak'}</span>
+          </button>
+        </div>
       </div>
     </div>
   );

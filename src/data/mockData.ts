@@ -13,6 +13,8 @@ export const APP_CONFIG = {
   heroTitle: 'পুজো\nআসছে',
   heroDayImage: '/back-day.png',
   heroNightImage: '/back-night.png',
+  heroDayImageAlt: '/back1-day.png',
+  heroNightImageAlt: '/back1-night.png',
   heroImage: '/back-night.png', // fallback
   dhakAudioUrl: 'audio/Dashami - Instrumental - Phani Natta.flac',
   festivalDate: new Date('2026-10-17T00:00:00'),

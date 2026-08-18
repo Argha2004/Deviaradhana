@@ -499,7 +499,8 @@ body {
 
   .np-controls .np-ctrl:first-child,
   .np-controls .np-ctrl:last-child {
-    display: none; /* Hide shuffle/repeat on ultra-narrow phones */
+    display: none;
+    /* Hide shuffle/repeat on ultra-narrow phones */
   }
 }
 
