@@ -26,19 +26,19 @@ export const APP_CONFIG = {
       linkedin: 'https://linkedin.com/in/arghadeep-pakhira/',
       instagram: 'https://www.instagram.com/ignore.py?igsh=eDltZGt2ZmEwc280',
     },
-    {
-      id: 'c2',
-      name: 'Ankita Chanda',
-      photo: '/Ankita.png',
-      linkedin: 'https://www.linkedin.com/in/ankita-chanda-b43b81359/?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3B9pvTVKUHRqqHl7MhHOAloQ%3D%3D',
-      instagram: 'https://www.instagram.com/ankita_chanda2233/',
-    },
-    {
-      id: 'c3',
-      name: 'Shubham Bhunia',
-      photo: '/shubham.jpeg',
-      linkedin: 'https://www.linkedin.com/in/shubham-bhunia',
-      instagram: 'https://www.instagram.com/the_foliage_4?igsh=OGVkMHZwemxodWlu',
-    },
+    // {
+    //   id: 'c2',
+    //   name: 'Ankita Chanda',
+    //   photo: '/Ankita.png',
+    //   linkedin: 'https://www.linkedin.com/in/ankita-chanda-b43b81359/?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3B9pvTVKUHRqqHl7MhHOAloQ%3D%3D',
+    //   instagram: 'https://www.instagram.com/ankita_chanda2233/',
+    // },
+    // {
+    //   id: 'c3',
+    //   name: 'Shubham Bhunia',
+    //   photo: '/shubham.jpeg',
+    //   linkedin: 'https://www.linkedin.com/in/shubham-bhunia',
+    //   instagram: 'https://www.instagram.com/the_foliage_4?igsh=OGVkMHZwemxodWlu',
+    // },
   ],
 };

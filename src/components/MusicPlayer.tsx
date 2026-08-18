@@ -30,18 +30,14 @@ export function MusicPlayer() {
     setDuration,
   } = usePlayerStore();
 
-  // Set duration from song data when song changes
   useEffect(() => {
     if (currentSong) {
-      if (currentSong.duration) {
-        setDuration(currentSong.duration);
-      }
+      if (currentSong.duration) setDuration(currentSong.duration);
       seek(0);
       setCurrentTime(0);
     }
   }, [currentSong?.id]);
 
-  // Simulate playback tick if audioUrl is missing or fallback
   const simRef = useRef<ReturnType<typeof setInterval> | null>(null);
   useEffect(() => {
     if (simRef.current) clearInterval(simRef.current);
@@ -49,55 +45,34 @@ export function MusicPlayer() {
       simRef.current = setInterval(() => {
         const s = usePlayerStore.getState();
         if (!s.isPlaying) return;
-        if (s.currentTime >= s.duration) {
-          s.next();
-        } else {
-          s.setCurrentTime(s.currentTime + 0.25);
-        }
+        if (s.currentTime >= s.duration) s.next();
+        else s.setCurrentTime(s.currentTime + 0.25);
       }, 250);
     }
-    return () => {
-      if (simRef.current) clearInterval(simRef.current);
-    };
+    return () => { if (simRef.current) clearInterval(simRef.current); };
   }, [isPlaying, currentSong?.id, duration]);
 
   const progress = duration > 0 ? (currentTime / duration) * 100 : 0;
 
   const handleSeek = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      const val = parseFloat(e.target.value);
-      const t = (val / 100) * duration;
+    (e: React.MouseEvent<HTMLDivElement>) => {
+      const rect = e.currentTarget.getBoundingClientRect();
+      const x = Math.max(0, Math.min(e.clientX - rect.left, rect.width));
+      const pct = x / rect.width;
+      const t = pct * duration;
       seek(t);
       setCurrentTime(t);
     },
     [duration, seek, setCurrentTime],
   );
 
-  // ── Idle state — no song loaded ──
+  // Idle state
   if (!currentSong) {
     return (
-      <div
-        className="player-luxury-surface"
-        style={{
-          width: '100%',
-          padding: '16px 22px',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          gap: '12px',
-          opacity: 0.65,
-        }}
-      >
-        <Music size={16} className="text-amber-300 opacity-60" />
-        <span
-          style={{
-            fontSize: '13px',
-            color: 'rgba(255, 255, 255, 0.45)',
-            fontWeight: 500,
-            letterSpacing: '0.02em',
-          }}
-        >
-          Select a song from Puja Radio or Mahalaya
+      <div className="np-surface" style={{ justifyContent: 'center', gap: '10px', opacity: 0.55 }}>
+        <Music size={15} style={{ color: 'rgba(255,255,255,0.4)' }} />
+        <span style={{ fontSize: '13px', color: 'rgba(255,255,255,0.45)', fontWeight: 500 }}>
+          Select a song to play
         </span>
       </div>
     );
@@ -106,194 +81,68 @@ export function MusicPlayer() {
   const artFallback =
     'data:image/svg+xml,' +
     encodeURIComponent(
-      '<svg xmlns="http://www.w3.org/2000/svg" width="56" height="56"><rect width="56" height="56" fill="#3a2a1a" rx="12"/><text x="50%" y="54%" dominant-baseline="middle" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-size="24">♪</text></svg>',
+      '<svg xmlns="http://www.w3.org/2000/svg" width="56" height="56"><rect width="56" height="56" fill="#3a2a1a" rx="8"/><text x="50%" y="54%" dominant-baseline="middle" text-anchor="middle" fill="rgba(255,255,255,0.35)" font-size="22">♪</text></svg>',
     );
 
   return (
-    <div
-      className="player-luxury-surface"
-      style={{
-        width: '100%',
-        padding: '14px 18px 12px 14px',
-      }}
-    >
-      {/* ── Top Row: Album Art + Song Metadata + Modern Minimalist Lossless Badge ── */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
-        {/* Album Artwork */}
-        <div style={{ position: 'relative', flexShrink: 0 }}>
-          <img
-            src={currentSong.coverArt}
-            alt={currentSong.title}
-            loading="eager"
-            decoding="async"
-            onError={(e) => {
-              (e.target as HTMLImageElement).src = artFallback;
-            }}
-            style={{
-              width: '52px',
-              height: '52px',
-              borderRadius: '10px',
-              objectFit: 'cover',
-              border: '1px solid rgba(255, 255, 255, 0.16)',
-              boxShadow: '0 4px 16px rgba(0, 0, 0, 0.5)',
-              background: 'rgba(255, 255, 255, 0.05)',
-            }}
-          />
-        </div>
-
-        {/* Title, Artist & Modern Apple-style Lossless Badge */}
-        <div style={{ flex: 1, minWidth: 0 }}>
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              gap: '8px',
-            }}
-          >
-            <div
-              style={{
-                fontSize: '14px',
-                fontWeight: 600,
-                color: '#ffffff',
-                lineHeight: 1.25,
-                whiteSpace: 'nowrap',
-                overflow: 'hidden',
-                textOverflow: 'ellipsis',
-                letterSpacing: '0.01em',
-              }}
-            >
-              {currentSong.title}
-            </div>
-
-            {/* MODERN MINIMALIST LOSSLESS BADGE */}
-            <div
-              className="lossless-badge"
-              title="Lossless FLAC Master Quality Audio"
-            >
-              LOSSLESS
-            </div>
-          </div>
-
-          <div style={{ marginTop: '3px' }}>
-            <span
-              style={{
-                fontSize: '12px',
-                color: 'rgba(255, 255, 255, 0.55)',
-                whiteSpace: 'nowrap',
-                overflow: 'hidden',
-                textOverflow: 'ellipsis',
-                fontWeight: 400,
-                display: 'block',
-              }}
-            >
-              {currentSong.artist}
-            </span>
-          </div>
-        </div>
-      </div>
-
-      {/* ── Middle: Golden Progress Bar & Timestamps ── */}
-      <div style={{ marginTop: '10px', padding: '0 2px' }}>
-        <input
-          type="range"
-          min={0}
-          max={100}
-          value={progress}
-          onChange={handleSeek}
-          className="progress-bar"
-          aria-label="Seek track position"
-          style={{
-            background: `linear-gradient(to right, #f59e0b 0%, #fbbf24 ${progress}%, rgba(255, 255, 255, 0.12) ${progress}%)`,
-          }}
-        />
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            marginTop: '3px',
-          }}
-        >
-          <span
-            style={{
-              fontSize: '10px',
-              fontWeight: 500,
-              color: 'rgba(255, 255, 255, 0.40)',
-              fontVariantNumeric: 'tabular-nums',
-            }}
-          >
-            {formatTime(currentTime)}
-          </span>
-          <span
-            style={{
-              fontSize: '10px',
-              fontWeight: 500,
-              color: 'rgba(255, 255, 255, 0.40)',
-              fontVariantNumeric: 'tabular-nums',
-            }}
-          >
-            {duration > 0 ? formatTime(duration) : '--:--'}
-          </span>
-        </div>
-      </div>
-
-      {/* ── Bottom Controls: Shuffle / Prev / Play / Next / Repeat ── */}
+    <div className="np-surface">
+      {/* Progress track — thin bar at bottom */}
       <div
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          gap: '12px',
-          marginTop: '6px',
-        }}
+        className="np-progress-track"
+        onClick={handleSeek}
+        role="progressbar"
+        aria-valuenow={progress}
+        aria-valuemin={0}
+        aria-valuemax={100}
       >
-        <button
-          className={`ctrl-btn ${isShuffle ? 'active' : ''}`}
-          onClick={toggleShuffle}
-          title={isShuffle ? 'Shuffle active' : 'Shuffle'}
-          aria-label="Toggle shuffle"
-        >
-          <Shuffle size={15} />
-        </button>
+        <div className="np-progress-fill" style={{ width: `${progress}%` }} />
+      </div>
 
+      {/* Artwork */}
+      <img
+        src={currentSong.coverArt}
+        alt={currentSong.title}
+        className="np-art"
+        loading="eager"
+        decoding="async"
+        onError={(e) => { (e.target as HTMLImageElement).src = artFallback; }}
+      />
+
+      {/* Song info */}
+      <div className="np-info">
+        <div className="np-title">{currentSong.title}</div>
+        <div className="np-meta">
+          <span className="np-artist">{currentSong.artist}</span>
+        </div>
+        <div className="np-time">
+          {formatTime(currentTime)} / {duration > 0 ? formatTime(duration) : '--:--'}
+        </div>
+      </div>
+
+      {/* Controls */}
+      <div className="np-controls">
         <button
-          className="ctrl-btn"
-          onClick={previous}
-          title="Previous track"
-          aria-label="Previous track"
+          className={`np-ctrl ${isShuffle ? 'on' : ''}`}
+          onClick={toggleShuffle}
+          aria-label="Shuffle"
         >
+          <Shuffle size={16} />
+        </button>
+        <button className="np-ctrl" onClick={previous} aria-label="Previous">
           <SkipBack size={18} />
         </button>
-
-        <button
-          className="play-luxury-btn"
-          onClick={togglePlay}
-          title={isPlaying ? 'Pause' : 'Play'}
-          aria-label={isPlaying ? 'Pause' : 'Play'}
-        >
-          {isPlaying ? (
-            <Pause size={18} fill="#1a1510" />
-          ) : (
-            <Play size={18} fill="#1a1510" style={{ marginLeft: '2px' }} />
-          )}
+        <button className="np-play" onClick={togglePlay} aria-label={isPlaying ? 'Pause' : 'Play'}>
+          {isPlaying ? <Pause size={22} /> : <Play size={22} style={{ marginLeft: '2px' }} />}
         </button>
-
-        <button
-          className="ctrl-btn"
-          onClick={next}
-          title="Next track"
-          aria-label="Next track"
-        >
+        <button className="np-ctrl" onClick={next} aria-label="Next">
           <SkipForward size={18} />
         </button>
-
         <button
-          className={`ctrl-btn ${repeatMode !== 'off' ? 'active' : ''}`}
+          className={`np-ctrl ${repeatMode !== 'off' ? 'on' : ''}`}
           onClick={cycleRepeat}
-          title={`Repeat: ${repeatMode}`}
-          aria-label="Toggle repeat"
+          aria-label="Repeat"
         >
-          {repeatMode === 'one' ? <Repeat1 size={15} /> : <Repeat size={15} />}
+          {repeatMode === 'one' ? <Repeat1 size={16} /> : <Repeat size={16} />}
         </button>
       </div>
     </div>

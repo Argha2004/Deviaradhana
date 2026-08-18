@@ -54,26 +54,26 @@ function OnlineBadge() {
       className="glass-pill select-none mobile-only"
       style={{
         alignItems: 'center',
-        gap: '7px',
-        fontSize: '13px',
+        gap: '8px',
+        fontSize: '13.5px',
         fontWeight: 600,
         color: '#ffffff',
         letterSpacing: '0.02em',
         boxShadow: '0 4px 20px rgba(0, 0, 0, 0.25)',
         whiteSpace: 'nowrap',
-        padding: '7px 15px',
+        padding: '8px 18px',
       }}
     >
       <span
         className="pulse-dot"
         style={{
-          width: '7px',
-          height: '7px',
+          width: '8px',
+          height: '8px',
           borderRadius: '50%',
           background: '#4ade80',
           display: 'inline-block',
           flexShrink: 0,
-          boxShadow: '0 0 8px rgba(74, 222, 128, 0.7)',
+          boxShadow: '0 0 10px rgba(74, 222, 128, 0.8)',
         }}
       />
       <span>{onlineCount} online</span>
@@ -92,20 +92,20 @@ function StatusPill() {
       style={{
         alignItems: 'center',
         gap: '12px',
-        fontSize: '13px',
+        fontSize: '13.5px',
         fontWeight: 500,
         color: 'rgba(255, 255, 255, 0.90)',
         whiteSpace: 'nowrap',
         boxShadow: '0 4px 24px rgba(0, 0, 0, 0.3)',
-        padding: '7px 20px',
+        padding: '8px 22px',
       }}
     >
       <span style={{ display: 'flex', alignItems: 'center', gap: '7px' }}>
         <span
           className="pulse-dot"
           style={{
-            width: '7px',
-            height: '7px',
+            width: '8px',
+            height: '8px',
             borderRadius: '50%',
             background: '#4ade80',
             display: 'inline-block',
@@ -144,7 +144,7 @@ function TopControls({
         title="Playlists"
         aria-label="Open playlists"
       >
-        <Menu size={16} />
+        <Menu size={18} strokeWidth={2.2} />
       </button>
       <button
         className="icon-circle"
@@ -152,7 +152,7 @@ function TopControls({
         title="About & Creators"
         aria-label="About"
       >
-        <Users size={16} />
+        <Users size={18} strokeWidth={2.2} />
       </button>
     </div>
   );
@@ -194,32 +194,29 @@ function HeroTitle() {
 
   return (
     <div
+      className="hero-title-container"
       style={{
-        position: 'absolute',
-        top: 'clamp(70px, 13vh, 125px)',
-        left: '50%',
-        transform: 'translateX(-50%)',
-        zIndex: 10,
         textAlign: 'center',
         pointerEvents: 'none',
         userSelect: 'none',
         width: '100%',
         maxWidth: '1200px',
-        padding: '0 16px',
+        padding: '8px 16px',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
+        justifyContent: 'center',
       }}
     >
       {lines.map((line, i) => (
         <div
           key={i}
-          className="font-bengali animate-slide-up"
+          className="hero-title-text font-bengali animate-slide-up"
           style={{
-            fontSize: 'clamp(56px, 14vw, 118px)',
+            fontSize: 'clamp(56px, 14.5vw, 118px)',
             fontWeight: 400,
             color: '#f0c040',
-            lineHeight: 1.12,
+            lineHeight: 1.1,
             letterSpacing: '0.01em',
             textShadow:
               '0 4px 30px rgba(0, 0, 0, 0.55), 0 2px 12px rgba(0, 0, 0, 0.75), 0 0 40px rgba(240, 192, 64, 0.35)',
@@ -235,21 +232,21 @@ function HeroTitle() {
         className="mobile-only animate-slide-up"
         style={{
           marginTop: '6px',
-          fontSize: '13.5px',
+          fontSize: '14px',
           letterSpacing: '0.02em',
           animationDelay: '0.18s',
           textShadow: '0 2px 12px rgba(0, 0, 0, 0.85)',
-          color: 'rgba(255, 255, 255, 0.85)',
+          color: 'rgba(255, 255, 255, 0.90)',
         }}
       >
-        <span style={{ fontWeight: 700, color: '#ffffff', fontSize: '14.5px' }}>{days}</span>
+        <span style={{ fontWeight: 700, color: '#ffffff', fontSize: '15px' }}>{days}</span>
         <span>&nbsp;days until Durga Pujo</span>
       </p>
     </div>
   );
 }
 
-/* ─── Bottom Controls Block (Dead Center) ─────────────────── */
+/* ─── Bottom Controls Block (Responsive Bottom Center) ────── */
 function BottomBlock({
   onPlaylist,
   isPlayingDhak,
@@ -261,17 +258,17 @@ function BottomBlock({
 }) {
   return (
     <div
+      className="bottom-block-container"
       style={{
-        position: 'absolute',
-        bottom: '26px',
-        left: '50%',
-        transform: 'translateX(-50%)',
-        zIndex: 50,
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        gap: '12px',
-        width: 'min(540px, 92vw)',
+        gap: '10px',
+        width: '100%',
+        maxWidth: '540px',
+        margin: '0 auto',
+        flexShrink: 0,
+        zIndex: 50,
       }}
     >
       {/* Action pill buttons */}
@@ -363,7 +360,15 @@ export function HomePage() {
   useDynamicTheme(heroImage);
 
   return (
-    <div style={{ position: 'relative', width: '100vw', height: '100vh', overflow: 'hidden' }}>
+    <div
+      style={{
+        position: 'relative',
+        width: '100%',
+        height: '100dvh',
+        minHeight: '100dvh',
+        overflow: 'hidden',
+      }}
+    >
       {/* Hero background (Day/Night time-based) */}
       <div
         style={{
@@ -388,13 +393,46 @@ export function HomePage() {
         }}
       />
 
-      {/* UI Layer */}
-      <div style={{ position: 'relative', zIndex: 10, width: '100%', height: '100%' }}>
+      {/* Fully Responsive Main UI Layer */}
+      <div
+        className="app-main-layout"
+        style={{
+          position: 'relative',
+          zIndex: 10,
+          width: '100%',
+          height: '100%',
+          minHeight: '100dvh',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-between',
+          padding:
+            'max(14px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right)) max(18px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left))',
+          boxSizing: 'border-box',
+        }}
+      >
+        {/* Top Navbar */}
         <TopNavbar
           onPlaylist={() => setPlaylistOpen(true)}
           onAbout={() => setAboutOpen(true)}
         />
-        <HeroTitle />
+
+        {/* Center Hero Section (Elevated Upper Sky Position) */}
+        <div
+          style={{
+            flex: '1 1 auto',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'flex-start',
+            alignItems: 'center',
+            minHeight: '0',
+            width: '100%',
+            paddingTop: 'clamp(10px, 3.5vh, 48px)',
+          }}
+        >
+          <HeroTitle />
+        </div>
+
+        {/* Bottom Actions & Player */}
         <BottomBlock
           onPlaylist={() => setPlaylistOpen(true)}
           isPlayingDhak={isPlayingDhak}
