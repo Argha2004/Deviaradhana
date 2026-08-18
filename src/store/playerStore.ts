@@ -4,6 +4,7 @@ export type Song = {
   id: string;
   title: string;
   artist: string;
+  album?: string;
   duration: number; // seconds
   coverArt: string;
   audioUrl?: string;

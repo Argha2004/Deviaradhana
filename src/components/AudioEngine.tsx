@@ -4,6 +4,7 @@ import { usePlayerStore } from '../store/playerStore';
 /**
  * AudioEngine - Mounts once at the app root.
  * Syncs the HTML <audio> element with the Zustand player store for Cloudflare R2 streaming.
+ * Integrates Web Media Session API for native Android, iOS, Windows, and macOS system notifications & lock screens.
  */
 export function AudioEngine() {
   const audioRef = useRef<HTMLAudioElement | null>(null);
@@ -18,6 +19,9 @@ export function AudioEngine() {
     setCurrentTime,
     setDuration,
     next,
+    previous,
+    togglePlay,
+    seek,
   } = usePlayerStore();
 
   // Create audio element once with optimal streaming attributes
@@ -32,6 +36,110 @@ export function AudioEngine() {
       audio.src = '';
     };
   }, []);
+
+  // ── Native Media Session API (Android, iOS, Windows Notifications & Lock Screen) ──
+  useEffect(() => {
+    if (typeof window === 'undefined' || !('mediaSession' in navigator)) return;
+
+    if (currentSong) {
+      // Build absolute artwork URL for native mobile/desktop notification display
+      const artUrl = currentSong.coverArt
+        ? new URL(currentSong.coverArt, window.location.href).href
+        : new URL('/icon-512.png', window.location.href).href;
+
+      navigator.mediaSession.metadata = new MediaMetadata({
+        title: currentSong.title,
+        artist: currentSong.artist,
+        album: currentSong.album || 'Devi Pakhsa • Durga Puja',
+        artwork: [
+          { src: artUrl, sizes: '96x96', type: 'image/png' },
+          { src: artUrl, sizes: '128x128', type: 'image/png' },
+          { src: artUrl, sizes: '192x192', type: 'image/png' },
+          { src: artUrl, sizes: '256x256', type: 'image/png' },
+          { src: artUrl, sizes: '384x384', type: 'image/png' },
+          { src: artUrl, sizes: '512x512', type: 'image/png' },
+        ],
+      });
+    }
+
+    // Register Native System Notification Action Handlers
+    try {
+      navigator.mediaSession.setActionHandler('play', () => {
+        const audio = audioRef.current;
+        if (audio && !isPlaying) {
+          togglePlay();
+        }
+      });
+    } catch {}
+
+    try {
+      navigator.mediaSession.setActionHandler('pause', () => {
+        const audio = audioRef.current;
+        if (audio && isPlaying) {
+          togglePlay();
+        }
+      });
+    } catch {}
+
+    try {
+      navigator.mediaSession.setActionHandler('previoustrack', () => {
+        previous();
+      });
+    } catch {}
+
+    try {
+      navigator.mediaSession.setActionHandler('nexttrack', () => {
+        next();
+      });
+    } catch {}
+
+    try {
+      navigator.mediaSession.setActionHandler('seekto', (details) => {
+        if (details.seekTime !== undefined && details.seekTime !== null) {
+          seek(details.seekTime);
+        }
+      });
+    } catch {}
+
+    try {
+      navigator.mediaSession.setActionHandler('seekbackward', (details) => {
+        const audio = audioRef.current;
+        if (audio) {
+          const skip = details.seekOffset || 10;
+          seek(Math.max(0, audio.currentTime - skip));
+        }
+      });
+    } catch {}
+
+    try {
+      navigator.mediaSession.setActionHandler('seekforward', (details) => {
+        const audio = audioRef.current;
+        if (audio) {
+          const skip = details.seekOffset || 10;
+          seek(Math.min(audio.duration || 9999, audio.currentTime + skip));
+        }
+      });
+    } catch {}
+
+    return () => {
+      // Clear handlers
+      try {
+        navigator.mediaSession.setActionHandler('play', null);
+        navigator.mediaSession.setActionHandler('pause', null);
+        navigator.mediaSession.setActionHandler('previoustrack', null);
+        navigator.mediaSession.setActionHandler('nexttrack', null);
+        navigator.mediaSession.setActionHandler('seekto', null);
+        navigator.mediaSession.setActionHandler('seekbackward', null);
+        navigator.mediaSession.setActionHandler('seekforward', null);
+      } catch {}
+    };
+  }, [currentSong?.id, currentSong?.title, currentSong?.artist, isPlaying]);
+
+  // Update Media Session playback state
+  useEffect(() => {
+    if (typeof window === 'undefined' || !('mediaSession' in navigator)) return;
+    navigator.mediaSession.playbackState = isPlaying ? 'playing' : 'paused';
+  }, [isPlaying]);
 
   // Sync src when song changes
   useEffect(() => {
@@ -110,6 +218,24 @@ export function AudioEngine() {
     const onTimeUpdate = () => {
       if (audio.currentTime !== undefined) {
         setCurrentTime(audio.currentTime);
+
+        // Update system notification progress position
+        if (
+          'mediaSession' in navigator &&
+          'setPositionState' in navigator.mediaSession &&
+          audio.duration &&
+          !isNaN(audio.duration) &&
+          isFinite(audio.duration) &&
+          audio.duration > 0
+        ) {
+          try {
+            navigator.mediaSession.setPositionState({
+              duration: audio.duration,
+              playbackRate: audio.playbackRate || 1.0,
+              position: Math.min(audio.currentTime, audio.duration),
+            });
+          } catch {}
+        }
       }
     };
 
