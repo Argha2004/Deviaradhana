@@ -244,8 +244,8 @@ body {
 
 /* ── Desktop Album Artwork ── */
 .np-art {
-  width: 48px;
-  height: 48px;
+  width: 60px;
+  height: 60px;
   border-radius: 10px;
   object-fit: cover;
   flex-shrink: 0;
@@ -471,7 +471,7 @@ body {
   }
 
   .np-surface {
-    padding: 5;
+    padding: 8;
     border-radius: 18px;
   }
 
