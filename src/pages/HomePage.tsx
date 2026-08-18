@@ -272,7 +272,7 @@ function BottomBlock({
       }}
     >
       {/* Action pill buttons */}
-      <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
+      <div className="bottom-pills-row" style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
         <button
           className="pill-btn"
           onClick={onPlaylist}
@@ -292,7 +292,7 @@ function BottomBlock({
             <line x1="3" y1="12" x2="21" y2="12" />
             <line x1="3" y1="18" x2="21" y2="18" />
           </svg>
-          PUJA RADIO
+          DURGA PUJA
           <svg
             width="10"
             height="10"
@@ -307,9 +307,9 @@ function BottomBlock({
           </svg>
         </button>
 
-        {/* DHAK Button: Streams Cloudflare R2 Dhak Beat */}
+        {/* DHAK Button: Streams Cloudflare R2 Dhak Beat (Visible on Desktop) */}
         <button
-          className={`pill-btn ${isPlayingDhak ? 'active' : ''}`}
+          className={`pill-btn pill-btn-dhak-top ${isPlayingDhak ? 'active' : ''}`}
           onClick={onToggleDhak}
           title={isPlayingDhak ? 'Pause Dhak' : 'Play Dhak sound'}
           aria-label="Festive Dhak Percussion"
@@ -334,7 +334,7 @@ function BottomBlock({
       </div>
 
       {/* Music player */}
-      <MusicPlayer />
+      <MusicPlayer isPlayingDhak={isPlayingDhak} onToggleDhak={onToggleDhak} />
     </div>
   );
 }
