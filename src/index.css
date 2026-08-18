@@ -6,9 +6,9 @@
 :root {
   /* Dynamic Background & Glass Defaults (Updated dynamically via useDynamicTheme) */
   --dyn-glass-bg: rgba(20, 16, 12, 0.72);
-  --dyn-glass-pill: rgba(32, 24, 18, 0.82);
+  --dyn-glass-pill: rgba(48, 34, 23, 0.9);
   --dyn-glass-surface: rgba(22, 16, 12, 0.92);
-  --dyn-glass-border: rgba(255, 230, 161, 0.114);
+  --dyn-glass-border: rgb(235, 232, 224);
   --dyn-dom-rgb: 48, 36, 26;
   --dyn-accent-rgb: 238, 187, 60;
 
@@ -206,7 +206,7 @@ body {
 .np-surface {
   width: 100%;
   background: var(--dyn-glass-pill);
-  backdrop-filter: blur(32px);
+  backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(32px);
   border: 1px solid var(--dyn-glass-border);
   border-radius: 20px;
@@ -260,7 +260,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 2px;
+  gap: 1px;
   overflow: hidden;
 }
 
@@ -273,7 +273,7 @@ body {
 }
 
 .np-title {
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 500;
   color: #ffffff;
   white-space: nowrap;
@@ -310,7 +310,7 @@ body {
 }
 
 .np-artist {
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 400;
   color: rgba(255, 255, 255, 0.55);
   white-space: nowrap;
@@ -911,7 +911,7 @@ body {
   background: var(--dyn-glass-pill);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid var(--dyn-glass-border);
+  border: 2px solid var(--dyn-glass-border);
   border-radius: 999px;
   padding: 9px 20px;
   color: #ffffff;
@@ -949,10 +949,10 @@ body {
   background: var(--dyn-glass-pill);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid var(--dyn-glass-border);
+  border: 2px solid var(--dyn-glass-border);
   border-radius: 50%;
   cursor: pointer;
-  color: rgba(255, 255, 255, 0.85);
+  color: rgba(255, 255, 255, 0.893);
   transition: background 0.7s var(--ios-spring), border-color 0.7s var(--ios-spring),
     color 0.35s var(--ios-spring), transform 0.4s var(--ios-spring-bounce);
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
