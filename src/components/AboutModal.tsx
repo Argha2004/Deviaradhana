@@ -236,7 +236,7 @@ export function AboutModal({ open, onClose }: AboutModalProps) {
           </p>
           <div
             className="copy-row"
-            style={{ maxWidth: '320px', margin: '0 auto' }}
+            style={{ maxWidth: '340px', width: '100%', margin: '0 auto' }}
           >
             <span className="copy-email">{APP_CONFIG.contactEmail}</span>
             <button

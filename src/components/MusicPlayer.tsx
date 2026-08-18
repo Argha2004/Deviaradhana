@@ -86,18 +86,6 @@ export function MusicPlayer() {
 
   return (
     <div className="np-surface">
-      {/* Progress track — thin bar at bottom */}
-      <div
-        className="np-progress-track"
-        onClick={handleSeek}
-        role="progressbar"
-        aria-valuenow={progress}
-        aria-valuemin={0}
-        aria-valuemax={100}
-      >
-        <div className="np-progress-fill" style={{ width: `${progress}%` }} />
-      </div>
-
       {/* Artwork */}
       <img
         src={currentSong.coverArt}
@@ -108,14 +96,38 @@ export function MusicPlayer() {
         onError={(e) => { (e.target as HTMLImageElement).src = artFallback; }}
       />
 
-      {/* Song info */}
+      {/* Song info with Lossless Badge & Progress bar */}
       <div className="np-info">
-        <div className="np-title">{currentSong.title}</div>
-        <div className="np-meta">
+        <div className="np-title-row">
+          <span className="np-title" title={currentSong.title}>
+            {currentSong.title}
+          </span>
+          <span className="np-lossless-badge">LOSSLESS</span>
+        </div>
+
+        <div className="np-artist-row">
           <span className="np-artist">{currentSong.artist}</span>
         </div>
-        <div className="np-time">
-          {formatTime(currentTime)} / {duration > 0 ? formatTime(duration) : '--:--'}
+
+        {/* Progress Bar & Timestamps */}
+        <div className="np-progress-row">
+          <div
+            className="np-slider-container"
+            onClick={handleSeek}
+            role="progressbar"
+            aria-valuenow={progress}
+            aria-valuemin={0}
+            aria-valuemax={100}
+            title="Seek playback position"
+          >
+            <div className="np-slider-bg" />
+            <div className="np-slider-fill" style={{ width: `${progress}%` }}>
+              <div className="np-slider-handle" />
+            </div>
+          </div>
+          <span className="np-time">
+            {formatTime(currentTime)} / {duration > 0 ? formatTime(duration) : '--:--'}
+          </span>
         </div>
       </div>
 
@@ -132,7 +144,7 @@ export function MusicPlayer() {
           <SkipBack size={18} />
         </button>
         <button className="np-play" onClick={togglePlay} aria-label={isPlaying ? 'Pause' : 'Play'}>
-          {isPlaying ? <Pause size={22} /> : <Play size={22} style={{ marginLeft: '2px' }} />}
+          {isPlaying ? <Pause size={20} /> : <Play size={20} style={{ marginLeft: '2px' }} />}
         </button>
         <button className="np-ctrl" onClick={next} aria-label="Next">
           <SkipForward size={18} />
