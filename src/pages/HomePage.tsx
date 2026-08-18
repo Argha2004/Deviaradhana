@@ -187,7 +187,7 @@ function TopNavbar({
   );
 }
 
-/* ─── Bengali Hero Title (With Mobile Countdown Subtitle) ─ */
+/* ─── Bengali Hero Title (With Mobile Countdown & Audio Disclaimer) ─ */
 function HeroTitle() {
   const lines = APP_CONFIG.heroTitle.split('\n');
   const days = daysUntil(APP_CONFIG.festivalDate);
@@ -197,7 +197,6 @@ function HeroTitle() {
       className="hero-title-container"
       style={{
         textAlign: 'center',
-        pointerEvents: 'none',
         userSelect: 'none',
         width: '100%',
         maxWidth: '1200px',
@@ -242,6 +241,59 @@ function HeroTitle() {
         <span style={{ fontWeight: 700, color: '#ffffff', fontSize: '15px' }}>{days}</span>
         <span>&nbsp;days until Durga Pujo</span>
       </p>
+
+      {/* Audio Disclaimer Badge (Self-Hosted 44.1kHz 16-Bit FLAC) */}
+      <div
+        className="hero-audio-disclaimer animate-slide-up"
+        style={{
+          marginTop: 'clamp(10px, 2.2vh, 20px)',
+          display: 'inline-flex',
+          alignItems: 'center',
+          gap: '8px',
+          padding: '6px 14px',
+          background: 'var(--dyn-glass-pill, rgba(48, 34, 23, 0.85))',
+          backdropFilter: 'blur(20px)',
+          WebkitBackdropFilter: 'blur(20px)',
+          border: '1px solid var(--dyn-glass-border, rgba(255, 235, 180, 0.2))',
+          borderRadius: '999px',
+          boxShadow: '0 6px 24px rgba(0, 0, 0, 0.4)',
+          animationDelay: '0.22s',
+          maxWidth: '94%',
+          pointerEvents: 'auto',
+        }}
+      >
+        <span
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            background: 'rgba(240, 192, 64, 0.18)',
+            border: '1px solid rgba(240, 192, 64, 0.45)',
+            borderRadius: '4.5px',
+            padding: '1.5px 6px',
+            fontSize: '9px',
+            fontWeight: 700,
+            color: '#f0c040',
+            letterSpacing: '0.06em',
+            textTransform: 'uppercase',
+            flexShrink: 0,
+            lineHeight: 1.1,
+          }}
+        >
+          ORIGINAL FLAC
+        </span>
+        <span
+          className="hero-disclaimer-text"
+          style={{
+            fontSize: '11px',
+            color: 'rgba(255, 255, 255, 0.8)',
+            letterSpacing: '0.01em',
+            lineHeight: 1.3,
+          }}
+        >
+          All songs streamed in studio lossless <strong>44.1 kHz / 16-bit FLAC</strong> from self-hosted server
+        </span>
+      </div>
     </div>
   );
 }
