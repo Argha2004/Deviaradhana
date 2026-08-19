@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Menu, Users, Disc, Heart } from 'lucide-react';
+import { Menu, Users, Disc, Coffee } from 'lucide-react';
 import { APP_CONFIG } from '../data/mockData';
 import { daysUntil, getTimeBasedHeroImage } from '../utils/helpers';
 import { useOnlinePresence } from '../hooks/useOnlinePresence';
@@ -41,40 +41,39 @@ function Clock() {
         padding: '7px 18px',
       }}
     >
-      {time}
+      <span>{time}</span>
     </div>
   );
 }
 
-/* ─── Online Presence Badge (Mobile Top Left) ────────────── */
+/* ─── Online Badge (Mobile Top Left) ──────────────────────── */
 function OnlineBadge() {
   const onlineCount = useOnlinePresence();
 
   return (
     <div
-      className="glass-pill select-none mobile-only"
+      className="glass-pill mobile-only select-none"
       style={{
+        display: 'none',
         alignItems: 'center',
-        gap: '8px',
-        fontSize: '13.5px',
-        fontWeight: 600,
-        color: '#ffffff',
-        letterSpacing: '0.02em',
-        boxShadow: '0 4px 20px rgba(0, 0, 0, 0.25)',
-        whiteSpace: 'nowrap',
-        padding: '8px 18px',
+        gap: '6px',
+        fontSize: '12px',
+        fontWeight: 500,
+        color: 'rgba(255, 255, 255, 0.90)',
+        boxShadow: '0 4px 16px rgba(0, 0, 0, 0.25)',
+        padding: '6px 12px',
       }}
     >
       <span
         className="pulse-dot"
         style={{
-          width: '8px',
-          height: '8px',
+          width: '7px',
+          height: '7px',
           borderRadius: '50%',
           background: '#4ade80',
           display: 'inline-block',
           flexShrink: 0,
-          boxShadow: '0 0 10px rgba(74, 222, 128, 0.8)',
+          boxShadow: '0 0 6px rgba(74, 222, 128, 0.6)',
         }}
       />
       <span>{onlineCount} online</span>
@@ -149,22 +148,78 @@ function TopControls({
       >
         <Menu size={18} strokeWidth={2.2} />
       </button>
-      <button
-        className="icon-circle icon-circle-support"
-        onClick={onSupport}
-        title="Support Me"
-        aria-label="Support Me"
+
+      {/* Merged Profile & Chai Support Pill */}
+      <div
+        className="profile-support-pill"
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '14px',
+          height: '38px',
+          padding: '0 16px',
+          background: 'var(--dyn-glass-pill)',
+          backdropFilter: 'blur(16px)',
+          WebkitBackdropFilter: 'blur(16px)',
+          border: '2px solid var(--dyn-glass-border)',
+          borderRadius: '999px',
+          boxShadow: '0 4px 16px rgba(0, 0, 0, 0.25)',
+        }}
       >
-        <Heart size={18} strokeWidth={2.2} />
-      </button>
-      <button
-        className="icon-circle"
-        onClick={onAbout}
-        title="About & Creators"
-        aria-label="About"
-      >
-        <Users size={18} strokeWidth={2.2} />
-      </button>
+        <button
+          onClick={onAbout}
+          title="About & Creators"
+          aria-label="About"
+          style={{
+            background: 'none',
+            border: 'none',
+            padding: 0,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            cursor: 'pointer',
+            color: 'rgba(255, 255, 255, 0.90)',
+            transition: 'color 0.2s, transform 0.2s',
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.color = '#ffffff';
+            e.currentTarget.style.transform = 'scale(1.15)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.color = 'rgba(255, 255, 255, 0.90)';
+            e.currentTarget.style.transform = 'scale(1)';
+          }}
+        >
+          <Users size={18} strokeWidth={2.2} />
+        </button>
+
+        <button
+          onClick={onSupport}
+          title="Buy Me A Chai"
+          aria-label="Buy Me A Chai"
+          style={{
+            background: 'none',
+            border: 'none',
+            padding: 0,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            cursor: 'pointer',
+            color: 'rgba(255, 255, 255, 0.90)',
+            transition: 'color 0.2s, transform 0.2s',
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.color = '#f0c040';
+            e.currentTarget.style.transform = 'scale(1.15)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.color = 'rgba(255, 255, 255, 0.90)';
+            e.currentTarget.style.transform = 'scale(1)';
+          }}
+        >
+          <Coffee size={18} strokeWidth={2.2} />
+        </button>
+      </div>
     </div>
   );
 }
