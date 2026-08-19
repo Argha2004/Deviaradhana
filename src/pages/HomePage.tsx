@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Menu, Users, Disc } from 'lucide-react';
+import { Menu, Users, Disc, Heart } from 'lucide-react';
 import { APP_CONFIG } from '../data/mockData';
 import { daysUntil, getTimeBasedHeroImage } from '../utils/helpers';
 import { useOnlinePresence } from '../hooks/useOnlinePresence';
@@ -8,6 +8,7 @@ import { useDhakAudio } from '../hooks/useDhakAudio';
 import { MusicPlayer } from '../components/MusicPlayer';
 import { PlaylistModal } from '../components/PlaylistModal';
 import { AboutModal } from '../components/AboutModal';
+import { SupportModal } from '../components/SupportModal';
 
 /* ─── Clock (PC Desktop Top Left) ────────────────────────── */
 function Clock() {
@@ -124,9 +125,11 @@ function StatusPill() {
 /* ─── Top Right Controls ─────────────────────────────────── */
 function TopControls({
   onPlaylist,
+  onSupport,
   onAbout,
 }: {
   onPlaylist: () => void;
+  onSupport: () => void;
   onAbout: () => void;
 }) {
   return (
@@ -147,6 +150,14 @@ function TopControls({
         <Menu size={18} strokeWidth={2.2} />
       </button>
       <button
+        className="icon-circle icon-circle-support"
+        onClick={onSupport}
+        title="Support Me"
+        aria-label="Support Me"
+      >
+        <Heart size={18} strokeWidth={2.2} />
+      </button>
+      <button
         className="icon-circle"
         onClick={onAbout}
         title="About & Creators"
@@ -161,9 +172,11 @@ function TopControls({
 /* ─── Unified Top Navbar (PC 3-Column / Mobile 2-Sided) ──── */
 function TopNavbar({
   onPlaylist,
+  onSupport,
   onAbout,
 }: {
   onPlaylist: () => void;
+  onSupport: () => void;
   onAbout: () => void;
 }) {
   return (
@@ -179,9 +192,9 @@ function TopNavbar({
         <StatusPill />
       </div>
 
-      {/* Right Item: Playlist & About buttons */}
+      {/* Right Item: Playlist, Support & About buttons */}
       <div className="top-navbar-right">
-        <TopControls onPlaylist={onPlaylist} onAbout={onAbout} />
+        <TopControls onPlaylist={onPlaylist} onSupport={onSupport} onAbout={onAbout} />
       </div>
     </header>
   );
@@ -360,6 +373,7 @@ function BottomBlock({
 /* ─── HomePage ────────────────────────────────────────────── */
 export function HomePage() {
   const [playlistOpen, setPlaylistOpen] = useState(false);
+  const [supportOpen, setSupportOpen] = useState(false);
   const [aboutOpen, setAboutOpen] = useState(false);
   const [heroImage, setHeroImage] = useState(() => getTimeBasedHeroImage());
   const { isPlayingDhak, toggleDhak } = useDhakAudio();
@@ -431,6 +445,7 @@ export function HomePage() {
         {/* Top Navbar */}
         <TopNavbar
           onPlaylist={() => setPlaylistOpen(true)}
+          onSupport={() => setSupportOpen(true)}
           onAbout={() => setAboutOpen(true)}
         />
 
@@ -460,6 +475,7 @@ export function HomePage() {
 
       {/* Modals */}
       <PlaylistModal open={playlistOpen} onClose={() => setPlaylistOpen(false)} />
+      <SupportModal open={supportOpen} onClose={() => setSupportOpen(false)} />
       <AboutModal open={aboutOpen} onClose={() => setAboutOpen(false)} />
     </div>
   );

@@ -981,6 +981,12 @@ body {
   border-color: rgba(255, 255, 255, 0.35);
 }
 
+.icon-circle-support:hover {
+  color: #f87171;
+  border-color: rgba(248, 113, 113, 0.45);
+  box-shadow: 0 4px 20px rgba(248, 113, 113, 0.25);
+}
+
 .icon-circle:active {
   transform: scale(0.88);
   transition-duration: 0.06s;
