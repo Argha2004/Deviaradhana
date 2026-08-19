@@ -1351,32 +1351,32 @@ body {
   }
 
   .calendar-header-title {
-    font-size: 16px;
+    font-size: 15px;
   }
 
   .calendar-header-sub {
-    font-size: 11px;
+    font-size: 10.5px;
   }
 
   .calendar-day-row {
-    padding: 8px 11px;
-    gap: 6px;
+    padding: 10px 11px;
+    gap: 10px;
   }
 
   .calendar-day-title-bn {
-    font-size: 12.5px;
+    font-size: 11.5px;
   }
 
   .calendar-day-title-en {
-    font-size: 10px;
-  }
-
-  .calendar-day-weekday {
     font-size: 9.5px;
   }
 
+  .calendar-day-weekday {
+    font-size: 7.5px;
+  }
+
   .calendar-day-date {
-    font-size: 11.5px;
+    font-size: 9.5px;
   }
 
   .calendar-day-badge {
@@ -1385,7 +1385,7 @@ body {
   }
 
   .calendar-footer-text {
-    font-size: 10px;
+    font-size: 9px;
   }
 }
 
