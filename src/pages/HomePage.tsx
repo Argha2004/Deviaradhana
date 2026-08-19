@@ -285,7 +285,7 @@ function HeroTitle() {
         textAlign: 'center',
         userSelect: 'none',
         width: '100%',
-        maxWidth: '1200px',
+        maxWidth: '1800px',
         padding: '8px 16px',
         display: 'flex',
         flexDirection: 'column',
@@ -420,11 +420,11 @@ function BottomBlock({
           style={
             isPlayingDhak
               ? {
-                  background: 'rgba(240, 192, 64, 0.28)',
-                  borderColor: 'rgba(240, 192, 64, 0.75)',
-                  color: '#ffffff',
-                  boxShadow: '0 0 20px rgba(240, 192, 64, 0.45)',
-                }
+                background: 'rgba(240, 192, 64, 0.28)',
+                borderColor: 'rgba(240, 192, 64, 0.75)',
+                color: '#ffffff',
+                boxShadow: '0 0 20px rgba(240, 192, 64, 0.45)',
+              }
               : undefined
           }
         >
