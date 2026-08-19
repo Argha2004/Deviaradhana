@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { X, ScanLine, Sparkles } from 'lucide-react';
+import { X, CupSoda } from 'lucide-react';
 
 interface SupportModalProps {
   open: boolean;
@@ -94,7 +94,7 @@ export function SupportModal({ open, onClose }: SupportModalProps) {
 
         {/* Header Title */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '6px' }}>
-          <Sparkles size={16} color="#f0c040" />
+          <CupSoda size={22} color="#ffffffff" />
           <h3
             style={{
               fontSize: '20px',
@@ -126,62 +126,26 @@ export function SupportModal({ open, onClose }: SupportModalProps) {
           style={{
             position: 'relative',
             background: 'linear-gradient(180deg, #ffffff 0%, #f8fafc 100%)',
-            padding: '16px 16px 14px',
-            borderRadius: '22px',
+            padding: '14px',
+            borderRadius: '20px',
             boxShadow:
               '0 20px 48px -8px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(255, 255, 255, 0.9), 0 0 30px rgba(240, 192, 64, 0.18)',
-            marginBottom: '18px',
+            marginBottom: '20px',
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            transition: 'transform 0.3s ease, box-shadow 0.3s ease',
           }}
         >
-          {/* Decorative subtle scanner corner frame */}
-          <div
+          <img
+            src={qrCodeUrl}
+            alt="QR Code"
             style={{
-              position: 'relative',
-              padding: '6px',
-              background: '#ffffff',
-              borderRadius: '14px',
-              border: '1px solid rgba(226, 232, 240, 0.8)',
+              width: '190px',
+              height: '190px',
+              display: 'block',
+              borderRadius: '10px',
             }}
-          >
-            <img
-              src={qrCodeUrl}
-              alt="Scan and Pay QR Code"
-              style={{
-                width: '190px',
-                height: '190px',
-                display: 'block',
-                borderRadius: '8px',
-              }}
-            />
-          </div>
-
-          {/* Bottom "Scan and Pay" Pill Label */}
-          <div
-            style={{
-              marginTop: '12px',
-              display: 'inline-flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: '6px',
-              padding: '5px 14px',
-              background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)',
-              borderRadius: '999px',
-              color: '#ffffff',
-              fontSize: '11.5px',
-              fontWeight: 600,
-              letterSpacing: '0.03em',
-              boxShadow: '0 2px 10px rgba(15, 23, 42, 0.3)',
-            }}
-          >
-            <ScanLine size={13} color="#38bdf8" />
-            <span style={{ color: '#ffffff' }}>Scan and Pay</span>
-            <span style={{ color: 'rgba(255,255,255,0.4)', fontSize: '10px' }}>•</span>
-            <span style={{ color: '#facc15', fontWeight: 700 }}>₹20</span>
-          </div>
+          />
         </div>
 
         {/* Footer Note */}
