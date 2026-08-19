@@ -151,7 +151,7 @@ export function SupportModal({ open, onClose }: SupportModalProps) {
         {/* Footer Note */}
         <div>
           <span style={{ fontSize: '11px', color: 'rgba(255,255,255,0.40)', letterSpacing: '0.02em' }}>
-            শুভ শারদীয়া ও শারদীয়ার প্রীতি ও শুভেচ্ছা! 🌸
+            Scan with any UPI App.
           </span>
         </div>
       </div>

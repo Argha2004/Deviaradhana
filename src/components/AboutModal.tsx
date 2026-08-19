@@ -41,7 +41,14 @@ function CreatorCard({ creator }: { creator: typeof APP_CONFIG.creators[0] }) {
     );
 
   return (
-    <div className="creator-card" style={{ flex: 1, minWidth: '130px' }}>
+    <div
+      className="creator-card"
+      style={{
+        width: '100%',
+        maxWidth: APP_CONFIG.creators.length === 1 ? '220px' : '150px',
+        margin: '0 auto',
+      }}
+    >
       <img
         src={creator.photo}
         alt={creator.name}
@@ -148,8 +155,8 @@ export function AboutModal({ open, onClose }: AboutModalProps) {
         className="animate-modal modal-surface"
         style={{
           width: '100%',
-          maxWidth: '560px',
-          padding: '28px 24px 24px',
+          maxWidth: '400px',
+          padding: '28px 22px 22px',
           position: 'relative',
         }}
       >
@@ -158,8 +165,8 @@ export function AboutModal({ open, onClose }: AboutModalProps) {
           onClick={onClose}
           style={{
             position: 'absolute',
-            top: '20px',
-            right: '20px',
+            top: '18px',
+            right: '18px',
             background: 'transparent',
             border: 'none',
             cursor: 'pointer',
@@ -192,19 +199,21 @@ export function AboutModal({ open, onClose }: AboutModalProps) {
             letterSpacing: '0.16em',
             color: 'rgba(255,255,255,0.48)',
             textTransform: 'uppercase',
-            marginBottom: '24px',
+            marginBottom: '20px',
           }}
         >
           Made with Bhalobasha by
         </div>
 
-        {/* Creator cards - Responsive flex grid for all creators */}
+        {/* Creator cards - Centered layout */}
         <div
           style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
             gap: '12px',
-            marginBottom: '28px',
+            marginBottom: '22px',
+            flexWrap: 'wrap',
           }}
         >
           {APP_CONFIG.creators.map((creator) => (
