@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { X, Calendar as CalendarIcon, Sparkles } from 'lucide-react';
+import { X, Calendar as CalendarIcon } from 'lucide-react';
 
 interface CalendarModalProps {
   open: boolean;
@@ -169,13 +169,12 @@ export function CalendarModal({ open, onClose }: CalendarModalProps) {
               display: 'inline-flex',
               alignItems: 'center',
               justifyContent: 'center',
-              gap: '6px',
-              color: '#f0c040',
+              gap: '5px',
+              color: '#ffffffff',
               marginBottom: '4px',
             }}
           >
-            <CalendarIcon size={18} />
-            <Sparkles size={14} />
+            <CalendarIcon size={25} />
           </div>
           <h3
             style={{
@@ -197,7 +196,6 @@ export function CalendarModal({ open, onClose }: CalendarModalProps) {
         <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginBottom: '16px' }}>
           {PUJA_DAYS_2026.map((day) => {
             const rel = getRelativeStatus(day.date);
-            const isHighlight = day.id === 'sasthi' || day.id === 'asthami';
 
             return (
               <div
@@ -208,10 +206,8 @@ export function CalendarModal({ open, onClose }: CalendarModalProps) {
                   justifyContent: 'space-between',
                   padding: '10px 14px',
                   borderRadius: '14px',
-                  background: isHighlight ? 'rgba(240, 192, 64, 0.12)' : 'rgba(255, 255, 255, 0.08)',
-                  border: isHighlight
-                    ? '1.5px solid rgba(240, 192, 64, 0.35)'
-                    : '1px solid rgba(255, 255, 255, 0.12)',
+                  background: 'rgba(255, 255, 255, 0.08)',
+                  border: '1px solid rgba(255, 255, 255, 0.12)',
                   transition: 'transform 0.2s, background 0.2s',
                 }}
               >
@@ -222,7 +218,7 @@ export function CalendarModal({ open, onClose }: CalendarModalProps) {
                       style={{
                         fontSize: '14px',
                         fontWeight: 700,
-                        color: isHighlight ? '#fef08a' : '#ffffff',
+                        color: '#ffffff',
                       }}
                     >
                       {day.nameBn}
@@ -242,7 +238,7 @@ export function CalendarModal({ open, onClose }: CalendarModalProps) {
                     style={{
                       fontSize: '13px',
                       fontWeight: 600,
-                      color: isHighlight ? '#f0c040' : '#ffffff',
+                      color: '#ffffff',
                       fontVariantNumeric: 'tabular-nums',
                     }}
                   >
@@ -256,10 +252,8 @@ export function CalendarModal({ open, onClose }: CalendarModalProps) {
                       borderRadius: '999px',
                       background: rel.isToday
                         ? '#22c55e'
-                        : isHighlight
-                        ? 'rgba(240, 192, 64, 0.25)'
                         : 'rgba(255, 255, 255, 0.10)',
-                      color: rel.isToday ? '#ffffff' : isHighlight ? '#fef08a' : 'rgba(255, 255, 255, 0.70)',
+                      color: rel.isToday ? '#ffffff' : 'rgba(255, 255, 255, 0.70)',
                     }}
                   >
                     {rel.text}
@@ -273,7 +267,7 @@ export function CalendarModal({ open, onClose }: CalendarModalProps) {
         {/* Footer */}
         <div style={{ textAlign: 'center' }}>
           <span style={{ fontSize: '11px', color: 'rgba(255,255,255,0.40)' }}>
-            আসছে বছর আবার হবে • শারদীয়ার প্রীতি ও শুভেচ্ছা 🌸
+            আসছে বছর আবার হবে • শারদীয়ার প্রীতি ও শুভেচ্ছা
           </span>
         </div>
       </div>
