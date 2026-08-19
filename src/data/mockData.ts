@@ -20,7 +20,7 @@ export const APP_CONFIG = {
   festivalDate: new Date('2026-10-17T00:00:00'),
   onlineCount: 0,
   contactEmail: 'arghadeeppakhira@gmail.com',
-  supportUpi: 'arghadeeppakhira@okaxis',
+  supportUpi: 'arghadeeppakhira-1@oksbi',
   creators: [
     {
       id: 'c1',

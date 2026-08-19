@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { X, Heart, Copy, Check, Share2, Sparkles } from 'lucide-react';
-import { APP_CONFIG } from '../data/mockData';
+import { X, Copy, Check, Share2, ExternalLink, QrCode, Sparkles } from 'lucide-react';
 
 interface SupportModalProps {
   open: boolean;
@@ -12,7 +11,13 @@ export function SupportModal({ open, onClose }: SupportModalProps) {
   const [shared, setShared] = useState(false);
   const overlayRef = useRef<HTMLDivElement>(null);
 
-  const upiId = (APP_CONFIG as any).supportUpi || 'arghadeeppakhira@okaxis';
+  const upiUri = 'upi://pay?pa=arghadeeppakhira-1@oksbi&pn=Devi%20Paksha&am=20&cu=INR';
+  const upiId = 'arghadeeppakhira-1@oksbi';
+
+  // Generate crisp QR code SVG via reliable generator API
+  const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=220x220&margin=6&format=svg&data=${encodeURIComponent(
+    upiUri,
+  )}`;
 
   // Escape to close
   useEffect(() => {
@@ -71,9 +76,13 @@ export function SupportModal({ open, onClose }: SupportModalProps) {
         className="animate-modal modal-surface"
         style={{
           width: '100%',
-          maxWidth: '480px',
-          padding: '28px 24px 24px',
+          maxWidth: '440px',
+          padding: '28px 22px 22px',
           position: 'relative',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          textAlign: 'center',
         }}
       >
         {/* Close Button */}
@@ -81,8 +90,8 @@ export function SupportModal({ open, onClose }: SupportModalProps) {
           onClick={onClose}
           style={{
             position: 'absolute',
-            top: '18px',
-            right: '18px',
+            top: '16px',
+            right: '16px',
             background: 'transparent',
             border: 'none',
             cursor: 'pointer',
@@ -106,176 +115,183 @@ export function SupportModal({ open, onClose }: SupportModalProps) {
           <X size={17} />
         </button>
 
-        {/* Top Heart Icon Badge */}
+        {/* Chai / Coffee Header */}
         <div
           style={{
+            width: '46px',
+            height: '46px',
+            borderRadius: '50%',
+            background: 'rgba(240, 192, 64, 0.15)',
+            border: '1.5px solid rgba(240, 192, 64, 0.35)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            fontSize: '22px',
+            marginBottom: '10px',
+            boxShadow: '0 0 24px rgba(240, 192, 64, 0.25)',
+          }}
+        >
+          ☕
+        </div>
+
+        <h3
+          style={{
+            fontSize: '18px',
+            fontWeight: 700,
+            color: '#ffffff',
+            margin: '0 0 6px 0',
+            letterSpacing: '-0.01em',
+          }}
+        >
+          Buy Me A Chai
+        </h3>
+
+        <p
+          style={{
+            fontSize: '12.5px',
+            color: 'rgba(255, 255, 255, 0.65)',
+            lineHeight: 1.45,
+            margin: '0 0 18px 0',
+            maxWidth: '360px',
+          }}
+        >
+          Liked the Pujo vibes? Treat us to a cup of chai. You bring the cha, we’ll bring more Pujo, gaan, and adda.
+        </p>
+
+        {/* ── QR CODE CARD ── */}
+        <div
+          style={{
+            background: '#ffffff',
+            padding: '12px',
+            borderRadius: '18px',
+            boxShadow: '0 8px 32px rgba(0, 0, 0, 0.5), 0 0 20px rgba(240, 192, 64, 0.15)',
+            border: '2px solid rgba(255, 255, 255, 0.8)',
+            marginBottom: '14px',
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            textAlign: 'center',
-            marginBottom: '20px',
           }}
         >
+          <img
+            src={qrCodeUrl}
+            alt="Devi Paksha UPI QR Code"
+            style={{
+              width: '180px',
+              height: '180px',
+              display: 'block',
+              borderRadius: '8px',
+            }}
+          />
+
           <div
             style={{
-              width: '48px',
-              height: '48px',
-              borderRadius: '50%',
-              background: 'rgba(240, 192, 64, 0.15)',
-              border: '1.5px solid rgba(240, 192, 64, 0.35)',
+              marginTop: '6px',
               display: 'flex',
               alignItems: 'center',
-              justifyContent: 'center',
-              color: '#f0c040',
-              marginBottom: '12px',
-              boxShadow: '0 0 24px rgba(240, 192, 64, 0.25)',
-            }}
-          >
-            <Heart size={22} fill="rgba(240, 192, 64, 0.4)" strokeWidth={2.2} />
-          </div>
-
-          <h3
-            style={{
-              fontSize: '18px',
+              gap: '5px',
+              fontSize: '11px',
               fontWeight: 700,
-              color: '#ffffff',
-              margin: '0 0 6px 0',
-              letterSpacing: '-0.01em',
+              color: '#1e293b',
+              letterSpacing: '0.02em',
             }}
           >
-            Support Devi Pakhsa
-          </h3>
-
-          <p
-            style={{
-              fontSize: '12.5px',
-              color: 'rgba(255, 255, 255, 0.65)',
-              lineHeight: 1.45,
-              margin: 0,
-              maxWidth: '380px',
-            }}
-          >
-            Devi Pakhsa is a non-profit passion project created with love to bring high-fidelity lossless Durga Puja music to everyone. Your support helps keep servers running.
-          </p>
+            <QrCode size={13} color="#0284c7" />
+            <span>Scan with any UPI App (₹20)</span>
+          </div>
         </div>
 
-        {/* Support Options Cards */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginBottom: '20px' }}>
-          {/* UPI Option */}
+        {/* Mobile Direct Pay Button (Opens GPay / PhonePe / Paytm / BHIM) */}
+        <a
+          href={upiUri}
+          className="pill-btn"
+          style={{
+            width: '100%',
+            maxWidth: '280px',
+            display: 'inline-flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '8px',
+            padding: '10px 18px',
+            background: 'rgba(240, 192, 64, 0.22)',
+            border: '1.5px solid rgba(240, 192, 64, 0.65)',
+            borderRadius: '999px',
+            color: '#ffffff',
+            fontWeight: 600,
+            fontSize: '12.5px',
+            textDecoration: 'none',
+            marginBottom: '14px',
+            boxShadow: '0 4px 18px rgba(240, 192, 64, 0.25)',
+          }}
+        >
+          <Sparkles size={14} color="#f0c040" />
+          <span>Pay ₹20 via UPI App</span>
+          <ExternalLink size={13} color="rgba(255,255,255,0.7)" />
+        </a>
+
+        {/* UPI Copy Box & Share */}
+        <div style={{ display: 'flex', gap: '8px', width: '100%', maxWidth: '340px', marginBottom: '14px' }}>
           <div
             style={{
-              background: 'rgba(255, 255, 255, 0.04)',
+              flex: 1,
+              background: 'rgba(255, 255, 255, 0.05)',
               border: '1px solid rgba(255, 255, 255, 0.10)',
-              borderRadius: '14px',
-              padding: '14px 16px',
+              borderRadius: '12px',
+              padding: '6px 10px',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between',
-              gap: '12px',
+              minWidth: 0,
             }}
           >
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', minWidth: 0 }}>
-              <div
-                style={{
-                  width: '34px',
-                  height: '34px',
-                  borderRadius: '10px',
-                  background: 'rgba(74, 222, 128, 0.15)',
-                  border: '1px solid rgba(74, 222, 128, 0.3)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  color: '#4ade80',
-                  flexShrink: 0,
-                }}
-              >
-                <Sparkles size={16} />
-              </div>
-              <div style={{ minWidth: 0 }}>
-                <span style={{ fontSize: '11px', color: 'rgba(255,255,255,0.45)', display: 'block' }}>
-                  UPI ID (GPay / PhonePe / Paytm)
-                </span>
-                <span
-                  style={{
-                    fontSize: '13px',
-                    fontWeight: 600,
-                    color: '#ffffff',
-                    whiteSpace: 'nowrap',
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                    display: 'block',
-                  }}
-                >
-                  {upiId}
-                </span>
-              </div>
-            </div>
-
+            <span
+              style={{
+                fontSize: '11px',
+                color: 'rgba(255,255,255,0.85)',
+                whiteSpace: 'nowrap',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                fontFamily: 'monospace',
+              }}
+            >
+              {upiId}
+            </span>
             <button
               className={`copy-btn-inner ${copiedUpi ? 'copied' : ''}`}
               onClick={handleCopyUpi}
-              style={{ flexShrink: 0 }}
+              style={{ padding: '3px 7px', fontSize: '9.5px', flexShrink: 0 }}
               aria-label="Copy UPI ID"
             >
-              {copiedUpi ? <Check size={12} /> : <Copy size={12} />}
+              {copiedUpi ? <Check size={10} /> : <Copy size={10} />}
               {copiedUpi ? 'COPIED' : 'COPY'}
             </button>
           </div>
 
-          {/* Share with Friends */}
-          <div
+          <button
+            className={`copy-btn-inner ${shared ? 'copied' : ''}`}
+            onClick={handleShare}
             style={{
-              background: 'rgba(255, 255, 255, 0.04)',
-              border: '1px solid rgba(255, 255, 255, 0.10)',
-              borderRadius: '14px',
-              padding: '14px 16px',
-              display: 'flex',
+              padding: '6px 12px',
+              borderRadius: '12px',
+              fontSize: '11px',
+              fontWeight: 600,
+              background: 'rgba(255, 255, 255, 0.07)',
+              border: '1px solid rgba(255, 255, 255, 0.12)',
+              color: '#ffffff',
+              display: 'inline-flex',
               alignItems: 'center',
-              justifyContent: 'space-between',
-              gap: '12px',
+              gap: '5px',
+              cursor: 'pointer',
+              flexShrink: 0,
             }}
+            aria-label="Share site"
           >
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-              <div
-                style={{
-                  width: '34px',
-                  height: '34px',
-                  borderRadius: '10px',
-                  background: 'rgba(96, 165, 250, 0.15)',
-                  border: '1px solid rgba(96, 165, 250, 0.3)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  color: '#60a5fa',
-                  flexShrink: 0,
-                }}
-              >
-                <Share2 size={16} />
-              </div>
-              <div>
-                <span style={{ fontSize: '13px', fontWeight: 600, color: '#ffffff', display: 'block' }}>
-                  Share with Family & Friends
-                </span>
-                <span style={{ fontSize: '11px', color: 'rgba(255,255,255,0.45)', display: 'block' }}>
-                  Spread the festive joy of Durga Puja
-                </span>
-              </div>
-            </div>
-
-            <button
-              className={`copy-btn-inner ${shared ? 'copied' : ''}`}
-              onClick={handleShare}
-              style={{ flexShrink: 0 }}
-              aria-label="Share site"
-            >
-              {shared ? <Check size={12} /> : <Share2 size={12} />}
-              {shared ? 'COPIED' : 'SHARE'}
-            </button>
-          </div>
+            {shared ? <Check size={12} /> : <Share2 size={12} />}
+            {shared ? 'COPIED' : 'SHARE'}
+          </button>
         </div>
 
         {/* Footer Note */}
-        <div style={{ textAlign: 'center' }}>
+        <div>
           <span style={{ fontSize: '11px', color: 'rgba(255,255,255,0.40)' }}>
             শুভ শারদীয়া ও শারদীয়ার প্রীতি ও শুভেচ্ছা! 🌸
           </span>
