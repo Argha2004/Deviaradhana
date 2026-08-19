@@ -78,18 +78,18 @@ export async function extractPaletteFromImage(imageUrl: string): Promise<Dynamic
         const domB = Math.round(totalB / count);
 
         // Compute harmonious palette based on majority background color
-        const darkR = Math.max(12, Math.round(domR * 0.28));
-        const darkG = Math.max(10, Math.round(domG * 0.28));
-        const darkB = Math.max(8, Math.round(domB * 0.28));
+        const darkR = Math.max(16, Math.round(domR * 0.30));
+        const darkG = Math.max(14, Math.round(domG * 0.30));
+        const darkB = Math.max(12, Math.round(domB * 0.30));
 
         const palette: DynamicPalette = {
           primary: [domR, domG, domB],
           accent: [vibrantR, vibrantG, vibrantB],
           darkTone: [darkR, darkG, darkB],
-          glassBg: `rgba(255, 255, 255, 0.16)`,
-          glassPill: `rgba(255, 255, 255, 0.22)`,
-          glassSurface: `rgba(${Math.max(22, Math.round(domR * 0.18 + 14))}, ${Math.max(18, Math.round(domG * 0.18 + 12))}, ${Math.max(16, Math.round(domB * 0.18 + 10))}, 0.88)`,
-          glassBorder: `rgba(255, 255, 255, 0.35)`,
+          glassBg: `rgba(${darkR + 10}, ${darkG + 8}, ${darkB + 6}, 0.78)`,
+          glassPill: `rgba(${Math.round(domR * 0.35 + 20)}, ${Math.round(domG * 0.35 + 16)}, ${Math.round(domB * 0.35 + 12)}, 0.895)`,
+          glassSurface: `rgba(${Math.max(22, Math.round(domR * 0.22))}, ${Math.max(18, Math.round(domG * 0.22))}, ${Math.max(14, Math.round(domB * 0.22))}, 0.92)`,
+          glassBorder: `rgba(235, 232, 224, 0.35)`,
           accentGold: `rgb(${vibrantR}, ${vibrantG}, ${vibrantB})`,
           accentGlow: `rgba(${vibrantR}, ${vibrantG}, ${vibrantB}, 0.35)`,
         };
@@ -116,10 +116,10 @@ export function getDefaultPalette(): DynamicPalette {
     primary: [48, 36, 26],
     accent: [238, 187, 60],
     darkTone: [20, 16, 12],
-    glassBg: 'rgba(255, 255, 255, 0.16)',
-    glassPill: 'rgba(255, 255, 255, 0.22)',
-    glassSurface: 'rgba(28, 22, 18, 0.88)',
-    glassBorder: 'rgba(255, 255, 255, 0.35)',
+    glassBg: 'rgba(36, 33, 29, 0.764)',
+    glassPill: 'rgba(53, 45, 39, 0.895)',
+    glassSurface: 'rgba(22, 16, 12, 0.92)',
+    glassBorder: 'rgba(235, 232, 224, 0.35)',
     accentGold: '#eebb3c',
     accentGlow: 'rgba(238, 187, 60, 0.35)',
   };

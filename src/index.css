@@ -4,12 +4,12 @@
    DESIGN TOKENS — Dynamic Transparent Glassmorphism
    ============================================================ */
 :root {
-  /* Dynamic Background & Glass Defaults (Frosted White Translucent) */
-  --dyn-glass-bg: rgba(255, 255, 255, 0.16);
-  --dyn-glass-pill: rgba(255, 255, 255, 0.22);
-  --dyn-glass-surface: rgba(30, 26, 24, 0.88);
-  --dyn-glass-border: rgba(255, 255, 255, 0.35);
-  --dyn-dom-rgb: 255, 255, 255;
+  /* Dynamic Background & Glass Defaults (Warm Rich Frosted Glass) */
+  --dyn-glass-bg: rgba(36, 33, 29, 0.764);
+  --dyn-glass-pill: rgba(53, 45, 39, 0.895);
+  --dyn-glass-surface: rgba(22, 16, 12, 0.92);
+  --dyn-glass-border: rgba(235, 232, 224, 0.35);
+  --dyn-dom-rgb: 48, 36, 26;
   --dyn-accent-rgb: 238, 187, 60;
 
   /* Refined Gold & Accent Tokens (Fixed high-contrast values) */
