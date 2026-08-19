@@ -82,14 +82,19 @@ export async function extractPaletteFromImage(imageUrl: string): Promise<Dynamic
         const darkG = Math.max(14, Math.round(domG * 0.30));
         const darkB = Math.max(12, Math.round(domB * 0.30));
 
+        // Compute warm festive earthen/terracotta palette matching Durga Puja hero aesthetic
+        const warmR = Math.max(68, Math.round(domR * 0.52 + 30));
+        const warmG = Math.max(44, Math.round(domG * 0.42 + 18));
+        const warmB = Math.max(34, Math.round(domB * 0.38 + 12));
+
         const palette: DynamicPalette = {
           primary: [domR, domG, domB],
           accent: [vibrantR, vibrantG, vibrantB],
-          darkTone: [darkR, darkG, darkB],
-          glassBg: 'rgba(255, 255, 255, 0.22)',
-          glassPill: 'rgba(255, 255, 255, 0.28)',
-          glassSurface: 'rgba(32, 28, 26, 0.85)',
-          glassBorder: 'rgba(255, 255, 255, 0.45)',
+          darkTone: [Math.round(warmR * 0.6), Math.round(warmG * 0.6), Math.round(warmB * 0.6)],
+          glassBg: `rgba(${Math.round(warmR * 0.75)}, ${Math.round(warmG * 0.75)}, ${Math.round(warmB * 0.75)}, 0.80)`,
+          glassPill: `rgba(${warmR}, ${warmG}, ${warmB}, 0.88)`,
+          glassSurface: `rgba(${Math.round(warmR * 0.65)}, ${Math.round(warmG * 0.65)}, ${Math.round(warmB * 0.65)}, 0.92)`,
+          glassBorder: `rgba(255, 225, 190, 0.22)`,
           accentGold: `rgb(${vibrantR}, ${vibrantG}, ${vibrantB})`,
           accentGlow: `rgba(${vibrantR}, ${vibrantG}, ${vibrantB}, 0.35)`,
         };
@@ -109,17 +114,17 @@ export async function extractPaletteFromImage(imageUrl: string): Promise<Dynamic
 }
 
 /**
- * Default festive warm Durga Puja amber/terracotta palette
+ * Default festive warm Durga Puja terracotta/earthen amber palette
  */
 export function getDefaultPalette(): DynamicPalette {
   return {
-    primary: [48, 36, 26],
+    primary: [72, 46, 36],
     accent: [238, 187, 60],
-    darkTone: [20, 16, 12],
-    glassBg: 'rgba(255, 255, 255, 0.22)',
-    glassPill: 'rgba(255, 255, 255, 0.28)',
-    glassSurface: 'rgba(32, 28, 26, 0.85)',
-    glassBorder: 'rgba(255, 255, 255, 0.45)',
+    darkTone: [42, 28, 22],
+    glassBg: 'rgba(48, 34, 26, 0.80)',
+    glassPill: 'rgba(72, 46, 36, 0.88)',
+    glassSurface: 'rgba(42, 28, 22, 0.92)',
+    glassBorder: 'rgba(255, 225, 190, 0.22)',
     accentGold: '#eebb3c',
     accentGlow: 'rgba(238, 187, 60, 0.35)',
   };
