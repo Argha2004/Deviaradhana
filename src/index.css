@@ -4,12 +4,12 @@
    DESIGN TOKENS — Dynamic Transparent Glassmorphism
    ============================================================ */
 :root {
-  /* Dynamic Background & Glass Defaults (Updated dynamically via useDynamicTheme) */
-  --dyn-glass-bg: rgba(20, 16, 12, 0.72);
-  --dyn-glass-pill: rgba(48, 34, 23, 0.9);
-  --dyn-glass-surface: rgba(22, 16, 12, 0.92);
-  --dyn-glass-border: rgb(235, 232, 224);
-  --dyn-dom-rgb: 48, 36, 26;
+  /* Dynamic Background & Glass Defaults (Frosted White Translucent) */
+  --dyn-glass-bg: rgba(255, 255, 255, 0.16);
+  --dyn-glass-pill: rgba(255, 255, 255, 0.22);
+  --dyn-glass-surface: rgba(30, 26, 24, 0.88);
+  --dyn-glass-border: rgba(255, 255, 255, 0.35);
+  --dyn-dom-rgb: 255, 255, 255;
   --dyn-accent-rgb: 238, 187, 60;
 
   /* Refined Gold & Accent Tokens (Fixed high-contrast values) */
@@ -260,8 +260,8 @@ body {
 
 /* ── Desktop Album Artwork ── */
 .np-art {
-  width: 60px;
-  height: 60px;
+  width: 80px;
+  height: 80px;
   border-radius: 10px;
   object-fit: cover;
   flex-shrink: 0;
@@ -283,7 +283,7 @@ body {
 .np-title-row {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 25px;
   min-width: 0;
   width: 100%;
 }
@@ -327,12 +327,12 @@ body {
 
 .np-artist {
   font-size: 12px;
-  font-weight: 400;
+  font-weight: 300;
   color: rgba(255, 255, 255, 0.55);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  line-height: 1.2;
+  line-height: 1;
 }
 
 /* ── Desktop Inline Progress Bar & Time ── */
@@ -832,7 +832,7 @@ body {
 }
 
 .song-row:hover {
-  background: rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.12);
   transform: scale(1.012) translateX(2px);
 }
 
@@ -925,9 +925,9 @@ body {
   align-items: center;
   gap: 7px;
   background: var(--dyn-glass-pill);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 2px solid var(--dyn-glass-border);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1.5px solid var(--dyn-glass-border);
   border-radius: 999px;
   padding: 9px 20px;
   color: #ffffff;
@@ -935,17 +935,17 @@ body {
   font-weight: 600;
   letter-spacing: 0.06em;
   cursor: pointer;
-  transition: background 0.7s var(--ios-spring), border-color 0.7s var(--ios-spring),
-    transform 0.4s var(--ios-spring-bounce), box-shadow 0.5s var(--ios-spring);
+  transition: background 0.4s var(--ios-spring), border-color 0.4s var(--ios-spring),
+    transform 0.4s var(--ios-spring-bounce), box-shadow 0.4s var(--ios-spring);
   text-transform: uppercase;
-  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.2);
 }
 
 .pill-btn:hover {
-  background: rgba(var(--dyn-dom-rgb), 0.85);
-  border-color: rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.35);
+  border-color: rgba(255, 255, 255, 0.65);
   transform: translateY(-2px) scale(1.02);
-  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.3);
 }
 
 .pill-btn:active {
@@ -965,26 +965,26 @@ body {
   background: var(--dyn-glass-pill);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 2px solid var(--dyn-glass-border);
+  border: 1.5px solid var(--dyn-glass-border);
   border-radius: 50%;
   cursor: pointer;
-  color: rgba(255, 255, 255, 0.893);
-  transition: background 0.7s var(--ios-spring), border-color 0.7s var(--ios-spring),
+  color: rgba(255, 255, 255, 0.95);
+  transition: background 0.4s var(--ios-spring), border-color 0.4s var(--ios-spring),
     color 0.35s var(--ios-spring), transform 0.4s var(--ios-spring-bounce);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
 }
 
 .icon-circle:hover {
-  background: rgba(var(--dyn-dom-rgb), 0.90);
+  background: rgba(255, 255, 255, 0.35);
   color: #ffffff;
   transform: scale(1.12);
-  border-color: rgba(255, 255, 255, 0.35);
+  border-color: rgba(255, 255, 255, 0.65);
 }
 
 .icon-circle-support:hover {
   color: #f87171;
-  border-color: rgba(248, 113, 113, 0.45);
-  box-shadow: 0 4px 20px rgba(248, 113, 113, 0.25);
+  border-color: rgba(248, 113, 113, 0.55);
+  box-shadow: 0 4px 20px rgba(248, 113, 113, 0.3);
 }
 
 .icon-circle:active {
@@ -996,8 +996,10 @@ body {
    CREATOR CARD — iOS Card Elevation Spring
    ============================================================ */
 .creator-card {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid var(--dyn-glass-border);
+  background: rgba(255, 255, 255, 0.16);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1.5px solid var(--dyn-glass-border);
   border-radius: 16px;
   padding: 24px 16px 20px;
   display: flex;
@@ -1006,11 +1008,12 @@ body {
   gap: 12px;
   transition: background 0.5s var(--ios-spring), border-color 0.7s var(--ios-spring),
     transform 0.5s var(--ios-spring-bounce), box-shadow 0.5s var(--ios-spring);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
 }
 
 .creator-card:hover {
-  background: rgba(255, 255, 255, 0.09);
-  border-color: rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.24);
+  border-color: rgba(255, 255, 255, 0.60);
   transform: translateY(-4px) scale(1.02);
   box-shadow: 0 12px 36px rgba(0, 0, 0, 0.35);
 }

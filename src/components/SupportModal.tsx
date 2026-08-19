@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { X, CupSoda } from 'lucide-react';
+import { X, Coffee } from 'lucide-react';
 
 interface SupportModalProps {
   open: boolean;
@@ -93,8 +93,8 @@ export function SupportModal({ open, onClose }: SupportModalProps) {
         </button>
 
         {/* Header Title */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '6px' }}>
-          <CupSoda size={22} color="#ffffffff" />
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '6px' }}>
+          <Coffee size={25} color="#ffffffff" />
           <h3
             style={{
               fontSize: '20px',
