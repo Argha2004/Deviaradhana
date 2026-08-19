@@ -9,9 +9,10 @@ import { MusicPlayer } from '../components/MusicPlayer';
 import { PlaylistModal } from '../components/PlaylistModal';
 import { AboutModal } from '../components/AboutModal';
 import { SupportModal } from '../components/SupportModal';
+import { CalendarModal } from '../components/CalendarModal';
 
 /* ─── Clock (PC Desktop Top Left) ────────────────────────── */
-function Clock() {
+function Clock({ onClick }: { onClick?: () => void }) {
   const [time, setTime] = useState('');
 
   useEffect(() => {
@@ -29,8 +30,11 @@ function Clock() {
   }, []);
 
   return (
-    <div
+    <button
+      onClick={onClick}
       className="glass-pill select-none desktop-only"
+      title="Durga Puja 2026 Calendar"
+      aria-label="Durga Puja Calendar"
       style={{
         fontSize: '13.5px',
         fontWeight: 600,
@@ -39,20 +43,29 @@ function Clock() {
         boxShadow: '0 4px 20px rgba(0, 0, 0, 0.25)',
         whiteSpace: 'nowrap',
         padding: '7px 18px',
+        cursor: 'pointer',
+        border: '1.5px solid var(--dyn-glass-border)',
+        background: 'var(--dyn-glass-pill)',
+        display: 'inline-flex',
+        alignItems: 'center',
+        gap: '6px',
       }}
     >
       <span>{time}</span>
-    </div>
+    </button>
   );
 }
 
 /* ─── Online Badge (Mobile Top Left) ──────────────────────── */
-function OnlineBadge() {
+function OnlineBadge({ onClick }: { onClick?: () => void }) {
   const onlineCount = useOnlinePresence();
 
   return (
-    <div
+    <button
+      onClick={onClick}
       className="glass-pill mobile-only select-none"
+      title="Durga Puja 2026 Calendar"
+      aria-label="Durga Puja Calendar"
       style={{
         display: 'none',
         alignItems: 'center',
@@ -62,6 +75,9 @@ function OnlineBadge() {
         color: 'rgba(255, 255, 255, 0.90)',
         boxShadow: '0 4px 16px rgba(0, 0, 0, 0.25)',
         padding: '6px 12px',
+        cursor: 'pointer',
+        border: '1.5px solid var(--dyn-glass-border)',
+        background: 'var(--dyn-glass-pill)',
       }}
     >
       <span
@@ -77,7 +93,7 @@ function OnlineBadge() {
         }}
       />
       <span>{onlineCount} online</span>
-    </div>
+    </button>
   );
 }
 
@@ -229,17 +245,19 @@ function TopNavbar({
   onPlaylist,
   onSupport,
   onAbout,
+  onCalendar,
 }: {
   onPlaylist: () => void;
   onSupport: () => void;
   onAbout: () => void;
+  onCalendar: () => void;
 }) {
   return (
     <header className="top-navbar animate-slide-up">
       {/* Left Item: Clock on PC, OnlineBadge on Mobile */}
       <div className="top-navbar-left">
-        <Clock />
-        <OnlineBadge />
+        <Clock onClick={onCalendar} />
+        <OnlineBadge onClick={onCalendar} />
       </div>
 
       {/* Center Item: Status Pill on PC Desktop */}
@@ -430,6 +448,7 @@ export function HomePage() {
   const [playlistOpen, setPlaylistOpen] = useState(false);
   const [supportOpen, setSupportOpen] = useState(false);
   const [aboutOpen, setAboutOpen] = useState(false);
+  const [calendarOpen, setCalendarOpen] = useState(false);
   const [heroImage, setHeroImage] = useState(() => getTimeBasedHeroImage());
   const { isPlayingDhak, toggleDhak } = useDhakAudio();
 
@@ -502,6 +521,7 @@ export function HomePage() {
           onPlaylist={() => setPlaylistOpen(true)}
           onSupport={() => setSupportOpen(true)}
           onAbout={() => setAboutOpen(true)}
+          onCalendar={() => setCalendarOpen(true)}
         />
 
         {/* Center Hero Section (Elevated Upper Sky Position) */}
@@ -532,6 +552,7 @@ export function HomePage() {
       <PlaylistModal open={playlistOpen} onClose={() => setPlaylistOpen(false)} />
       <SupportModal open={supportOpen} onClose={() => setSupportOpen(false)} />
       <AboutModal open={aboutOpen} onClose={() => setAboutOpen(false)} />
+      <CalendarModal open={calendarOpen} onClose={() => setCalendarOpen(false)} />
     </div>
   );
 }
