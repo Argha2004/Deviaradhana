@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { X, QrCode } from 'lucide-react';
+import { X, ScanLine, Sparkles } from 'lucide-react';
 
 interface SupportModalProps {
   open: boolean;
@@ -11,8 +11,8 @@ export function SupportModal({ open, onClose }: SupportModalProps) {
 
   const upiUri = 'upi://pay?pa=arghadeeppakhira-1@oksbi&pn=Devi%20Aradhana&am=20&cu=INR';
 
-  // Generate crisp QR code SVG via reliable generator API
-  const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=240x240&margin=8&format=svg&data=${encodeURIComponent(
+  // Crisp high-resolution QR vector SVG
+  const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=320x320&margin=10&format=svg&data=${encodeURIComponent(
     upiUri,
   )}`;
 
@@ -48,13 +48,14 @@ export function SupportModal({ open, onClose }: SupportModalProps) {
         className="animate-modal modal-surface"
         style={{
           width: '100%',
-          maxWidth: '420px',
-          padding: '32px 24px 28px',
+          maxWidth: '400px',
+          padding: '30px 24px 24px',
           position: 'relative',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
           textAlign: 'center',
+          borderRadius: '26px',
         }}
       >
         {/* Close Button */}
@@ -64,100 +65,128 @@ export function SupportModal({ open, onClose }: SupportModalProps) {
             position: 'absolute',
             top: '16px',
             right: '16px',
-            background: 'transparent',
-            border: 'none',
+            background: 'rgba(255, 255, 255, 0.06)',
+            border: '1px solid rgba(255, 255, 255, 0.1)',
             cursor: 'pointer',
-            color: 'rgba(255,255,255,0.40)',
+            color: 'rgba(255,255,255,0.55)',
             display: 'flex',
             alignItems: 'center',
-            padding: '6px',
+            justifyContent: 'center',
+            width: '30px',
+            height: '30px',
             borderRadius: '50%',
-            transition: 'color 0.15s, background 0.15s',
+            transition: 'color 0.2s, background 0.2s, transform 0.2s',
           }}
           onMouseEnter={(e) => {
-            e.currentTarget.style.color = 'white';
-            e.currentTarget.style.background = 'rgba(255,255,255,0.06)';
+            e.currentTarget.style.color = '#ffffff';
+            e.currentTarget.style.background = 'rgba(255,255,255,0.14)';
+            e.currentTarget.style.transform = 'scale(1.08)';
           }}
           onMouseLeave={(e) => {
-            e.currentTarget.style.color = 'rgba(255,255,255,0.40)';
-            e.currentTarget.style.background = 'transparent';
+            e.currentTarget.style.color = 'rgba(255,255,255,0.55)';
+            e.currentTarget.style.background = 'rgba(255, 255, 255, 0.06)';
+            e.currentTarget.style.transform = 'scale(1)';
           }}
           aria-label="Close"
         >
-          <X size={17} />
+          <X size={16} />
         </button>
 
         {/* Header Title */}
-        <h3
-          style={{
-            fontSize: '20px',
-            fontWeight: 700,
-            color: '#ffffff',
-            margin: '0 0 8px 0',
-            letterSpacing: '-0.01em',
-          }}
-        >
-          Buy Me A Chai
-        </h3>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '6px' }}>
+          <Sparkles size={16} color="#f0c040" />
+          <h3
+            style={{
+              fontSize: '20px',
+              fontWeight: 700,
+              color: '#ffffff',
+              margin: 0,
+              letterSpacing: '-0.01em',
+            }}
+          >
+            Buy Me A Chai
+          </h3>
+        </div>
 
         {/* Subtitle */}
         <p
           style={{
-            fontSize: '13px',
+            fontSize: '12.5px',
             color: 'rgba(255, 255, 255, 0.65)',
             lineHeight: 1.45,
-            margin: '0 0 22px 0',
-            maxWidth: '340px',
+            margin: '0 0 20px 0',
+            maxWidth: '320px',
           }}
         >
           Liked the Pujo vibes? Treat us to a cup of chai. You bring the cha, we’ll bring more Pujo, gaan, and adda.
         </p>
 
-        {/* ── QR CODE CARD ── */}
+        {/* ── PREMIUM QR CODE CARD ── */}
         <div
           style={{
-            background: '#ffffff',
-            padding: '14px',
-            borderRadius: '20px',
-            boxShadow: '0 10px 36px rgba(0, 0, 0, 0.55), 0 0 24px rgba(240, 192, 64, 0.12)',
-            border: '2px solid rgba(255, 255, 255, 0.9)',
-            marginBottom: '20px',
+            position: 'relative',
+            background: 'linear-gradient(180deg, #ffffff 0%, #f8fafc 100%)',
+            padding: '16px 16px 14px',
+            borderRadius: '22px',
+            boxShadow:
+              '0 20px 48px -8px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(255, 255, 255, 0.9), 0 0 30px rgba(240, 192, 64, 0.18)',
+            marginBottom: '18px',
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
+            transition: 'transform 0.3s ease, box-shadow 0.3s ease',
           }}
         >
-          <img
-            src={qrCodeUrl}
-            alt="Scan and Pay QR Code"
-            style={{
-              width: '190px',
-              height: '190px',
-              display: 'block',
-              borderRadius: '8px',
-            }}
-          />
-
+          {/* Decorative subtle scanner corner frame */}
           <div
             style={{
-              marginTop: '8px',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '6px',
-              fontSize: '12px',
-              fontWeight: 700,
-              color: '#0f172a',
-              letterSpacing: '0.02em',
+              position: 'relative',
+              padding: '6px',
+              background: '#ffffff',
+              borderRadius: '14px',
+              border: '1px solid rgba(226, 232, 240, 0.8)',
             }}
           >
-            <QrCode size={14} color="#0284c7" />
-            <span>Scan and Pay</span>
+            <img
+              src={qrCodeUrl}
+              alt="Scan and Pay QR Code"
+              style={{
+                width: '190px',
+                height: '190px',
+                display: 'block',
+                borderRadius: '8px',
+              }}
+            />
+          </div>
+
+          {/* Bottom "Scan and Pay" Pill Label */}
+          <div
+            style={{
+              marginTop: '12px',
+              display: 'inline-flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '6px',
+              padding: '5px 14px',
+              background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)',
+              borderRadius: '999px',
+              color: '#ffffff',
+              fontSize: '11.5px',
+              fontWeight: 600,
+              letterSpacing: '0.03em',
+              boxShadow: '0 2px 10px rgba(15, 23, 42, 0.3)',
+            }}
+          >
+            <ScanLine size={13} color="#38bdf8" />
+            <span style={{ color: '#ffffff' }}>Scan and Pay</span>
+            <span style={{ color: 'rgba(255,255,255,0.4)', fontSize: '10px' }}>•</span>
+            <span style={{ color: '#facc15', fontWeight: 700 }}>₹20</span>
           </div>
         </div>
 
         {/* Footer Note */}
         <div>
-          <span style={{ fontSize: '11.5px', color: 'rgba(255,255,255,0.40)' }}>
+          <span style={{ fontSize: '11px', color: 'rgba(255,255,255,0.40)', letterSpacing: '0.02em' }}>
             শুভ শারদীয়া ও শারদীয়ার প্রীতি ও শুভেচ্ছা! 🌸
           </span>
         </div>
