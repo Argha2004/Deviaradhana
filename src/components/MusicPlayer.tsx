@@ -78,8 +78,8 @@ export function MusicPlayer({ isPlayingDhak = false, onToggleDhak }: MusicPlayer
   if (!currentSong) {
     return (
       <div className="np-surface np-idle-state">
-        <Music size={15} style={{ color: 'rgba(255,255,255,0.4)' }} />
-        <span style={{ fontSize: '14px', color: 'rgba(255, 255, 255, 0.5)', fontWeight: 500 }}>
+        <Music size={15} style={{ color: 'rgba(244, 242, 242, 0.92)' }} />
+        <span style={{ fontSize: '14px', color: 'rgba(244, 242, 242, 0.92)', fontWeight: 500 }}>
           Select a song to play
         </span>
       </div>

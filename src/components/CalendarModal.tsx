@@ -116,25 +116,14 @@ export function CalendarModal({ open, onClose }: CalendarModalProps) {
         if (e.target === overlayRef.current) onClose();
       }}
     >
-      <div
-        className="animate-modal modal-surface"
-        style={{
-          width: '100%',
-          maxWidth: '430px',
-          padding: '26px 22px 22px',
-          position: 'relative',
-          borderRadius: '24px',
-          display: 'flex',
-          flexDirection: 'column',
-        }}
-      >
+      <div className="animate-modal modal-surface calendar-modal" style={{ position: 'relative' }}>
         {/* Close Button */}
         <button
           onClick={onClose}
           style={{
             position: 'absolute',
-            top: '16px',
-            right: '16px',
+            top: '14px',
+            right: '14px',
             background: 'rgba(255, 255, 255, 0.08)',
             border: '1px solid rgba(255, 255, 255, 0.12)',
             cursor: 'pointer',
@@ -142,8 +131,8 @@ export function CalendarModal({ open, onClose }: CalendarModalProps) {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            width: '30px',
-            height: '30px',
+            width: '28px',
+            height: '28px',
             borderRadius: '50%',
             transition: 'color 0.2s, background 0.2s, transform 0.2s',
           }}
@@ -159,100 +148,61 @@ export function CalendarModal({ open, onClose }: CalendarModalProps) {
           }}
           aria-label="Close"
         >
-          <X size={16} />
+          <X size={15} />
         </button>
 
         {/* Header */}
-        <div style={{ textAlign: 'center', marginBottom: '18px' }}>
+        <div style={{ textAlign: 'center', marginBottom: '16px' }}>
           <div
             style={{
               display: 'inline-flex',
               alignItems: 'center',
               justifyContent: 'center',
-              gap: '5px',
-              color: '#ffffffff',
+              color: '#ffffff',
               marginBottom: '4px',
             }}
           >
-            <CalendarIcon size={25} />
+            <CalendarIcon size={22} />
           </div>
           <h3
+            className="calendar-header-title"
             style={{
-              fontSize: '18px',
               fontWeight: 700,
               color: '#ffffff',
-              margin: '0 0 4px 0',
+              margin: '0 0 3px 0',
               letterSpacing: '-0.01em',
             }}
           >
             দুর্গাপূজা ক্যালেন্ডার ২০২৬
           </h3>
-          <p style={{ fontSize: '12px', color: 'rgba(255, 255, 255, 0.55)', margin: 0 }}>
+          <p className="calendar-header-sub" style={{ color: 'rgba(255, 255, 255, 0.55)', margin: 0 }}>
             Durga Puja 2026 Dates & Schedule
           </p>
         </div>
 
         {/* Dates List */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginBottom: '16px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '7px', marginBottom: '14px' }}>
           {PUJA_DAYS_2026.map((day) => {
             const rel = getRelativeStatus(day.date);
 
             return (
-              <div
-                key={day.id}
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  padding: '10px 14px',
-                  borderRadius: '14px',
-                  background: 'rgba(255, 255, 255, 0.08)',
-                  border: '1px solid rgba(255, 255, 255, 0.12)',
-                  transition: 'transform 0.2s, background 0.2s',
-                }}
-              >
+              <div key={day.id} className="calendar-day-row">
                 {/* Left info */}
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '2px', textAlign: 'left' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                    <span
-                      style={{
-                        fontSize: '14px',
-                        fontWeight: 700,
-                        color: '#ffffff',
-                      }}
-                    >
-                      {day.nameBn}
-                    </span>
-                    <span style={{ fontSize: '11.5px', color: 'rgba(255, 255, 255, 0.50)' }}>
-                      • {day.nameEn}
-                    </span>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5px', minWidth: 0, textAlign: 'left' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '5px', minWidth: 0 }}>
+                    <span className="calendar-day-title-bn">{day.nameBn}</span>
+                    <span className="calendar-day-title-en">• {day.nameEn}</span>
                   </div>
-                  <span style={{ fontSize: '11px', color: 'rgba(255, 255, 255, 0.45)' }}>
-                    {day.weekday}
-                  </span>
+                  <span className="calendar-day-weekday">{day.weekday}</span>
                 </div>
 
                 {/* Right date & badge */}
-                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '3px' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '2px', flexShrink: 0 }}>
+                  <span className="calendar-day-date">{day.dateStr}</span>
                   <span
+                    className="calendar-day-badge"
                     style={{
-                      fontSize: '13px',
-                      fontWeight: 600,
-                      color: '#ffffff',
-                      fontVariantNumeric: 'tabular-nums',
-                    }}
-                  >
-                    {day.dateStr}
-                  </span>
-                  <span
-                    style={{
-                      fontSize: '9.5px',
-                      fontWeight: 600,
-                      padding: '2px 7px',
-                      borderRadius: '999px',
-                      background: rel.isToday
-                        ? '#22c55e'
-                        : 'rgba(255, 255, 255, 0.10)',
+                      background: rel.isToday ? '#22c55e' : 'rgba(255, 255, 255, 0.10)',
                       color: rel.isToday ? '#ffffff' : 'rgba(255, 255, 255, 0.70)',
                     }}
                   >
@@ -266,7 +216,7 @@ export function CalendarModal({ open, onClose }: CalendarModalProps) {
 
         {/* Footer */}
         <div style={{ textAlign: 'center' }}>
-          <span style={{ fontSize: '11px', color: 'rgba(255,255,255,0.40)' }}>
+          <span className="calendar-footer-text" style={{ color: 'rgba(255,255,255,0.40)' }}>
             আসছে বছর আবার হবে • শারদীয়ার প্রীতি ও শুভেচ্ছা
           </span>
         </div>
