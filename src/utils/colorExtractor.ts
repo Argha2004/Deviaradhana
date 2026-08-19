@@ -77,11 +77,6 @@ export async function extractPaletteFromImage(imageUrl: string): Promise<Dynamic
         const domG = Math.round(totalG / count);
         const domB = Math.round(totalB / count);
 
-        // Compute harmonious palette based on majority background color
-        const darkR = Math.max(16, Math.round(domR * 0.30));
-        const darkG = Math.max(14, Math.round(domG * 0.30));
-        const darkB = Math.max(12, Math.round(domB * 0.30));
-
         // Compute warm festive earthen/terracotta palette matching Durga Puja hero aesthetic
         const warmR = Math.max(68, Math.round(domR * 0.52 + 30));
         const warmG = Math.max(44, Math.round(domG * 0.42 + 18));
