@@ -497,7 +497,7 @@ body {
 
   .np-surface {
     padding: 10;
-    border-radius: 18px;
+    border-radius: 22px;
   }
 
   /* Hide separate Dhak pill at top since Dhak is in the 3-button bottom bar of the card */
@@ -659,7 +659,7 @@ body {
     background: none;
     border: none;
     color: rgba(255, 255, 255, 0.6);
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 500;
     cursor: pointer;
     transition: color 0.2s ease, background 0.2s ease;
@@ -693,6 +693,7 @@ body {
   .np-mobile-top {
     padding: 10px 12px 8px 12px;
     gap: 10px;
+    border-radius: 18px;
   }
 
   .np-mobile-art {
