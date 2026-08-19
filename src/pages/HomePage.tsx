@@ -42,7 +42,7 @@ function Clock({ onClick }: { onClick?: () => void }) {
         letterSpacing: '0.03em',
         boxShadow: '0 4px 20px rgba(0, 0, 0, 0.25)',
         whiteSpace: 'nowrap',
-        padding: '7px 18px',
+        padding: '10px 18px',
         cursor: 'pointer',
         border: '1.5px solid var(--dyn-glass-border)',
         background: 'var(--dyn-glass-pill)',
@@ -74,9 +74,9 @@ function OnlineBadge({ onClick }: { onClick?: () => void }) {
         fontWeight: 500,
         color: 'rgba(255, 255, 255, 0.90)',
         boxShadow: '0 4px 16px rgba(0, 0, 0, 0.25)',
-        padding: '6px 12px',
+        padding: '10px 12px',
         cursor: 'pointer',
-        border: '1.5px solid var(--dyn-glass-border)',
+        border: '2px solid var(--dyn-glass-border)',
         background: 'var(--dyn-glass-pill)',
       }}
     >
@@ -113,7 +113,7 @@ function StatusPill() {
         color: 'rgba(255, 255, 255, 0.90)',
         whiteSpace: 'nowrap',
         boxShadow: '0 4px 24px rgba(0, 0, 0, 0.3)',
-        padding: '8px 22px',
+        padding: '10px 22px',
       }}
     >
       <span style={{ display: 'flex', alignItems: 'center', gap: '7px' }}>
@@ -158,6 +158,12 @@ function TopControls({
     >
       <button
         className="icon-circle"
+        style={{
+          width: '42px',
+          height: '42px',
+          border: '2px solid var(--dyn-glass-border)',
+          boxShadow: '0 4px 16px rgba(0, 0, 0, 0.25)',
+        }}
         onClick={onPlaylist}
         title="Playlists"
         aria-label="Open playlists"
@@ -172,7 +178,7 @@ function TopControls({
           display: 'flex',
           alignItems: 'center',
           gap: '14px',
-          height: '38px',
+          height: '42px',
           padding: '0 16px',
           background: 'var(--dyn-glass-pill)',
           backdropFilter: 'blur(16px)',
@@ -298,7 +304,7 @@ function HeroTitle() {
           key={i}
           className="hero-title-text font-bengali animate-slide-up"
           style={{
-            fontSize: 'clamp(56px, 14.5vw, 118px)',
+            fontSize: 'clamp(62px, 14.5vw, 120px)',
             fontWeight: 400,
             color: '#f0c040',
             lineHeight: 1.1,
@@ -361,7 +367,7 @@ function BottomBlock({
         className="audio-flac-disclaimer"
         style={{
           fontSize: '11px',
-          color: 'rgba(255, 255, 255, 0.65)',
+          color: 'rgba(255, 255, 255, 0.8)',
           letterSpacing: '0.02em',
           textAlign: 'center',
           margin: 0,

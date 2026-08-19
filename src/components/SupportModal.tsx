@@ -118,7 +118,7 @@ export function SupportModal({ open, onClose }: SupportModalProps) {
             maxWidth: '320px',
           }}
         >
-          Liked the Pujo vibes? Treat us to a cup of chai. You bring the cha, we’ll bring more Pujo, gaan, and adda.
+          Liked the Pujo vibes? Treat us to a cup of chai. You bring the cha, we’ll bring more Pujo vibes, gaan, and adda.
         </p>
 
         {/* ── PREMIUM QR CODE CARD ── */}
