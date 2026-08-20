@@ -285,14 +285,17 @@ function HeroTitle() {
   const days = daysUntil(APP_CONFIG.festivalDate);
 
   return (
-    <div
+    <h1
       className="hero-title-container"
+      aria-label="Devi Aradhana - পুজো আসছে"
       style={{
         textAlign: 'center',
         userSelect: 'none',
         width: '100%',
         maxWidth: '1800px',
         padding: '8px 16px',
+        margin: 0,
+        fontWeight: 'normal',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
@@ -333,7 +336,7 @@ function HeroTitle() {
         <span style={{ fontWeight: 700, color: '#ffffff', fontSize: '15px' }}>{days}</span>
         <span>&nbsp;days until Durga Pujo</span>
       </p>
-    </div>
+    </h1>
   );
 }
 
