@@ -452,6 +452,59 @@ function BottomBlock({
   );
 }
 
+/* ─── Smooth Crossfading Hero Background ─────────────────── */
+function HeroBackground({ currentImage }: { currentImage: string }) {
+  const [activeImage, setActiveImage] = useState(currentImage);
+  const [prevImage, setPrevImage] = useState<string | null>(null);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+
+  useEffect(() => {
+    if (currentImage !== activeImage) {
+      setPrevImage(activeImage);
+      setActiveImage(currentImage);
+      setIsTransitioning(true);
+
+      const timer = setTimeout(() => {
+        setIsTransitioning(false);
+        setPrevImage(null);
+      }, 1200);
+
+      return () => clearTimeout(timer);
+    }
+  }, [currentImage, activeImage]);
+
+  return (
+    <div style={{ position: 'absolute', inset: 0, overflow: 'hidden', zIndex: 0 }}>
+      {/* Active background layer */}
+      <div
+        style={{
+          position: 'absolute',
+          inset: 0,
+          backgroundImage: `url(${activeImage})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          zIndex: 0,
+        }}
+      />
+      {/* Previous background layer (crossfading out) */}
+      {prevImage && (
+        <div
+          style={{
+            position: 'absolute',
+            inset: 0,
+            backgroundImage: `url(${prevImage})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            opacity: isTransitioning ? 0 : 1,
+            transition: 'opacity 1.2s ease-in-out',
+            zIndex: 1,
+          }}
+        />
+      )}
+    </div>
+  );
+}
+
 /* ─── HomePage ────────────────────────────────────────────── */
 export function HomePage() {
   const [playlistOpen, setPlaylistOpen] = useState(false);
@@ -463,12 +516,32 @@ export function HomePage() {
 
   // Periodically check and update hero image on day/night transitions
   useEffect(() => {
+    // Preload both day and night wallpapers so transitions are instantaneous
+    [
+      APP_CONFIG.heroDayImage,
+      APP_CONFIG.heroNightImage,
+      APP_CONFIG.heroDayImageAlt,
+      APP_CONFIG.heroNightImageAlt,
+    ].forEach((src) => {
+      const img = new Image();
+      img.src = src;
+    });
+
     const update = () => {
       const current = getTimeBasedHeroImage();
       setHeroImage((prev) => (prev !== current ? current : prev));
     };
-    const id = setInterval(update, 30000);
-    return () => clearInterval(id);
+
+    update();
+    const id = setInterval(update, 5000);
+    document.addEventListener('visibilitychange', update);
+    window.addEventListener('focus', update);
+
+    return () => {
+      clearInterval(id);
+      document.removeEventListener('visibilitychange', update);
+      window.removeEventListener('focus', update);
+    };
   }, []);
 
   // Initialize dynamic theme extraction for background glass tints matching active day/night hero image
@@ -484,18 +557,8 @@ export function HomePage() {
         overflow: 'hidden',
       }}
     >
-      {/* Hero background (Day/Night time-based) */}
-      <div
-        style={{
-          position: 'absolute',
-          inset: 0,
-          backgroundImage: `url(${heroImage})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          zIndex: 0,
-          transition: 'background-image 0.8s ease-in-out',
-        }}
-      />
+      {/* Hero background (Day/Night time-based with smooth auto-crossfade) */}
+      <HeroBackground currentImage={heroImage} />
 
       {/* Atmospheric Dark & Vignette Overlay */}
       <div
