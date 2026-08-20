@@ -307,7 +307,7 @@ function HeroTitle() {
           key={i}
           className="hero-title-text font-bengali animate-slide-up"
           style={{
-            fontSize: 'clamp(62px, 14.5vw, 120px)',
+            fontSize: 'clamp(62px, 14.5vw, 140px)',
             fontWeight: 400,
             color: '#f0c040',
             lineHeight: 1.1,

@@ -65,21 +65,35 @@ function CreatorCard({ creator }: { creator: typeof APP_CONFIG.creators[0] }) {
           background: 'rgba(255,255,255,0.05)',
         }}
       />
-      <span
-        style={{
-          fontSize: '13.5px',
-          fontWeight: 600,
-          color: 'rgba(255,255,255,0.92)',
-          textAlign: 'center',
-          letterSpacing: '0.01em',
-          whiteSpace: 'nowrap',
-          overflow: 'hidden',
-          textOverflow: 'ellipsis',
-          maxWidth: '100%',
-        }}
-      >
-        {creator.name}
-      </span>
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '2px', maxWidth: '100%' }}>
+        <span
+          style={{
+            fontSize: '13.5px',
+            fontWeight: 600,
+            color: 'rgba(255,255,255,0.92)',
+            textAlign: 'center',
+            letterSpacing: '0.01em',
+            whiteSpace: 'nowrap',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            maxWidth: '100%',
+          }}
+        >
+          {creator.name}
+        </span>
+        <span
+          style={{
+            fontSize: '11px',
+            fontWeight: 500,
+            color: 'rgba(255, 255, 255, 0.45)',
+            textAlign: 'center',
+            letterSpacing: '0.04em',
+            textTransform: 'uppercase',
+          }}
+        >
+          Developer
+        </span>
+      </div>
       <div style={{ display: 'flex', gap: '8px' }}>
         {creator.linkedin && (
           <a
