@@ -107,15 +107,22 @@ export async function fetchR2Playlists(): Promise<{
   }
 
   // 2. Fetch directly from Cloudflare R2 manifest (with Vercel CDN and dev proxy fallbacks)
+  const timestamp = Date.now();
   const candidateUrls = [
-    `${R2_BASE_URL}/manifest.json`,
-    `/manifest.json`,
-    `/r2-proxy/manifest.json`,
+    `${R2_BASE_URL}/manifest.json?t=${timestamp}`,
+    `/manifest.json?t=${timestamp}`,
+    `/r2-proxy/manifest.json?t=${timestamp}`,
   ];
 
   for (const url of candidateUrls) {
     try {
-      const res = await fetch(url, { cache: 'no-cache' });
+      const res = await fetch(url, {
+        cache: 'no-store',
+        headers: {
+          'Cache-Control': 'no-cache, no-store, must-revalidate',
+          Pragma: 'no-cache',
+        },
+      });
       if (res.ok) {
         const manifest: R2Manifest = await res.json();
         const playlists = manifest.playlists || {};

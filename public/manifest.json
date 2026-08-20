@@ -704,6 +704,78 @@
         "coverArt": "covers/98. Era Sukher Laagi.jpg",
         "audioUrl": "audio/98. Era Sukher Laagi.flac",
         "trackNumber": 78
+      },
+      {
+        "id": "dp-79",
+        "title": "Hey Shokha",
+        "artist": "Somlata Acharyya Chowdhury",
+        "duration": 263,
+        "coverArt": "covers/Hey Shokha - Somlata Acharyya Chowdhury.jpg",
+        "audioUrl": "audio/Hey Shokha - Somlata Acharyya Chowdhury.flac",
+        "trackNumber": 79
+      },
+      {
+        "id": "dp-80",
+        "title": "Khoka Babu",
+        "artist": "Rishi",
+        "duration": 256,
+        "coverArt": "covers/Khoka Babu - Rishi.jpg",
+        "audioUrl": "audio/Khoka Babu - Rishi.flac",
+        "trackNumber": 80
+      },
+      {
+        "id": "dp-81",
+        "title": "Maa Go Tui",
+        "artist": "Shovon Ganguly",
+        "duration": 187,
+        "coverArt": "covers/Maa Go Tui - Shovon Ganguly.jpg",
+        "audioUrl": "audio/Maa Go Tui - Shovon Ganguly.flac",
+        "trackNumber": 81
+      },
+      {
+        "id": "dp-82",
+        "title": "Notun Premer Gaan (From Ballabhpurer Roopkotha )",
+        "artist": "Debraj Bhattacharya",
+        "duration": 229,
+        "coverArt": "covers/Notun Premer Gaan (From Ballabhpurer Roopkotha ) - Debraj Bhattacharya.jpg",
+        "audioUrl": "audio/Notun Premer Gaan (From Ballabhpurer Roopkotha ) - Debraj Bhattacharya.flac",
+        "trackNumber": 82
+      },
+      {
+        "id": "dp-83",
+        "title": "Pyaar Ka Bukhaar",
+        "artist": "Jeet Gannguli",
+        "duration": 214,
+        "coverArt": "covers/Pyaar Ka Bukhaar - Jeet Gannguli.jpg",
+        "audioUrl": "audio/Pyaar Ka Bukhaar - Jeet Gannguli.flac",
+        "trackNumber": 83
+      },
+      {
+        "id": "dp-84",
+        "title": "Shaajo Shaajao ( From Ballabhpurer Roopkotha )",
+        "artist": "Sahana Bajpaie",
+        "duration": 272,
+        "coverArt": "covers/Shaajo Shaajao ( From Ballabhpurer Roopkotha ) - Sahana Bajpaie.jpg",
+        "audioUrl": "audio/Shaajo Shaajao ( From Ballabhpurer Roopkotha ) - Sahana Bajpaie.flac",
+        "trackNumber": 84
+      },
+      {
+        "id": "dp-85",
+        "title": "Tumi Aashe Paashe",
+        "artist": "Nakash Aziz",
+        "duration": 261,
+        "coverArt": "covers/Tumi Aashe Paashe - Nakash Aziz.jpg",
+        "audioUrl": "audio/Tumi Aashe Paashe - Nakash Aziz.flac",
+        "trackNumber": 85
+      },
+      {
+        "id": "dp-86",
+        "title": "Tumi Emni Emni Esho",
+        "artist": "Sanchita Bhowmick",
+        "duration": 216,
+        "coverArt": "covers/Tumi Emni Emni Esho - Sanchita Bhowmick.jpg",
+        "audioUrl": "audio/Tumi Emni Emni Esho - Sanchita Bhowmick.flac",
+        "trackNumber": 86
       }
     ],
     "mahalaya": [
