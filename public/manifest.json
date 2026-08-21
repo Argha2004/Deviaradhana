@@ -798,7 +798,170 @@
         "trackNumber": 2
       }
     ],
-    "mahalaya-songs": [],
+    "mahalaya-songs": [
+      {
+        "id": "mahs-song-1",
+        "title": "Ya Chandi",
+        "artist": "Pankaj Mullick",
+        "duration": 99,
+        "coverArt": "covers/Ya Chandi - Pankaj Mullick.jpg",
+        "audioUrl": "audio/Ya Chandi - Pankaj Mullick.flac",
+        "trackNumber": 1
+      },
+      {
+        "id": "mahs-song-2",
+        "title": "Simhastha Sashisekhara",
+        "artist": "Pankaj Mullick",
+        "duration": 56,
+        "coverArt": "covers/Simhastha Sashisekhara - Pankaj Mullick.jpg",
+        "audioUrl": "audio/Simhastha Sashisekhara - Pankaj Mullick.flac",
+        "trackNumber": 2
+      },
+      {
+        "id": "mahs-song-3",
+        "title": "Bajlo Tomar Aalor Benu With Narration",
+        "artist": "Supriti Ghosh",
+        "duration": 262,
+        "coverArt": "covers/Bajlo Tomar Aalor Benu With Narration - Supriti Ghosh.jpg",
+        "audioUrl": "audio/Bajlo Tomar Aalor Benu With Narration - Supriti Ghosh.flac",
+        "trackNumber": 3
+      },
+      {
+        "id": "mahs-song-4",
+        "title": "Jago Durga Dashapraharanadharinee",
+        "artist": "Dwijen Mukherjee",
+        "duration": 107,
+        "coverArt": "covers/Jago Durga Dashapraharanadharinee - Dwijen Mukherjee.jpg",
+        "audioUrl": "audio/Jago Durga Dashapraharanadharinee - Dwijen Mukherjee.flac",
+        "trackNumber": 4
+      },
+      {
+        "id": "mahs-song-5",
+        "title": "Ogo Amar Agamani-alo",
+        "artist": "Sipra Basu",
+        "duration": 199,
+        "coverArt": "covers/Ogo Amar Agamani - Alo - Sipra Basu.jpg",
+        "audioUrl": "audio/Ogo Amar Agamani - Alo - Sipra Basu.flac",
+        "trackNumber": 5
+      },
+      {
+        "id": "mahs-song-6",
+        "title": "Tabo Achintya Rupa-charita-mahima",
+        "artist": "Manabendra Mukherjee",
+        "duration": 239,
+        "coverArt": "covers/Tabo Achintya Rupa - Charita - Mahima - Manabendra Mukherjee.jpg",
+        "audioUrl": "audio/Tabo Achintya Rupa - Charita - Mahima - Manabendra Mukherjee.flac",
+        "trackNumber": 6
+      },
+      {
+        "id": "mahs-song-7",
+        "title": "Aham Rudrebhirvasubhischara",
+        "artist": "Pankaj Mullick",
+        "duration": 241,
+        "coverArt": "covers/Aham Rudrebhirvasubhischara - Pankaj Mullick.jpg",
+        "audioUrl": "audio/Aham Rudrebhirvasubhischara - Pankaj Mullick.flac",
+        "trackNumber": 7
+      },
+      {
+        "id": "mahs-song-8",
+        "title": "Akhila-bimane Taba Jaya-gane",
+        "artist": "Krishna Dasgupta",
+        "duration": 244,
+        "coverArt": "covers/Akhila - Bimane Taba Jaya - Gane - Krishna Dasgupta.jpg",
+        "audioUrl": "audio/Akhila - Bimane Taba Jaya - Gane - Krishna Dasgupta.flac",
+        "trackNumber": 8
+      },
+      {
+        "id": "mahs-song-9",
+        "title": "Jayanati Mangala Kali",
+        "artist": "Pankaj Mullick",
+        "duration": 32,
+        "coverArt": "covers/Jayanti Mangala Kali - Pankaj Kumar Mullick - Pankaj Mullick.jpg",
+        "audioUrl": "audio/Jayanti Mangala Kali - Pankaj Kumar Mullick - Pankaj Mullick.flac",
+        "trackNumber": 9
+      },
+      {
+        "id": "mahs-song-10",
+        "title": "Subhra Sankha-rabe",
+        "artist": "Shyamal Mitra",
+        "duration": 170,
+        "coverArt": "covers/Subhra Sankha - Rabe - Shyamal Mitra.jpg",
+        "audioUrl": "audio/Subhra Sankha - Rabe - Shyamal Mitra.flac",
+        "trackNumber": 10
+      },
+      {
+        "id": "mahs-song-11",
+        "title": "Jatajutasamayuktamardhendukrita-sekharam",
+        "artist": "Pankaj Mullick",
+        "duration": 267,
+        "coverArt": "covers/Jatajutasamayuktamardhendukrita - Sekharam - Pankaj Mullick.jpg",
+        "audioUrl": "audio/Jatajutasamayuktamardhendukrita - Sekharam - Pankaj Mullick.flac",
+        "trackNumber": 11
+      },
+      {
+        "id": "mahs-song-12",
+        "title": "Namo Chandi, Namo Chandi",
+        "artist": "Bimal Bhushan",
+        "duration": 185,
+        "coverArt": "covers/Namo Chandi Namo Chandi - Bimal Bhushan.jpg",
+        "audioUrl": "audio/Namo Chandi Namo Chandi - Bimal Bhushan.flac",
+        "trackNumber": 12
+      },
+      {
+        "id": "mahs-song-13",
+        "title": "Ma Go Tabu Beene Sangeeta",
+        "artist": "Sumitra Sen",
+        "duration": 213,
+        "coverArt": "covers/Ma Go Tabu Beene Sangeeta - Sumitra Sen.jpg",
+        "audioUrl": "audio/Ma Go Tabu Beene Sangeeta - Sumitra Sen.flac",
+        "trackNumber": 13
+      },
+      {
+        "id": "mahs-song-14",
+        "title": "Bimane Bimane",
+        "artist": "Sandhya Mukherjee",
+        "duration": 181,
+        "coverArt": "covers/Bimane Bimane - Sandhya Mukherjee.jpg",
+        "audioUrl": "audio/Bimane Bimane - Sandhya Mukherjee.flac",
+        "trackNumber": 14
+      },
+      {
+        "id": "mahs-song-15",
+        "title": "Jaya Jaya Japyajaye",
+        "artist": "Pankaj Mullick",
+        "duration": 152,
+        "coverArt": "covers/Jaya Jaya Japyajaye - Pankaj Mullick.jpg",
+        "audioUrl": "audio/Jaya Jaya Japyajaye - Pankaj Mullick.flac",
+        "trackNumber": 15
+      },
+      {
+        "id": "mahs-song-16",
+        "title": "Amala-kirane Tribhubana-manoharini",
+        "artist": "Pratima Banerjee",
+        "duration": 245,
+        "coverArt": "covers/Amala - Kirane Tribhubana - Manoharini - Pratima Banerjee.jpg",
+        "audioUrl": "audio/Amala - Kirane Tribhubana - Manoharini - Pratima Banerjee.flac",
+        "trackNumber": 16
+      },
+      {
+        "id": "mahs-song-17",
+        "title": "Jayanti Mangala Kali — Pankaj Kumar Mullick",
+        "artist": "Pankaj Mullick",
+        "duration": 419,
+        "coverArt": "covers/Jayanti Mangala Kali - Pankaj Kumar Mullick - Pankaj Mullick.jpg",
+        "audioUrl": "audio/Jayanti Mangala Kali - Pankaj Kumar Mullick - Pankaj Mullick.flac",
+        "trackNumber": 17
+      },
+      {
+        "id": "mahs-song-18",
+        "title": "Santi Dile Bhari",
+        "artist": "Utpala Sen",
+        "duration": 131,
+        "coverArt": "covers/Santi Dile Bhari - Utpala Sen.jpg",
+        "audioUrl": "audio/Santi Dile Bhari - Utpala Sen.flac",
+        "trackNumber": 18
+      }
+    ],
     "dhak": [
       {
         "id": "dk-1",

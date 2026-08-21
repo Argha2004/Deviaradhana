@@ -22,7 +22,7 @@ const TABS: { id: Tab; label: string }[] = [
 const TAB_DESC: Record<Tab, string> = {
   durga: 'The main curated Durga Puja playlist fetched from Developer Storage.',
   mahalaya: 'The complete traditional Mahalaya broadcast, in full.',
-  'mahalaya-songs': '19 sections of classic Mahalaya recordings.',
+  'mahalaya-songs': '18 sections of classic Mahalaya recordings.',
 };
 
 /* ── Song Row ─────────────────────────────────────────────── */
