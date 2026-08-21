@@ -10,6 +10,7 @@ import { PlaylistModal } from '../components/PlaylistModal';
 import { AboutModal } from '../components/AboutModal';
 import { SupportModal } from '../components/SupportModal';
 import { CalendarModal } from '../components/CalendarModal';
+import { PujaHistoryCard } from '../components/PujaHistoryCard';
 
 /* ─── Clock (PC Desktop Top Left) ────────────────────────── */
 function Clock({ onClick }: { onClick?: () => void }) {
@@ -307,7 +308,7 @@ function HeroTitle() {
           key={i}
           className="hero-title-text font-bengali animate-slide-up"
           style={{
-            fontSize: 'clamp(62px, 14.5vw, 140px)',
+            fontSize: 'clamp(62px, 14.5vw, 120px)',
             fontWeight: 400,
             color: '#f0c040',
             lineHeight: 1.1,
@@ -365,6 +366,9 @@ function BottomBlock({
         zIndex: 50,
       }}
     >
+      {/* Ancient & Unknown Durga Puja History Card (Auto-rotates every 2 hours) */}
+      <PujaHistoryCard />
+
       {/* Audio Quality Disclaimer (No container background) */}
       <p
         className="audio-flac-disclaimer"
