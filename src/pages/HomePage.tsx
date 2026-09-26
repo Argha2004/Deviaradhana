@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Menu, Users, Disc, Coffee } from 'lucide-react';
 import { APP_CONFIG } from '../data/mockData';
+import { PUJA_YEAR } from '../data/pujaCalendar';
 import { daysUntil, getTimeBasedHeroImage } from '../utils/helpers';
 import { useOnlinePresence } from '../hooks/useOnlinePresence';
 import { useDynamicTheme } from '../hooks/useDynamicTheme';
@@ -34,7 +35,7 @@ function Clock({ onClick }: { onClick?: () => void }) {
     <button
       onClick={onClick}
       className="glass-pill select-none desktop-only"
-      title="Durga Puja 2026 Calendar"
+      title={`Durga Puja ${PUJA_YEAR} Calendar`}
       aria-label="Durga Puja Calendar"
       style={{
         fontSize: '13.5px',
@@ -58,14 +59,12 @@ function Clock({ onClick }: { onClick?: () => void }) {
 }
 
 /* ─── Online Badge (Mobile Top Left) ──────────────────────── */
-function OnlineBadge({ onClick }: { onClick?: () => void }) {
-  const onlineCount = useOnlinePresence();
-
+function OnlineBadge({ onlineCount, onClick }: { onlineCount: number; onClick?: () => void }) {
   return (
     <button
       onClick={onClick}
       className="glass-pill mobile-only select-none"
-      title="Durga Puja 2026 Calendar"
+      title={`Durga Puja ${PUJA_YEAR} Calendar`}
       aria-label="Durga Puja Calendar"
       style={{
         display: 'none',
@@ -99,9 +98,8 @@ function OnlineBadge({ onClick }: { onClick?: () => void }) {
 }
 
 /* ─── Status Pill (PC Desktop Top Center) ─────────────────── */
-function StatusPill() {
+function StatusPill({ onlineCount }: { onlineCount: number }) {
   const days = daysUntil(APP_CONFIG.festivalDate);
-  const onlineCount = useOnlinePresence();
 
   return (
     <div
@@ -259,17 +257,20 @@ function TopNavbar({
   onAbout: () => void;
   onCalendar: () => void;
 }) {
+  // One presence connection per tab, shared by the mobile badge and the desktop pill
+  const onlineCount = useOnlinePresence();
+
   return (
     <header className="top-navbar animate-slide-up">
       {/* Left Item: Clock on PC, OnlineBadge on Mobile */}
       <div className="top-navbar-left">
         <Clock onClick={onCalendar} />
-        <OnlineBadge onClick={onCalendar} />
+        <OnlineBadge onlineCount={onlineCount} onClick={onCalendar} />
       </div>
 
       {/* Center Item: Status Pill on PC Desktop */}
       <div className="top-navbar-center">
-        <StatusPill />
+        <StatusPill onlineCount={onlineCount} />
       </div>
 
       {/* Right Item: Playlist, Support & About buttons */}
@@ -460,21 +461,26 @@ function BottomBlock({
 function HeroBackground({ currentImage }: { currentImage: string }) {
   const [activeImage, setActiveImage] = useState(currentImage);
   const [prevImage, setPrevImage] = useState<string | null>(null);
-  const [isTransitioning, setIsTransitioning] = useState(false);
 
   useEffect(() => {
-    if (currentImage !== activeImage) {
-      setPrevImage(activeImage);
-      setActiveImage(currentImage);
-      setIsTransitioning(true);
+    if (currentImage === activeImage) return;
+    let cancelled = false;
 
-      const timer = setTimeout(() => {
-        setIsTransitioning(false);
-        setPrevImage(null);
-      }, 1200);
+    // Download the next wallpaper only when it is needed, and crossfade once it is decoded
+    const img = new Image();
+    img.src = currentImage;
+    img
+      .decode()
+      .catch(() => {})
+      .then(() => {
+        if (cancelled) return;
+        setPrevImage(activeImage);
+        setActiveImage(currentImage);
+      });
 
-      return () => clearTimeout(timer);
-    }
+    return () => {
+      cancelled = true;
+    };
   }, [currentImage, activeImage]);
 
   return (
@@ -493,14 +499,15 @@ function HeroBackground({ currentImage }: { currentImage: string }) {
       {/* Previous background layer (crossfading out) */}
       {prevImage && (
         <div
+          key={prevImage}
+          className="hero-bg-fade-out"
+          onAnimationEnd={() => setPrevImage(null)}
           style={{
             position: 'absolute',
             inset: 0,
             backgroundImage: `url(${prevImage})`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
-            opacity: isTransitioning ? 0 : 1,
-            transition: 'opacity 1.2s ease-in-out',
             zIndex: 1,
           }}
         />
@@ -520,17 +527,6 @@ export function HomePage() {
 
   // Periodically check and update hero image on day/night transitions
   useEffect(() => {
-    // Preload both day and night wallpapers so transitions are instantaneous
-    [
-      APP_CONFIG.heroDayImage,
-      APP_CONFIG.heroNightImage,
-      APP_CONFIG.heroDayImageAlt,
-      APP_CONFIG.heroNightImageAlt,
-    ].forEach((src) => {
-      const img = new Image();
-      img.src = src;
-    });
-
     const update = () => {
       const current = getTimeBasedHeroImage();
       setHeroImage((prev) => (prev !== current ? current : prev));

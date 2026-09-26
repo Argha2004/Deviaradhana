@@ -138,11 +138,12 @@ export function useOnlinePresence(): number {
         client.onMessageArrived = (message: Paho.Message) => {
           try {
             const data = JSON.parse(message.payloadString);
-            if (data?.id && data.id !== myId) {
+            if (typeof data?.id === 'string' && data.id !== myId) {
               if (data.type === 'leave') {
                 activePeers.delete(data.id);
               } else {
-                activePeers.set(data.id, data.ts || Date.now());
+                // Use our own clock, not the sender's `ts`: a forged future timestamp would never expire
+                activePeers.set(data.id, Date.now());
               }
               pruneAndCount();
             }

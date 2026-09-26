@@ -1,14 +1,6 @@
-import type { Song } from '../store/playerStore';
+import { FESTIVAL_DATE } from './pujaCalendar';
 
-// ──────────────────────────────────────────────────────────────
-// All playlists are empty — songs will be added from the backend.
-// ──────────────────────────────────────────────────────────────
-
-export const DURGA_PUJA_SONGS: Song[] = [];
-export const MAHALAYA_FULL: Song[] = [];
-export const MAHALAYA_SONGS: Song[] = [];
-
-// Admin-configurable settings
+// Admin-configurable settings (songs come from the R2 manifest, Puja dates from pujaCalendar.ts)
 export const APP_CONFIG = {
   heroTitle: 'পুজো\nআসছে',
   heroDayImage: '/back-day.png',
@@ -17,8 +9,7 @@ export const APP_CONFIG = {
   heroNightImageAlt: '/back1-night.png',
   heroImage: '/back-night.png', // fallback
   dhakAudioUrl: 'audio/Dashami - Instrumental - Phani Natta.flac',
-  festivalDate: new Date('2026-10-17T00:00:00'),
-  onlineCount: 0,
+  festivalDate: FESTIVAL_DATE,
   contactEmail: 'arghadeeppakhira@gmail.com',
   supportUpi: 'arghadeeppakhira-1@oksbi',
   creators: [

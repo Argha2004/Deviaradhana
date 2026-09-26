@@ -1,77 +1,31 @@
 import { useEffect, useRef } from 'react';
 import { X, Calendar as CalendarIcon } from 'lucide-react';
+import { PUJA_DAYS, PUJA_YEAR } from '../data/pujaCalendar';
 
 interface CalendarModalProps {
   open: boolean;
   onClose: () => void;
 }
 
-interface PujaDay {
-  id: string;
-  nameBn: string;
-  nameEn: string;
-  dateStr: string;
-  date: Date;
-  weekday: string;
-  significance: string;
+const MONTHS_EN = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+const WEEKDAYS_EN = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+const WEEKDAYS_BN = ['রবিবার', 'সোমবার', 'মঙ্গলবার', 'বুধবার', 'বৃহস্পতিবার', 'শুক্রবার', 'শনিবার'];
+const BENGALI_DIGITS = '০১২৩৪৫৬৭৮৯';
+
+/** e.g. "11 Oct 2026" */
+function formatDate(date: Date): string {
+  return `${date.getDate()} ${MONTHS_EN[date.getMonth()]} ${date.getFullYear()}`;
 }
 
-const PUJA_DAYS_2026: PujaDay[] = [
-  {
-    id: 'mahalaya',
-    nameBn: 'মহালয়া',
-    nameEn: 'Mahalaya',
-    dateStr: '11 Oct 2026',
-    date: new Date('2026-10-11T00:00:00'),
-    weekday: 'Sunday (রবিবার)',
-    significance: 'দেবীপক্ষের সূচনা ও পিতৃ তর্পণ',
-  },
-  {
-    id: 'sasthi',
-    nameBn: 'মহা ষষ্ঠী',
-    nameEn: 'Maha Sasthi',
-    dateStr: '17 Oct 2026',
-    date: new Date('2026-10-17T00:00:00'),
-    weekday: 'Saturday (শনিবার)',
-    significance: 'দেবীর বোধন ও আমন্ত্রণ',
-  },
-  {
-    id: 'saptami',
-    nameBn: 'মহা সপ্তমী',
-    nameEn: 'Maha Saptami',
-    dateStr: '18 Oct 2026',
-    date: new Date('2026-10-18T00:00:00'),
-    weekday: 'Sunday (রবিবার)',
-    significance: 'নবপত্রিকা প্রবেশ ও প্রাণ প্রতিষ্ঠা',
-  },
-  {
-    id: 'asthami',
-    nameBn: 'মহা অষ্টমী',
-    nameEn: 'Maha Ashtami',
-    dateStr: '19 Oct 2026',
-    date: new Date('2026-10-19T00:00:00'),
-    weekday: 'Monday (সোমবার)',
-    significance: 'সন্ধিপূজা ও কুমারী পূজা',
-  },
-  {
-    id: 'nabami',
-    nameBn: 'মহা নবমী',
-    nameEn: 'Maha Nabami',
-    dateStr: '20 Oct 2026',
-    date: new Date('2026-10-20T00:00:00'),
-    weekday: 'Tuesday (মঙ্গলবার)',
-    significance: 'নবমী হোম ও আরতি',
-  },
-  {
-    id: 'dasami',
-    nameBn: 'বিজয়া দশমী',
-    nameEn: 'Bijoya Dashami',
-    dateStr: '21 Oct 2026',
-    date: new Date('2026-10-21T00:00:00'),
-    weekday: 'Wednesday (বুধবার)',
-    significance: 'দেবী বিসর্জন ও বিজয়ার শুভেচ্ছা',
-  },
-];
+/** e.g. "Sunday (রবিবার)" */
+function formatWeekday(date: Date): string {
+  const day = date.getDay();
+  return `${WEEKDAYS_EN[day]} (${WEEKDAYS_BN[day]})`;
+}
+
+function toBengaliDigits(n: number): string {
+  return String(n).replace(/\d/g, (digit) => BENGALI_DIGITS[Number(digit)]);
+}
 
 function getRelativeStatus(targetDate: Date): { text: string; isPast: boolean; isToday: boolean } {
   const now = new Date();
@@ -173,16 +127,16 @@ export function CalendarModal({ open, onClose }: CalendarModalProps) {
               letterSpacing: '-0.01em',
             }}
           >
-            দুর্গাপূজা ক্যালেন্ডার ২০২৬
+            দুর্গাপূজা ক্যালেন্ডার {toBengaliDigits(PUJA_YEAR)}
           </h3>
           <p className="calendar-header-sub" style={{ color: 'rgba(255, 255, 255, 0.55)', margin: 0 }}>
-            Durga Puja 2026 Dates & Schedule
+            Durga Puja {PUJA_YEAR} Dates & Schedule
           </p>
         </div>
 
         {/* Dates List */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '7px', marginBottom: '14px' }}>
-          {PUJA_DAYS_2026.map((day) => {
+          {PUJA_DAYS.map((day) => {
             const rel = getRelativeStatus(day.date);
 
             return (
@@ -193,12 +147,12 @@ export function CalendarModal({ open, onClose }: CalendarModalProps) {
                     <span className="calendar-day-title-bn">{day.nameBn}</span>
                     <span className="calendar-day-title-en">• {day.nameEn}</span>
                   </div>
-                  <span className="calendar-day-weekday">{day.weekday}</span>
+                  <span className="calendar-day-weekday">{formatWeekday(day.date)}</span>
                 </div>
 
                 {/* Right date & badge */}
                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '2px', flexShrink: 0 }}>
-                  <span className="calendar-day-date">{day.dateStr}</span>
+                  <span className="calendar-day-date">{formatDate(day.date)}</span>
                   <span
                     className="calendar-day-badge"
                     style={{

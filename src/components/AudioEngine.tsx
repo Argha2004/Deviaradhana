@@ -15,11 +15,13 @@ export function AudioEngine() {
     isMuted,
     repeatMode,
     seekTarget,
+    playbackId,
     clearSeekTarget,
     setCurrentTime,
     setDuration,
     next,
     previous,
+    pause,
     togglePlay,
     seek,
   } = usePlayerStore();
@@ -45,20 +47,17 @@ export function AudioEngine() {
       // Build absolute artwork URL for native mobile/desktop notification display
       const artUrl = currentSong.coverArt
         ? new URL(currentSong.coverArt, window.location.href).href
-        : new URL('/icon-512.png', window.location.href).href;
+        : new URL('/hero.jpg', window.location.href).href;
 
       navigator.mediaSession.metadata = new MediaMetadata({
         title: currentSong.title,
         artist: currentSong.artist,
-        album: currentSong.album || 'Devi Pakhsa • Durga Puja',
-        artwork: [
-          { src: artUrl, sizes: '96x96', type: 'image/png' },
-          { src: artUrl, sizes: '128x128', type: 'image/png' },
-          { src: artUrl, sizes: '192x192', type: 'image/png' },
-          { src: artUrl, sizes: '256x256', type: 'image/png' },
-          { src: artUrl, sizes: '384x384', type: 'image/png' },
-          { src: artUrl, sizes: '512x512', type: 'image/png' },
-        ],
+        album: currentSong.album || 'Devi Aradhana • Durga Puja',
+        // No `type` hint: covers are JPEGs, and the browser sniffs the format itself
+        artwork: ['96x96', '128x128', '192x192', '256x256', '384x384', '512x512'].map((sizes) => ({
+          src: artUrl,
+          sizes,
+        })),
       });
     }
 
@@ -170,7 +169,7 @@ export function AudioEngine() {
         setDuration(currentSong.duration);
       }
     }
-  }, [currentSong?.id, currentSong?.audioUrl]);
+  }, [currentSong?.id, currentSong?.audioUrl, playbackId]);
 
   // Play / Pause
   useEffect(() => {
@@ -249,8 +248,14 @@ export function AudioEngine() {
       if (repeatMode === 'one') {
         audio.currentTime = 0;
         audio.play().catch(() => {});
-      } else {
-        next();
+        return;
+      }
+
+      const before = usePlayerStore.getState().playbackId;
+      next();
+      // next() does nothing at the end of the queue with repeat off, so stop instead of showing "playing"
+      if (usePlayerStore.getState().playbackId === before) {
+        pause();
       }
     };
 

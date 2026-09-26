@@ -1,32 +1,72 @@
-# React + TypeScript + Vite
+# Devi Aradhana
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+A Bengali Durga Puja music streaming site, live at [deviaradhana.in](https://deviaradhana.in/). It plays Durga Puja songs, Birendrakrishna Bhadra's Mahalaya and Dhak beats in original FLAC, streamed from a Cloudflare R2 bucket.
 
-Currently, two official plugins are available:
+Built with React 19, TypeScript, Vite, Tailwind CSS 4, Zustand and TanStack Query, and deployed on Vercel.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Getting started
 
-## React Compiler
+```bash
+npm install
+cp .env.example .env   # optional, see below
+npm run dev
+```
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+| Command           | What it does                         |
+| ----------------- | ------------------------------------ |
+| `npm run dev`     | Start the dev server                 |
+| `npm run build`   | Type-check and build into `dist/`    |
+| `npm run preview` | Serve the production build locally   |
+| `npm run lint`    | Lint with oxlint                     |
 
-## Expanding the Oxlint configuration
+### Environment variables
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
+| Variable             | Purpose                                                                                |
+| -------------------- | -------------------------------------------------------------------------------------- |
+| `VITE_R2_PUBLIC_URL` | Public URL of the R2 bucket holding the audio, covers and `manifest.json`              |
+| `VITE_API_URL`       | Optional backend; if set, playlists are fetched from `${VITE_API_URL}/playlists` first |
+
+## Adding songs
+
+Songs are listed in `manifest.json`. The app looks for it in this order:
+
+1. `${VITE_API_URL}/playlists`, if a backend is configured
+2. `manifest.json` in the R2 bucket
+3. `public/manifest.json`, served by the site itself
+4. `/r2-proxy/manifest.json`, which the dev server proxies to R2
+
+Edit `public/manifest.json` and upload the same file to the bucket. Each entry looks like:
 
 ```json
 {
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
+  "id": "dp-1",
+  "title": "Dugga Elo",
+  "artist": "Monali Thakur, Kaushik-Guddu",
+  "duration": 147,
+  "coverArt": "covers/01. Dugga Elo.jpg",
+  "audioUrl": "audio/01. Dugga Elo.flac",
+  "trackNumber": 1
 }
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+`coverArt` and `audioUrl` are paths inside the bucket; spaces and special characters are encoded for you. The playlists are `durga`, `mahalaya` and `mahalaya-songs`.
+
+## Yearly updates
+
+- **Puja dates:** edit `src/data/pujaCalendar.ts`. The countdown, calendar title and weekdays are all worked out from those dates.
+- **Site settings** (wallpapers, Dhak track, contact email, UPI ID, creators): `APP_CONFIG` in `src/data/mockData.ts`.
+- **History facts:** `src/data/pujaHistoryFacts.ts`.
+
+## Project layout
+
+```
+src/
+  pages/HomePage.tsx        Main screen: navbar, hero title, player, modals
+  components/AudioEngine.tsx  Single <audio> element synced with the player store
+  components/               Music player, playlist, calendar, about and support modals
+  store/playerStore.ts      Queue, shuffle, repeat and seek state (Zustand)
+  services/r2Service.ts     Manifest loading and R2 URL encoding
+  hooks/                    Playlists, Dhak audio, online presence, dynamic theme
+  data/                     Site settings, Puja calendar, history facts
+public/                     Wallpapers, logo, manifest, sitemap, robots.txt
+```

@@ -24,8 +24,9 @@ interface PlayerState {
   isMuted: boolean;
   isShuffle: boolean;
   repeatMode: RepeatMode;
-  streamQuality: 'lossless' | 'high' | 'data-saver';
   seekTarget: number | null;
+  // Bumped whenever a track is (re)started, so the engine reloads even if the same song is picked again
+  playbackId: number;
 
   // Actions
   playSong: (song: Song, queue?: Song[], index?: number) => void;
@@ -56,11 +57,11 @@ export const usePlayerStore = create<PlayerState>((set, get) => ({
   isMuted: false,
   isShuffle: false,
   repeatMode: 'off',
-  streamQuality: 'high',
   seekTarget: null,
+  playbackId: 0,
 
   playSong: (song, queue, index) => {
-    set({
+    set((s) => ({
       currentSong: song,
       queue: queue ?? [song],
       currentIndex: index ?? 0,
@@ -68,7 +69,8 @@ export const usePlayerStore = create<PlayerState>((set, get) => ({
       currentTime: 0,
       duration: song.duration || 0,
       seekTarget: null,
-    });
+      playbackId: s.playbackId + 1,
+    }));
   },
 
   togglePlay: () => set((s) => ({ isPlaying: !s.isPlaying })),
@@ -76,12 +78,16 @@ export const usePlayerStore = create<PlayerState>((set, get) => ({
   play: () => set({ isPlaying: true }),
 
   next: () => {
-    const { queue, currentIndex, isShuffle, repeatMode } = get();
+    const { queue, currentIndex, isShuffle, repeatMode, playbackId } = get();
     if (!queue.length) return;
 
     let nextIndex: number;
-    if (isShuffle) {
-      nextIndex = Math.floor(Math.random() * queue.length);
+    if (isShuffle && queue.length > 1) {
+      // Pick from the other tracks so shuffle never lands on the song that just played
+      nextIndex = Math.floor(Math.random() * (queue.length - 1));
+      if (nextIndex >= currentIndex) nextIndex++;
+    } else if (isShuffle) {
+      nextIndex = 0;
     } else if (currentIndex < queue.length - 1) {
       nextIndex = currentIndex + 1;
     } else if (repeatMode === 'all') {
@@ -97,11 +103,12 @@ export const usePlayerStore = create<PlayerState>((set, get) => ({
       currentTime: 0,
       duration: queue[nextIndex]?.duration || 0,
       seekTarget: null,
+      playbackId: playbackId + 1,
     });
   },
 
   previous: () => {
-    const { queue, currentIndex, currentTime } = get();
+    const { queue, currentIndex, currentTime, playbackId } = get();
     if (!queue.length) return;
 
     if (currentTime > 3) {
@@ -117,6 +124,7 @@ export const usePlayerStore = create<PlayerState>((set, get) => ({
       currentTime: 0,
       duration: queue[prevIndex]?.duration || 0,
       seekTarget: null,
+      playbackId: playbackId + 1,
     });
   },
 

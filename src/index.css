@@ -759,6 +759,21 @@ body {
   }
 }
 
+/* ── Hero wallpaper crossfade (outgoing day/night layer) ── */
+@keyframes heroFadeOut {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+.hero-bg-fade-out {
+  animation: heroFadeOut 1.2s ease-in-out forwards;
+}
+
 /* ── Fade in (used for general reveals) ── */
 @keyframes iosFadeIn {
   0% {

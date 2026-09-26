@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { X, Coffee } from 'lucide-react';
+import { APP_CONFIG } from '../data/mockData';
 
 interface SupportModalProps {
   open: boolean;
@@ -9,7 +10,7 @@ interface SupportModalProps {
 export function SupportModal({ open, onClose }: SupportModalProps) {
   const overlayRef = useRef<HTMLDivElement>(null);
 
-  const upiUri = 'upi://pay?pa=arghadeeppakhira-1@oksbi&pn=Devi%20Aradhana&am=20&cu=INR';
+  const upiUri = `upi://pay?pa=${APP_CONFIG.supportUpi}&pn=Devi%20Aradhana&am=20&cu=INR`;
 
   // Crisp high-resolution QR vector SVG
   const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=320x320&margin=10&format=svg&data=${encodeURIComponent(
