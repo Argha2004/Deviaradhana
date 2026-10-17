@@ -1,7 +1,7 @@
 # Deviaradhana - A Durga Puja Songs Streaming Platform
 
 <p align="center">
-  <img src="public/Home.png" alt="Deviaradhana Home screen" width="200">
+  <img src="public/Home.png" alt="Deviaradhana Home screen" width="900">
 </p>
 
 This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
